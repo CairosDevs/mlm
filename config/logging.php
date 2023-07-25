@@ -52,9 +52,10 @@ return [
 
     'channels' => [
         'stack' => [
-            'driver' => 'stack',
-            'channels' => ['single'],
-            'ignore_exceptions' => false,
+            'driver' => 'daily',
+            'path' => storage_path('logs/laravel.log'),
+            'days' => 7,
+            'replace_placeholders' => true,
         ],
 
         'single' => [

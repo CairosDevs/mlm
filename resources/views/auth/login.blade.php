@@ -19,13 +19,20 @@
                                     <form method="POST" action="{{ route('login') }}" class="row g-3">
                                         @csrf
                                         <div class="col-12">
-                                            <input type="email" class="form-control rounded-5" name="email" id="email"
+                                            <input type="email" class="form-control rounded-5 @error('email') is-invalid @enderror" name="email" id="email"
                                                 placeholder="Email">
+                                            @error('email') 
+                                                <div id="validationEmail" class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
+
                                         <div class="col-12">
     
-                                            <input type="password" class="form-control rounded-5" name="password" id="password"
+                                            <input type="password" class="form-control rounded-5" @error('password') is-invalid @enderror name="password" id="password"
                                                 placeholder="Password">
+                                                @error('password') 
+                                                <div id="validationEmail" class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
     
     

@@ -17,31 +17,46 @@
 
                                                 <div class="col-sm-6">
                                                     <label for="name" class="form-label">First Name</label>
-                                                    <input type="text" class="form-control rounded-5" id="name" name="name"
+                                                    <input type="text" class="form-control rounded-5 @error('name') is-invalid @enderror" id="name" name="name"
                                                         placeholder="Jhon">
+                                                    @error('name')
+                                                        <div id="validationName" class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="lastName" class="form-label">Last Name</label>
-                                                    <input id="lastName" type="text" class="form-control rounded-5" id="lastName" name="lastName"
+                                                    <input id="lastName" type="text" class="form-control rounded-5 @error('lastName') is-invalid @enderror" id="lastName" name="lastName"
                                                         placeholder="Deo">
+                                                    @error('lastName')
+                                                    <div id="validationLastName" class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="inputEmailAddress" class="form-label">Email Address</label>
-                                                    <input type="email" class="form-control rounded-5" id="email" name="email"
+                                                    <input type="email" class="form-control rounded-5 @error('email') is-invalid @enderror" id="email" name="email"
                                                         placeholder="example@user.com">
+                                                    @error('email') 
+                                                <div id="validationEmail" class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="inputChoosePassword" class="form-label">Password</label>
                                                     <div class="input-group" id="show_hide_password">
-                                                        <input type="password" class="form-control rounded-5"
+                                                        <input type="password" class="form-control rounded-5 @error('password') is-invalid @enderror"
                                                             id="password" name="password" placeholder="Enter Password">
+                                                        @error('password')
+                                                        <div id="validationPassword" class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                 </div>
 
                                                 <div class="col-12">
                                                     <label for="inputChoosePassword" class="form-label">Password confirmation</label>
                                                     <div class="input-group" >
-                                                        <input type="password" class="form-control rounded-5" id="password_confirmation" name="password_confirmation" placeholder="Repeat Password">
+                                                        <input type="password" class="form-control rounded-5 @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Repeat Password">
+                                                        @error('password_confirmation')
+                                                        <div id="validationPasswordConfirmation" class="invalid-feedback">{{ $message }}</div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 

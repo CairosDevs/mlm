@@ -3,8 +3,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
-        <div class="container-fluid">
+        <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
+            <div class="container-fluid">
             <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
                 <div class="col mx-auto">
                     <div class="card rounded-4">
@@ -15,7 +15,7 @@
                                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
                                 <div class="text-center mb-2">
-                                    <img src="{{ asset('template/assets/images/logo-icon.png') }}" width="70" alt="" />
+                                    <img class="mx-auto" src="{{ asset('template/assets/images/logo-icon.png') }}" width="70" alt="" />
                                 </div>
     
                                 <div class="form-body">

@@ -62,7 +62,7 @@
 		});
     </script>
     <!--app JS-->
-    <script src="template/assets/js/app.js"></script>
+    <script src="{{ asset('template/template/assets/js/app.js') }}"></script>
     @livewireScripts
 </body>
 

@@ -1,39 +1,96 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="semi-dark">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!--favicon-->
+    {{--
+    <link rel="icon" href="{{ asset('template/assets/images/favicon-32x32.png') }}" type="image/png" /> --}}
+    <!--plugins-->
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles
-        @include('sweetalert::alert')
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <link href="{{ asset('template/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet" />
+    <link href="{{ asset('template/assets/plugins/simplebar/css/simplebar.css') }}" rel="stylesheet" />
+    <link href="{{ asset('template/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet" />
+    <link href="{{ asset('template/assets/plugins/metismenu/css/metisMenu.min.css') }}" rel="stylesheet" />
+    <!-- loader-->
+    <link href="{{ asset('template/assets/css/pace.min.css') }}" rel="stylesheet" />
+    <script src="{{ asset('template/assets/js/pace.min.js') }}"></script>
+    <!-- Bootstrap CSS -->
+    <link href="{{ asset('template/assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('template/assets/css/bootstrap-extended.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="{{ asset('template/assets/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('template/assets/css/icons.css') }}" rel="stylesheet">
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+    <!-- Theme Style CSS -->
+    <link rel="stylesheet" href="{{ asset('template/assets/css/dark-theme.css') }}" />
+    <link rel="stylesheet" href="{{ asset('template/assets/css/semi-dark.css') }}" />
+    <link rel="stylesheet" href="{{ asset('template/assets/css/header-colors.css') }}" />
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-        @livewireScripts
-    </body>
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
+    @include('sweetalert::alert')
+</head>
+
+<body class="">
+    <!--wrapper-->
+    <div class="wrapper">
+
+        @include('layouts.navigation')
+        <main>
+            {{ $slot }}
+        </main>
+
+    <!--start overlay-->
+    <div class="overlay toggle-icon"></div>
+    <!--end overlay-->
+    <!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+    <!--End Back To Top Button-->
+    <footer class="page-footer">
+        <p class="mb-0">Copyright © 2021. All right reserved.</p>
+    </footer>
+    
+    </div>
+    <!--end wrapper-->
+    <!-- Bootstrap JS -->
+    <script src="{{ asset('template/assets/js/bootstrap.bundle.min.js') }}"></script>
+    <!--plugins-->
+    <script src="{{ asset('template/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('template/assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
+    <script src="{{ asset('template/assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('template/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('template/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
+    <script src="{{ asset('template/assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+    <script src="{{ asset('template/assets/plugins/apexcharts-bundle/js/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('template/assets/plugins/chartjs/js/Chart.min.js') }}"></script>
+    <script src="{{ asset('template/assets/plugins/chartjs/js/Chart.extension.js') }}"></script>
+    <script src="{{ asset('template/assets/js/index2.js') }}"></script>
+    <!--app JS-->
+    <script src="{{ asset('template/assets/js/app.js') }}"></script>
+   <!--Password show & hide js -->
+    <script>
+        $(document).ready(function () {
+			$("#show_hide_password a").on('click', function (event) {
+				event.preventDefault();
+				if ($('#show_hide_password input').attr("type") == "text") {
+					$('#show_hide_password input').attr('type', 'password');
+					$('#show_hide_password i').addClass("bx-hide");
+					$('#show_hide_password i').removeClass("bx-show");
+				} else if ($('#show_hide_password input').attr("type") == "password") {
+					$('#show_hide_password input').attr('type', 'text');
+					$('#show_hide_password i').removeClass("bx-hide");
+					$('#show_hide_password i').addClass("bx-show");
+				}
+			});
+		});
+    </script>
+    @livewireScripts
+</body>
+
 </html>

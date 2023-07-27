@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
      * TODO
      * ADD PERMISION ONLY ADMINSUPPORT
      */
-    Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+    Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('logs');
 });
 
 require __DIR__.'/auth.php';

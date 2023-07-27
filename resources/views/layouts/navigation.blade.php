@@ -318,6 +318,14 @@
                     <div class="menu-title">Documentation</div>
                 </a>
             </li> --}}
+            <li class="menu-label">Soporte</li>
+            <li>
+                <a href="{{ route('logs') }}">
+                    <div class="parent-icon"> <i class="lni lni-cog"></i>
+                    </div>
+                    <div class="menu-title">Logs</div>
+                </a>
+            </li>
         </ul>
         <!--end navigation-->
     </div>

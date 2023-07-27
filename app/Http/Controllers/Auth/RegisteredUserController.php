@@ -32,12 +32,18 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'lastName' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
+            'captcha' => ['required','captcha'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],            
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            "lastName" => $request->lastName,
+            "phone" => $request->phone,
+            "sponsorCode" => $request->sponsorCode,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -47,5 +53,9 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+    }
+
+    public function reloadCaptcha() {
+        return response()->json(['captcha' => captcha_img('math')]);
     }
 }

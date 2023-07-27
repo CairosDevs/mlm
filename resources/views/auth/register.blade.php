@@ -1,4 +1,8 @@
 <x-guest-layout>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+            integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
         <div class="d-flex align-items-center justify-content-center my-lg-0 py-5">
                 <div class="container">
                     <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-2">
@@ -31,13 +35,28 @@
                                                     <div id="validationLastName" class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
-                                                <div class="col-12">
+                                                <div class="col-6">
                                                     <label for="inputEmailAddress" class="form-label">Email Address</label>
                                                     <input type="email" class="form-control rounded-5 @error('email') is-invalid @enderror" id="email" name="email"
                                                         placeholder="example@user.com">
                                                     @error('email') 
-                                                <div id="validationEmail" class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
+                                                        <div id="validationEmail" class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-6">
+                                                    <x-input-label for="phone" class="form-label" :value="__('Teléfono')" />
+                                                    <x-text-input id="phone" class="form-control rounded-5" type="text" name="phone" value="xavier" :value="old('phone')"
+                                                        required autocomplete="phone" />
+                                                    <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                                                    @error('phone')
+                                                    <div id="validationEmail" class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-12">
+                                                    <x-input-label for="sponsorCode" class="form-label" :value="__('Código Patrocinador')" />
+                                                    <x-text-input id="sponsorCode" class="form-control rounded-5" type="text" name="sponsorCode" :value="old('sponsorCode')"
+                                                        autocomplete="sponsorCode" />
+                                                    <x-input-error :messages="$errors->get('sponsorCode')" class="mt-2" />
                                                 </div>
                                                 <div class="col-12">
                                                     <label for="inputChoosePassword" class="form-label">Password</label>
@@ -59,7 +78,21 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                
+
+                                                <div class="col-12">
+                                                    <div class="flex items-center justify-start mt-4">
+                                                        <div class="captcha">
+                                                            <span>{!! captcha_img('math') !!}</span>
+                                                        </div>
+                                                        <x-primary-button type="button" class="btn btn-danger reload" id="reload" onclick="reloadCaptcha()">
+                                                            &#x21bb;
+                                                        </x-primary-button>
+                                                    </div>
+                                                    <div class="mt-4">
+                                                        <input type="text" class="form-control rounded-5" name="captcha">
+                                                        <x-input-error :messages="$errors->get('captcha')" class="mt-2" />
+                                                    </div>
+                                                </div>                                               
                                                 
                                                 <div class="col-12">
                                                     <div class="d-grid">
@@ -83,4 +116,18 @@
                     <!--end row-->
                 </div>
         </div>  
+
 </x-guest-layout>
+
+<script>
+    function reloadCaptcha() {
+        let url = "{{ url('/') }}";
+        $.ajax({
+            type:'GET',
+            url:url+'/reloadCaptcha',
+            success:function (data) {
+                $(".captcha span").html(data.captcha)
+            }
+        })
+    }
+</script>

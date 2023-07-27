@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('lastName')->after('name');
             $table->string('phone')->after('lastName');
             $table->string('sponsorCode')->nullable()->after('phone');
+            
         });
     }
 

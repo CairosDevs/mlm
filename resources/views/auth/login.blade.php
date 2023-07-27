@@ -1,5 +1,6 @@
 <x-guest-layout>
     <!-- Session Status -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
@@ -24,6 +25,19 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
+        <div class="flex items-center justify-start mt-4">
+            <div class="captcha">
+                <span>{!! captcha_img('math') !!}</span>
+            </div>
+            <x-primary-button type="button" class="btn btn-danger reload" id="reload" onclick="reloadCaptcha()">
+                &#x21bb;
+            </x-primary-button>
+        </div>
+        <div class="mt-4">
+            <input type="text" name="captcha">
+            <x-input-error :messages="$errors->get('captcha')" class="mt-2" />
+        </div>
+
         <!-- Remember Me -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
@@ -45,3 +59,15 @@
         </div>
     </form>
 </x-guest-layout>
+<script>
+    function reloadCaptcha() {
+        let url = "{{ url('/') }}";
+        $.ajax({
+            type:'GET',
+            url:url+'/reloadCaptcha',
+            success:function (data) {
+                $(".captcha span").html(data.captcha)
+            }
+        })
+    }
+</script>

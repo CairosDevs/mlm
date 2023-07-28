@@ -68,7 +68,10 @@
                                         <div class="col-12 text-center">
                                             <p class="mb-0">{{ __("Don't have an account yet?") }} <a href="{{ route('register') }}">{{ __('Sign up here') }}</a></p>
                                         </div>
-version
+
+                                        <div class="col-12 text-center">
+                                            <p class="mb-0">v1.0.0</a></p>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

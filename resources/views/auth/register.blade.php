@@ -45,7 +45,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <x-input-label for="phone" class="form-label" :value="__('Teléfono')" />
-                                                    <x-text-input id="phone" class="form-control rounded-5" type="text" name="phone" value="xavier" :value="old('phone')"
+                                                    <x-text-input id="phone" class="form-control rounded-5" type="text" name="phone" :value="old('phone')"
                                                         required autocomplete="phone" />
                                                     <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                                     @error('phone')

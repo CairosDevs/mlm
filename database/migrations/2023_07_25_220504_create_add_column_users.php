@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('lastName')->after('name');
             $table->string('phone')->after('lastName');
             $table->string('sponsorCode')->nullable()->after('phone');
-            
         });
     }
 
@@ -28,7 +27,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('rentas', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('lastName');
             $table->dropColumn('phone');
             $table->dropColumn('sponsorCode');

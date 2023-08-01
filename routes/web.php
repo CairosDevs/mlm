@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AsingPinController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,12 +23,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::patch('/asignProfile', [ProfileController::class, 'asignProfile'])->name('profile.asignProfile');
+    Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::patch('/asignProfile', [ProfileController::class, 'asignProfile'])->name('profile.asignProfile');
+    Route::post('/validatePinUser', [AsingPinController::class, 'validatePinUser'])->name('pin.validatePinUser');
     /**
      * TODO
      * ADD PERMISION ONLY ADMINSUPPORT

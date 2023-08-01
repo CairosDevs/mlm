@@ -43,6 +43,7 @@
         </div>
 
         <div class="flex items-center gap-4">
+            <input type="hidden" name="profileInfo" value="profileInfo">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')

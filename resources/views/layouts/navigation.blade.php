@@ -16,7 +16,7 @@
                 <a href="{{ route('dashboard') }}">
                     <div class="parent-icon"> <i class="bx bx-home-circle"></i>
                     </div>
-                    <div class="menu-title">Dashboard</div>
+                    <div class="menu-title">{{ __('Dashboard') }}</div>
                 </a>
             </li>
             <li>
@@ -38,6 +38,20 @@
                     <li> <a href="#"><i class="bx bx-right-arrow-alt"></i>item 2</a>
                     </li>
                 </ul>
+            </li>
+            <li>
+                <a href="{{ route('payment.form') }}">
+                    <div class="parent-icon"> <i class="bx bx-home-circle"></i>
+                    </div>
+                    <div class="menu-title">{{  __('Payment') }}</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('setting.index') }}">
+                    <div class="parent-icon"> <i class="bx bx-home-circle"></i>
+                    </div>
+                    <div class="menu-title">{{  __('Setting') }}</div>
+                </a>
             </li>
             {{-- <li class="menu-label">UI Elements</li>
             <li>
@@ -318,12 +332,12 @@
                     <div class="menu-title">Documentation</div>
                 </a>
             </li> --}}
-            <li class="menu-label">Soporte</li>
+            <li class="menu-label">{{ __('Support') }}</li>
             <li>
                 <a href="{{ route('logs') }}">
                     <div class="parent-icon"> <i class="lni lni-cog"></i>
                     </div>
-                    <div class="menu-title">Logs</div>
+                    <div class="menu-title">{{  __('Logs') }}</div>
                 </a>
             </li>
         </ul>

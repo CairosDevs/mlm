@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,9 +30,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/asignProfile', [ProfileController::class, 'asignProfile'])->name('profile.asignProfile');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');
+
+    /** TODO 
+     * ADD PERMISSION ONLY ADMIN
+     */
+    Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
+    Route::post('/setting', [SettingController::class, 'store'])->name('setting.store');
+
     /**
      * TODO
-     * ADD PERMISION ONLY ADMINSUPPORT
+     * ADD PERMISION ONLY SYSTEM
      */
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('logs');
 });

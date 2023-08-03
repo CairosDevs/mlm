@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\AsignProfile;
 use Illuminate\Support\Facades\Storage;
+use App\Models\AsingPin;
+use App\Http\Controllers\AsingPinController as ap;
 
 class ProfileController extends Controller
 {
@@ -20,17 +22,27 @@ class ProfileController extends Controller
     {
         $id = Auth::user()->id;
         $asignProfile = AsignProfile::where('user_id', $id)->first();
+        $asignPin = AsingPin::where('user_id', $id)->first();
         return view('profile.edit', [
             'user' => $request->user(),
             'asignProfile' => $asignProfile,
+            'asignPin' => $asignPin,
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request)
     {
+        $id = Auth::user()->id;
+        $request->merge(['user_id' => $id]);
+        
+        $pin = new ap();
+        $pins = $pin->validatePin($request);
+        if (!$pins) {
+            return view('securitypin.validate-pin', compact('request'));
+        }
 
         $request->user()->fill($request->validated());
 
@@ -41,6 +53,30 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    /**
+     * Delete the user's account.
+     */
+    public function destroy(Request $request): RedirectResponse
+    {
+        $id = Auth::user()->id;
+        AsignProfile::where('user_id', $id)->delete();
+
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current-password'],
+        ]);
+
+        $user = $request->user();
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/');
     }
 
     /**
@@ -56,15 +92,23 @@ class ProfileController extends Controller
             'PostalCode'  => ['required', 'string', 'max:25'],  
             'digitalContract' => ['required','mimes:pdf,xlxs,xlx,docx,doc,csv,txt,png,gif,jpg,jpeg','max:2048'],         
         ]);
-        
+
         $id = Auth::user()->id;
+        $request->merge(['user_id' => $id]);
+
         $asignProfile = AsignProfile::where('user_id', $id)->first();
         if ($request->file('digitalContract') != null) {
-            $doc = $this->uploadFile($request, $id, $asignProfile->digitalContract);
+            $doc = $this->uploadFile($request, $id, $request->file('digitalContract'));
         } else {
             $doc = $asignProfile->digitalContract;
         }
-       
+        $request->merge(['doc' => $doc]);
+        $pin = new ap();
+        $pins = $pin->validatePin($request);
+        if (!$pins) {
+            return view('securitypin.validate-pin', compact('request'));
+        } 
+
         $data = [
             'user_id'  => $id,
             'dni'  => $request->dni,
@@ -96,27 +140,21 @@ class ProfileController extends Controller
         $file->move($path,$fileName);
         return $doc;
     }
+    
     /**
-     * Delete the user's account.
+     * Activate pin
      */
-    public function destroy(Request $request): RedirectResponse
-    {
+    public function asingPin(Request $request) {
         $id = Auth::user()->id;
-        AsignProfile::where('user_id', $id)->delete();
+        $request->merge(['user_id' => $id]);
 
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current-password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        $pin = new ap();
+        $pins = $pin->validatePin($request);
+        if (!$pins) {
+            return view('securitypin.validate-pin', compact('request'));
+        }
+        $pin = new ap();
+        $pin->activatePin($request);
+        return Redirect::route('profile.edit')->with('status', 'pin activated');
     }
 }

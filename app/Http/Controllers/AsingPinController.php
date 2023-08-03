@@ -74,6 +74,7 @@ class AsingPinController extends Controller
 
     public function validatePinUser(Request $request)
     {
+       
         $asignPin = AsingPin::where('pin',$request->pinProfile)->first();
         if ($asignPin != null) { 
             if($request->asignProfile == "asignProfile") {
@@ -111,8 +112,16 @@ class AsingPinController extends Controller
             if($request->updatePin == "updatePin") {
                 $this->activatePin($request);
             }
+
+            if($request->pinView == "pinView") {
+                return view('dashboard');
+            }           
             return Redirect::route('profile.edit')->with('status', 'profile-updated');
         }
         return true;
+    }
+
+    public function pinView() {
+        return view('securitypin.form');
     }
 }

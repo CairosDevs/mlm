@@ -19,9 +19,12 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/pinView/{id}/{type}', [AsingPinController::class, 'pinView'])->name('pinView');
+Route::post('/validatePinUserLogin', [AsingPinController::class, 'validatePinUser'])->name('pin.validatePinUserLogin');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified','pin'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {

@@ -340,6 +340,17 @@
                     <div class="menu-title">{{  __('Logs') }}</div>
                 </a>
             </li>
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a href="javascript:;" 
+                        onclick="event.preventDefault(); this.closest('form').submit();">
+                        <div class="parent-icon"> <i class="bx bx-log-out-circle"></i>
+                        </div>
+                        <div class="menu-title">{{ __('Logout') }}</div>
+                    </a>
+                </form>
+            </li>
         </ul>
         <!--end navigation-->
     </div>

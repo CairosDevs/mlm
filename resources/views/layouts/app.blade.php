@@ -33,9 +33,10 @@
     <link rel="stylesheet" href="{{ asset('template/assets/css/header-colors.css') }}" />
 
     <!-- Scripts -->
+    @include('sweetalert::alert')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-    @include('sweetalert::alert')
+    
 </head>
 
 <body class="">

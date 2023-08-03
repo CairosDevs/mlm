@@ -32,11 +32,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');
 
-    /** TODO 
+    /**
+ * TODO
      * ADD PERMISSION ONLY ADMIN
      */
     Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
     Route::post('/setting', [SettingController::class, 'store'])->name('setting.store');
+    Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting.update');
+    Route::post('/setting/{id}', [SettingController::class, 'destroy'])->name('setting.destroy');
 
     /**
      * TODO

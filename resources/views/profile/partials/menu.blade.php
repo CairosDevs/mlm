@@ -17,12 +17,16 @@
                  
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <a href="{{ route('validationProfile') }}">
+                        @if (!is_null($asignProfile) && !$asignProfile->status)
                         <i class="lni lni-cross-circle" style="color:red"></i>
+                        @else
+                        <i class="bx bxs-check-circle" style="color:green;"></i>
+                        @endif
                         <span class="text-secondary">{{ __('Validation Docs') }}</span>
                     </a>
                 </li>                              
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    @include('profile.partials.asing-pin')
+                    {{-- @include('profile.partials.asing-pin') --}}
                 </li>
             </ul>
         </div>

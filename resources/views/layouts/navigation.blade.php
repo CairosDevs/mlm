@@ -41,12 +41,21 @@
                 </a>
             </li>
             <li>
+                <ul>
+                    <li> <a href="{{ route('users.index') }}"><i class="bx bx-right-arrow-alt"></i>{{ __('Users') }}</a>
+                    </li>
+                    <li> <a href="#"><i class="bx bx-right-arrow-alt"></i>{{ __('Roles') }}</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a href="{{ route('setting.index') }}">
                     <div class="parent-icon"> <i class="bx bx-wrench"></i>
                     </div>
                     <div class="menu-title">{{  __('Setting') }}</div>
                 </a>
             </li>
+            
             
             {{-- <li class="menu-label">UI Elements</li>
             <li>

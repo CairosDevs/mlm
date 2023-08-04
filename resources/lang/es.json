@@ -66,6 +66,10 @@
     "Send": "Enviar",
     "Download contract to sign": "Descargar contrato a firmar",
     "Request Validation":"Solicitud de validación",
-    "Users & Roles": "Usuarios & Roles"
+    "Users & Roles": "Usuarios & Roles",
+    "Users": "Usuarios",
+    "lastName": "Apellido",
+    "Action": "Acción",
+    "lastname": "Acción"
 
 }

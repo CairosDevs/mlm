@@ -19,13 +19,13 @@ class securitysMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $data = User::select('users.id', 'users.email', 'asing_pins.user_id', 'asing_pins.status')
-                ->join('asing_pins', 'users.id', '=', 'asing_pins.user_id')
-                ->first();
-        if ($data->status) {
-            return redirect('pinView/'.$data->id.'/pinView');
-        } else {
+        // $data = User::select('users.id', 'users.email', 'asing_pins.user_id', 'asing_pins.status')
+        //         ->join('asing_pins', 'users.id', '=', 'asing_pins.user_id')
+        //         ->first();
+        // if ($data->status) {
+        //     return redirect('pinView/'.$data->id.'/pinView');
+        // } else {
             return $next($request);
-        }        
+        // }        
     }
 }

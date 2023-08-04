@@ -1,12 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-<<<<<<< HEAD
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SettingController;
-=======
 use App\Http\Controllers\AsingPinController;
->>>>>>> DSCAIDEV-62
 use Illuminate\Support\Facades\Route;
 
 /*

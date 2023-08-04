@@ -39,6 +39,7 @@
                     </li>
                 </ul>
             </li>
+            <?php /*
             <li>
                 <a href="{{ route('payment.form') }}">
                     <div class="parent-icon"> <i class="bx bx-home-circle"></i>
@@ -53,6 +54,7 @@
                     <div class="menu-title">{{  __('Setting') }}</div>
                 </a>
             </li>
+            */ ?>
             {{-- <li class="menu-label">UI Elements</li>
             <li>
                 <a href="javascript:;" class="has-arrow">

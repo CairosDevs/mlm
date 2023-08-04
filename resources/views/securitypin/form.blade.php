@@ -12,9 +12,9 @@
         @csrf
         @method('post')
         <div>
-            <x-input-label for="pinProfile" :value="__('Enter Pin')" />
-            <x-text-input id="pinProfile" name="pinProfile" type="text" class="mt-1 block w-full" autocomplete="Pin" value="bc60eb28-2885-48b7-856b-36cd8813c38b" />
-            <x-input-error :messages="$errors->get('pinProfile')" class="mt-2" />
+            <label for="pinProfile" :value="__('Enter Pin')" ></label>
+            <input id="pinProfile" name="pinProfile" type="text" class="form-control" autocomplete="Pin" value="bc60eb28-2885-48b7-856b-36cd8813c38b" />
+            <?php // echo $errors->get('pinProfile'); ?>
         </div>
         <div>
             <input name="name" type="hidden" @if (isset($request->name)) value="{{$request->name}}" @endif />
@@ -49,7 +49,8 @@
         </div>
         
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Send') }}</x-primary-button>
+            <br>
+            <button class="btn btn-primary">{{ __('Send') }}</button>
         </div>
     </form>
 </section>

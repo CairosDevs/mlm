@@ -30,6 +30,25 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function registerProfile(Request $request): View
+    {
+        $id = Auth::user()->id;
+        $asignProfile = AsignProfile::where('user_id', $id)->first();
+        return view('profile.edit', [
+            'asignProfile' => $asignProfile
+        ]);
+    }
+
+    public function validationProfile(Request $request): View
+    {
+        $id = Auth::user()->id;
+        $asignProfile = AsignProfile::where('user_id', $id)->first();
+        return view('profile.validationProfile', [
+            'user' => $request->user(),
+            'asignProfile' => $asignProfile
+        ]);
+    }
+
     /**
      * Update the user's profile information.
      */

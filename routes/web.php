@@ -1,12 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-<<<<<<< HEAD
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SettingController;
-=======
 use App\Http\Controllers\AsingPinController;
->>>>>>> DSCAIDEV-62
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,7 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    Route::get('/validationProfile', [ProfileController::class, 'validationProfile'])->name('validationProfile');
+    Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
     Route::get('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');
 
     /**

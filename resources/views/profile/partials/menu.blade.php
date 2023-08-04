@@ -17,7 +17,7 @@
                  
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <a href="{{ route('validationProfile') }}">
-                        @if (!is_null($asignProfile) && !$asignProfile->status)
+                        @if (is_null($asignProfile) || (isset($asignProfile->status) && !$asignProfile->status))
                         <i class="lni lni-cross-circle" style="color:red"></i>
                         @else
                         <i class="bx bxs-check-circle" style="color:green;"></i>

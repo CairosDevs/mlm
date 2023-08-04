@@ -65,6 +65,7 @@
     "In order to make changes it is necessary to enter the security pin.": "Para mejorar la seguridad de sus transacciones genera un código de seguridad.",
     "Send": "Enviar",
     "Download contract to sign": "Descargar contrato a firmar",
-    "Request Validation":"Solicitud de validación"
+    "Request Validation":"Solicitud de validación",
+    "Users & Roles": "Usuarios & Roles"
 
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\AsingPinController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +27,7 @@ Route::post('/validatePinUserLogin', [AsingPinController::class, 'validatePinUse
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified','pin'])->name('dashboard');
+})->middleware(['auth', 'verified', 'pin'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {
@@ -38,14 +39,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
     Route::get('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');
 
+
     /**
- * TODO
+    * TODO
      * ADD PERMISSION ONLY ADMIN
      */
     Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
     Route::post('/setting', [SettingController::class, 'store'])->name('setting.store');
     Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting.update');
     Route::post('/setting/{id}', [SettingController::class, 'destroy'])->name('setting.destroy');
+
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
 
     Route::post('/asignProfile', [ProfileController::class, 'asignProfile'])->name('profile.asignProfile');
     Route::post('/validatePinUser', [AsingPinController::class, 'validatePinUser'])->name('pin.validatePinUser');

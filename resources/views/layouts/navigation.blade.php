@@ -18,39 +18,31 @@
                     </div>
                     <div class="menu-title">{{ __('Dashboard') }}</div>
                 </a>
-            </li>
-            {{-- <li>
-                <a href="https://codervent.com/amdash/demo/vertical/component-alerts.html">
-                    <div class="parent-icon"> <i class="bx bx-home-circle"></i>
-                    </div>
-                    <div class="menu-title">Referencia a template</div>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:;" class="has-arrow">
-                    <div class="parent-icon"><i class="bx bx-category"></i>
-                    </div>
-                    <div class="menu-title">Menu ejemplo</div>
-                </a>
-                <ul>
-                    <li> <a href="#"><i class="bx bx-right-arrow-alt"></i>item 1</a>
-                    </li>
-                    <li> <a href="#"><i class="bx bx-right-arrow-alt"></i>item 2</a>
-                    </li>
-                </ul>
-            </li>
-            
-            </li> --}}
+            </li>            
             <li>
                 <a href="{{ route('payment.form') }}">
-                    <div class="parent-icon"> <i class="bx bx-home-circle"></i>
+                    <div class="parent-icon"> <i class="bx bx-dollar-circle"></i>
                     </div>
                     <div class="menu-title">{{  __('Payment') }}</div>
                 </a>
             </li>
             <li>
+                <a href="#">
+                    <div class="parent-icon"> <i class="bx bx-wallet"></i>
+                    </div>
+                    <div class="menu-title">{{ __('Wallets') }}</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('users.index') }}">
+                    <div class="parent-icon"> <i class="bx bx-user-circle"></i>
+                    </div>
+                    <div class="menu-title">{{ __('Users & Roles') }}</div>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('setting.index') }}">
-                    <div class="parent-icon"> <i class="bx bx-home-circle"></i>
+                    <div class="parent-icon"> <i class="bx bx-wrench"></i>
                     </div>
                     <div class="menu-title">{{  __('Setting') }}</div>
                 </a>

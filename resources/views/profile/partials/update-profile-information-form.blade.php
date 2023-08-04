@@ -17,7 +17,7 @@
         @method('patch')
         <div class="row mb-3">
             <div class="col-sm-3">
-                <h6 class="mb-0">First Name</h6>
+                <h6 class="mb-0">{{ __('First Name') }}</h6>
             </div>
             <div class="col-sm-9 text-secondary">
                 <input id="name" name="name" type="text" class="form-control" value="{{old('name') ?? $user->name}}" required autofocus autocomplete="Name" />
@@ -26,7 +26,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-sm-3">
-                <h6 class="mb-0">Last Name</h6>
+                <h6 class="mb-0">{{  __('Last Name') }}</h6>
             </div>
             <div class="col-sm-9 text-secondary">
                 <input id="lastName" name="lastName" type="text" class="form-control" value="{{old('lastName') ?? $user->lastName}}"  required autocomplete="Last Name" />
@@ -35,7 +35,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-sm-3">
-                <h6 class="mb-0">Phone</h6>
+                <h6 class="mb-0">{{ __('Phone') }}</h6>
             </div>
             <div class="col-sm-9 text-secondary">
                 <input id="phone" name="phone" type="text" class="form-control" value="{{old('phone') ?? $user->phone}}" required autocomplete="Phone" />
@@ -44,7 +44,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-sm-3">
-                <h6 class="mb-0">Sponsor Code</h6>
+                <h6 class="mb-0">{{ __('Sponsor Code') }}</h6>
             </div>
             <div class="col-sm-9 text-secondary">
                 <input id="sponsorCode" name="sponsorCode" type="text" class="form-control" value="{{old('sponsorCode') ?? $user->sponsorCode}}" readonly />
@@ -52,7 +52,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-sm-3">
-                <h6 class="mb-0">Email</h6>
+                <h6 class="mb-0">{{ __('Email') }}</h6>
             </div>
             <div class="col-sm-9 text-secondary">
                 <input id="email" name="email" type="email" class="form-control" value="{{old('email') ?? $user->email}}" readonly />
@@ -63,7 +63,7 @@
             <div class="col-sm-3"></div>
             <div class="col-sm-9 text-secondary">
                 <input type="hidden" name="profileInfo" value="profileInfo">
-                <input type="button" class="btn btn-primary px-4" value="Save Changes">
+                <input type="button" class="btn btn-primary px-4" value="{{ __('Save Changes')}}">
                 @if (session('status') === 'profile-updated')
                     <p>{{ __('Saved.') }}</p>
                 @endif                

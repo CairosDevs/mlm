@@ -16,7 +16,7 @@
         @method('put')
         <div class="row mb-3">
             <div class="col-sm-3">
-                <h6 class="mb-0">Current Password</h6>
+                <h6 class="mb-0">{{  __('Current Password') }}</h6>
             </div>
             <div class="col-sm-9 text-secondary">
                 <input id="current_password" name="current_password" type="password" class="form-control" autocomplete="current-password" />
@@ -25,7 +25,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-sm-3">
-                <h6 class="mb-0">New Password</h6>
+                <h6 class="mb-0">{{  __('New Password') }}</h6>
             </div>
             <div class="col-sm-9 text-secondary">
                 <input id="password" name="password" type="password" class="form-control" autocomplete="new-password" />
@@ -34,7 +34,7 @@
         </div> 
         <div class="row mb-3">
             <div class="col-sm-3">
-                <h6 class="mb-0">Confirm Password</h6>
+                <h6 class="mb-0">{{ __('Confirm Password')}}</h6>
             </div>
             <div class="col-sm-9 text-secondary">
                 <input id="password_confirmation" name="password_confirmation" type="password" class="form-control" autocomplete="confirm-password" />
@@ -45,7 +45,7 @@
             <div class="col-sm-3"></div>
             <div class="col-sm-9 text-secondary">
                 <input type="hidden" name="updatePassord" value="updatePassord">
-                <input type="button" class="btn btn-primary px-4" value="Save Changes">
+                <input type="button" class="btn btn-primary px-4" value="{{ __('Save Changes') }}">
                 @if (session('status') === 'password-updated')
                     <p>{{ __('Saved.') }}</p>
                 @endif

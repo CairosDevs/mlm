@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Models\AsingPin;
+use Illuminate\View\View;
+use Illuminate\Support\Str;
+use App\Models\AsignProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
-use App\Models\AsignProfile;
+use Illuminate\Http\RedirectResponse;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
-use App\Models\AsingPin;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Controllers\AsingPinController as ap;
 
 class ProfileController extends Controller
@@ -24,9 +26,9 @@ class ProfileController extends Controller
         $asignProfile = AsignProfile::where('user_id', $id)->first();
         $asignPin = AsingPin::where('user_id', $id)->first();
         return view('profile.edit', [
-            'user' => $request->user(),
-            'asignProfile' => $asignProfile,
-            'asignPin' => $asignPin,
+        'user' => $request->user(),
+        'asignProfile' => $asignProfile,
+        'asignPin' => $asignPin,
         ]);
     }
 
@@ -35,7 +37,7 @@ class ProfileController extends Controller
         $id = Auth::user()->id;
         $asignProfile = AsignProfile::where('user_id', $id)->first();
         return view('profile.edit', [
-            'asignProfile' => $asignProfile
+        'asignProfile' => $asignProfile,
         ]);
     }
 
@@ -44,8 +46,8 @@ class ProfileController extends Controller
         $id = Auth::user()->id;
         $asignProfile = AsignProfile::where('user_id', $id)->first();
         return view('profile.validationProfile', [
-            'user' => $request->user(),
-            'asignProfile' => $asignProfile
+        'user' => $request->user(),
+        'asignProfile' => $asignProfile,
         ]);
     }
 
@@ -83,7 +85,7 @@ class ProfileController extends Controller
         AsignProfile::where('user_id', $id)->delete();
 
         $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current-password'],
+        'password' => ['required', 'current-password'],
         ]);
 
         $user = $request->user();
@@ -101,41 +103,60 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information. extra
      */
-    public function asignProfile(Request $request) {
-        $request->validate([
-            'dni'  => ['required', 'numeric'],
-            'country'  => ['required', 'string', 'max:25'],
-            'placeBirth'  => ['required', 'string', 'max:25'],
-            'birthdate'  => ['required', 'string', 'max:25'],
-            'address'  => ['required', 'string', 'max:25'],
-            'PostalCode'  => ['required', 'string', 'max:25'],  
-            'digitalContract' => ['required','mimes:pdf,xlxs,xlx,docx,doc,csv,txt,png,gif,jpg,jpeg','max:2048'],         
-        ]);
+    public function asignProfile(Request $request)
+    {
+
+        // $validated = $request->validate([
+        //     'dni'  => ['required', 'image'],
+        //     'country'  => ['required', 'string', 'max:25'],
+        //     'placeBirth'  => ['required', 'string', 'max:25'],
+        //     'birthdate'  => ['required', 'string', 'max:25'],
+        //     'address'  => ['required', 'string', 'max:25'],
+        //     'PostalCode'  => ['required', 'string', 'max:25'],
+        //     'digitalContract' => ['required'], //,'mimes:pdf','max:2048'],
+        // ]);
+
+        // dd($request->all());
 
         $id = Auth::user()->id;
         $request->merge(['user_id' => $id]);
 
         $asignProfile = AsignProfile::where('user_id', $id)->first();
+
         if ($request->file('digitalContract') != null) {
             $doc = $this->uploadFile($request, $id, $request->file('digitalContract'));
         } else {
             $doc = $asignProfile->digitalContract;
         }
+
         $request->merge(['doc' => $doc]);
-        $pin = new ap();
-        $pins = $pin->validatePin($request);
-        if (!$pins) {
-            return view('securitypin.validate-pin', compact('request'));
-        } 
+
+        // $pin = new ap();
+
+        // $pins = $pin->validatePin($request);
+
+        // if (!$pins) {
+        //     return view('securitypin.validate-pin', compact('request'));
+        // }
+
+        $image_path = 'documents/dni/'. Str::random(8) .".". $request->dni->getClientOriginalExtension();
+        
+        $image = Image::make($request->dni)
+            ->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })
+            ->encode('jpg', 80);
+
+        Storage::disk('local')->put($image_path, (string) $image);
 
         $data = [
             'user_id'  => $id,
-            'dni'  => $request->dni,
+            'dni'  => $image_path,
             'country'  => $request->country,
             'placeBirth'  => $request->placeBirth,
             'birthdate'  => $request->birthdate,
             'address'  => $request->address,
-            'PostalCode'  => $request->PostalCode,
+            'PostalCode'  => $request->postalCode,
             'digitalContract'  => $doc,
         ];
         if ($asignProfile == null) {
@@ -143,34 +164,41 @@ class ProfileController extends Controller
         } else {
             $user = AsignProfile::where('user_id', $id)->update($data);
         }
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')->with('status', 'profile - updated');
     }
 
-    public function uploadFile($request, $id, $fileSave) {
+    public function uploadFile($request, $id, $fileSave)
+    {
+
         $file = $request->file('digitalContract');
         $ext = $file->extension();
-        $fileName = time() . '.'. $ext; 
-        $path = storage_path('app/public/digitalContract/'.$id);
-        $doc = 'digitalContract/'.$id.'/'.$fileName;
-        $deleteFile = storage_path('app/public/'.$fileSave);
-        if (is_file($deleteFile)) { 
+        $fileName = Str::random(8) .".". $ext;
+
+        $path = storage_path('app/public/documents/contract/');
+        $doc = 'documents/contract/'.$fileName;
+
+        $deleteFile = storage_path('app/public/documents/contract/'.$fileSave);
+
+        if (is_file($deleteFile)) {
             unlink($deleteFile);
         }
-        $file->move($path,$fileName);
+
+        $file->move($path, $fileName);
         return $doc;
     }
     
     /**
      * Activate pin
      */
-    public function asingPin(Request $request) {
+    public function asingPin(Request $request)
+    {
         $id = Auth::user()->id;
         $request->merge(['user_id' => $id]);
 
         $pin = new ap();
         $pins = $pin->validatePin($request);
         if (!$pins) {
-            return view('securitypin.validate-pin', compact('request'));
+            return view('securitypin.validate - pin', compact('request'));
         }
         $pin = new ap();
         $pin->activatePin($request);

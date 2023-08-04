@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting.update');
     Route::post('/setting/{id}', [SettingController::class, 'destroy'])->name('setting.destroy');
 
-    Route::patch('/asignProfile', [ProfileController::class, 'asignProfile'])->name('profile.asignProfile');
+    Route::post('/asignProfile', [ProfileController::class, 'asignProfile'])->name('profile.asignProfile');
     Route::post('/validatePinUser', [AsingPinController::class, 'validatePinUser'])->name('pin.validatePinUser');
     /**
      * TODO

@@ -23,6 +23,7 @@ class securitysMiddleware
         //         ->join('asing_pins', 'users.id', '=', 'asing_pins.user_id')
         //         ->first();
         // if (isset($data->status)) {
+        // if ($data->status) {
         //     return redirect('pinView/'.$data->id.'/pinView');
         // } else {
             return $next($request);

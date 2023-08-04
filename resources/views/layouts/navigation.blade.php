@@ -19,7 +19,7 @@
                     <div class="menu-title">{{ __('Dashboard') }}</div>
                 </a>
             </li>
-            <li>
+            {{-- <li>
                 <a href="https://codervent.com/amdash/demo/vertical/component-alerts.html">
                     <div class="parent-icon"> <i class="bx bx-home-circle"></i>
                     </div>
@@ -39,7 +39,8 @@
                     </li>
                 </ul>
             </li>
-            <?php /*
+            
+            </li> --}}
             <li>
                 <a href="{{ route('payment.form') }}">
                     <div class="parent-icon"> <i class="bx bx-home-circle"></i>
@@ -54,7 +55,7 @@
                     <div class="menu-title">{{  __('Setting') }}</div>
                 </a>
             </li>
-            */ ?>
+            
             {{-- <li class="menu-label">UI Elements</li>
             <li>
                 <a href="javascript:;" class="has-arrow">
@@ -423,13 +424,13 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown dropdown-large">
-                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
+                            <a style="display:none;" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{-- <span
                                     class="alert-count">7</span> 
                                 <i class='bx bx-bell'></i>--}}
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end">
+                            <div style="display:none;" class="dropdown-menu dropdown-menu-end">
                                 <a href="javascript:;">
                                     <div class="msg-header">
                                         <p class="msg-header-title">Notifications</p>
@@ -547,13 +548,13 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown dropdown-large">
-                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
+                            <a style="display:none;" class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
                                 {{-- <span
                                     class="alert-count">8</span>
                                 <i class='bx bx-comment'></i> --}}
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end">
+                            <div style="display:none;" class="dropdown-menu dropdown-menu-end">
                                 <a href="javascript:;">
                                     <div class="msg-header">
                                         <p class="msg-header-title">Messages</p>
@@ -561,7 +562,7 @@
                                     </div>
                                 </a>
                                 <div class="header-message-list">
-                                    <a class="dropdown-item" href="javascript:;">
+                                    {{-- <a class="dropdown-item" href="javascript:;">
                                         <div class="d-flex align-items-center">
                                             <div class="user-online">
                                                 <img src="assets/images/avatars/avatar-1.png" class="msg-avatar"
@@ -703,11 +704,11 @@
                                                 <p class="msg-info">All the Lorem Ipsum generators</p>
                                             </div>
                                         </div>
-                                    </a>
+                                    </a> --}}
                                 </div>
-                                <a href="javascript:;">
+                                {{-- <a href="javascript:;">
                                     <div class="text-center msg-footer">View All Messages</div>
-                                </a>
+                                </a> --}}
                             </div>
                         </li>
                     </ul>

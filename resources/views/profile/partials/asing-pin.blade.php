@@ -26,7 +26,7 @@
             <x-input-error :messages="$errors->get('pin')" class="mt-2" />
         </div>
         <div class="flex items-center gap-4">
-        <input name="updatePin" type="text" value="updatePin" />
+        <input name="updatePin" type="hidden" value="updatePin" />
             <x-primary-button>{{ __('Save') }}</x-primary-button>
         </div>
     </form>

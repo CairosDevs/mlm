@@ -122,6 +122,6 @@ class AsingPinController extends Controller
     }
 
     public function pinView() {
-        return view('securitypin.form');
+        return view('securitypin.validate-pin-login');
     }
 }

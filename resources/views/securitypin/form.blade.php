@@ -8,7 +8,6 @@
             {{ __('In order to make changes it is necessary to enter the security pin.') }}
         </p>
     </header>
-    bc60eb28-2885-48b7-856b-36cd8813c38b
     <form method="post" action="{{ route('pin.validatePinUser') }}" class="mt-6 space-y-6">
         @csrf
         @method('post')
@@ -50,7 +49,7 @@
         </div>
         
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <x-primary-button>{{ __('Send') }}</x-primary-button>
         </div>
     </form>
 </section>

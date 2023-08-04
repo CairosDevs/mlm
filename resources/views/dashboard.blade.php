@@ -6,7 +6,7 @@
             
             <!--end row-->
     
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-12 col-lg-8 d-flex">
                     <div class="card rounded-4 w-100">
                         <div class="card-body">
@@ -63,10 +63,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!--end row-->
     
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-12">
                     <div class="card rounded-4">
                         <div class="card-header">
@@ -218,7 +218,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!--end row-->
         </div>
     </div>

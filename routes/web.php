@@ -5,6 +5,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\AsingPinController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/setting/{id}', [SettingController::class, 'destroy'])->name('setting.destroy');
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+    Route::get('/roles', [RoleController::class, 'form'])->name('roles.form');
 
 
     Route::post('/asignProfile', [ProfileController::class, 'asignProfile'])->name('profile.asignProfile');

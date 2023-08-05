@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function form()
     {
-        $users = User::paginate(10);
-
-        return view('users.index')->with('users', $users);
+        return view('roles.form');
     }
 
     /**

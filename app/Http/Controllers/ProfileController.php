@@ -25,6 +25,14 @@ class ProfileController extends Controller
         $pins = $pin->validatePin($request);
         if (!$pins) {
             return view('securitypin.validate-pin', compact('request'));
+        } else {
+            $asignProfile = AsignProfile::where('user_id', $id)->first();
+            $asignPin = AsingPin::where('user_id', $id)->first();
+            return view('profile.edit', [
+                'user' => $request->user(),
+                'asignProfile' => $asignProfile,
+                'asignPin' => $asignPin,
+            ]);
         }
     }
     
@@ -36,6 +44,15 @@ class ProfileController extends Controller
         $pins = $pin->validatePin($request);
         if (!$pins) {
             return view('securitypin.validate-pin', compact('request'));
+        } else {
+            $id = Auth::user()->id;
+            $asignProfile = AsignProfile::where('user_id', $id)->first();
+            $asignPin = AsingPin::where('user_id', $id)->first();
+            return view('profile.validationProfile', [
+                'user' => $request->user(),
+                'asignProfile' => $asignProfile,
+                'asignPin' => $asignPin,
+            ]);
         }
     }
     /**
@@ -47,9 +64,9 @@ class ProfileController extends Controller
         $asignProfile = AsignProfile::where('user_id', $id)->first();
         $asignPin = AsingPin::where('user_id', $id)->first();
         return view('profile.edit', [
-        'user' => $request->user(),
-        'asignProfile' => $asignProfile,
-        'asignPin' => $asignPin,
+            'user' => $request->user(),
+            'asignProfile' => $asignProfile,
+            'asignPin' => $asignPin,
         ]);
     }
 
@@ -57,8 +74,10 @@ class ProfileController extends Controller
     {
         $id = Auth::user()->id;
         $asignProfile = AsignProfile::where('user_id', $id)->first();
+        $asignPin = AsingPin::where('user_id', $id)->first();
         return view('profile.edit', [
-        'asignProfile' => $asignProfile,
+            'asignProfile' => $asignProfile,
+            'asignPin' => $asignPin,
         ]);
     }
 
@@ -68,9 +87,9 @@ class ProfileController extends Controller
         $asignProfile = AsignProfile::where('user_id', $id)->first();
         $asignPin = AsingPin::where('user_id', $id)->first();
         return view('profile.validationProfile', [
-        'user' => $request->user(),
-        'asignProfile' => $asignProfile,
-        'asignPin' => $asignPin,
+            'user' => $request->user(),
+            'asignProfile' => $asignProfile,
+            'asignPin' => $asignPin,
         ]);
     }
 
@@ -181,6 +200,7 @@ class ProfileController extends Controller
             'address'  => $request->address,
             'PostalCode'  => $request->postalCode,
             'digitalContract'  => $doc,
+            'status'  => true,
         ];
         if ($asignProfile == null) {
             $user = AsignProfile::create($data);

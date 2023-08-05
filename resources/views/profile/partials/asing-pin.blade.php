@@ -2,20 +2,27 @@
     @csrf
     @method('post')
     <div>
-        @if(isset($asignPin->status))
-            <i class="bx bxs-check-circle" style="color:green;"></i>
-            @if($asignPin->status)
-                <input id="pin" name="pin" type="checkbox" checked />
-            @else
-                <input id="pin" name="pin" type="checkbox" />
-            @endif
-            <label for="pin">PIN 2FA</label>
-            <input name="updatePin" type="hidden" value="updatePin" />
-            <button class="btn btn-primary">{{ __('Save') }}</button>
-            <x-input-error :messages="$errors->get('pin')" class="mt-2" />
-        @else
+        @if (!$asignProfile->status)
             <i class="lni lni-cross-circle" style="color:red"></i>
             <label for="pin">PIN 2FA</label>
+        @else
+            @if(isset($asignPin->status))
+                <i class="bx bxs-check-circle" style="color:green;"></i>
+                @if($asignPin->status)
+                    <input id="pin" name="pin" type="checkbox" checked onclick="event.preventDefault();
+                                                this.closest('form').submit();" style="cursor: pointer;"/>
+                @else
+                    <input id="pin" name="pin" type="checkbox" onclick="event.preventDefault();
+                                                this.closest('form').submit();" style="cursor: pointer;"/>
+                @endif  
+            @else
+                <i class="lni lni-cross-circle" style="color:red"></i>
+                <input id="pin" name="pin" type="checkbox" onclick="event.preventDefault();
+                                                this.closest('form').submit();" style="cursor: pointer;"/>
+            @endif
+            <label for="pin" style="cursor: pointer;">PIN 2FA</label>
+            <input name="updatePin" type="hidden" value="updatePin"  style="cursor: pointer;"/>
+            <x-input-error :messages="$errors->get('pin')" class="mt-2" />
         @endif
     </div>
 </form>

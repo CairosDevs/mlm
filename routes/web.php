@@ -23,7 +23,7 @@ Route::get('/', function () {
 });
 
 Route::get('/pinView/{id}/{type}', [AsingPinController::class, 'pinView'])->name('pinView');
-Route::post('/validatePinUserLogin', [AsingPinController::class, 'validatePinUser'])->name('pin.validatePinUserLogin');
+// Route::post('/validatePinUserLogin', [AsingPinController::class, 'validatePinUser'])->name('pin.validatePinUserLogin');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

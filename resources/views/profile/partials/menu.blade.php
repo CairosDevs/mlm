@@ -32,7 +32,7 @@
                         <span class="text-secondary">{{ __('Validation Docs') }}</span>
                     </a>
                 </li>                              
-                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap"> 
                     @include('profile.partials.asing-pin')
                 </li>
             </ul>

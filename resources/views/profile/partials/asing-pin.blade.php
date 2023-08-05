@@ -2,11 +2,11 @@
     @csrf
     @method('post')
     <div>
-        @if (!$asignProfile->status)
+        @if (isset($asignProfile->status) && !$asignProfile->status)
             <i class="lni lni-cross-circle" style="color:red"></i>
             <label for="pin">PIN 2FA</label>
         @else
-            @if(isset($asignPin->status))
+            @if(isset($asignPin->status) && $asignPin->status)
                 <i class="bx bxs-check-circle" style="color:green;"></i>
                 @if($asignPin->status)
                     <input id="pin" name="pin" type="checkbox" checked onclick="event.preventDefault();

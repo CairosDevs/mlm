@@ -13,7 +13,7 @@
         @method('post')
         <div>
             <label for="pinProfile" :value="__('Enter Pin')" ></label>
-            <input id="pinProfile" name="pinProfile" type="text" class="form-control" autocomplete="Pin" value="bc60eb28-2885-48b7-856b-36cd8813c38b" />
+            <input id="pinProfile" name="pinProfile" type="text" class="form-control" autocomplete="Pin" />
             @if (session('status') === 'error-pin')
                 <p>{{ __('Pin invalid.') }}</p>
             @endif

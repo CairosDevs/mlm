@@ -27,8 +27,9 @@ Route::post('/validatePinUserLogin', [AsingPinController::class, 'validatePinUse
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified', 'pin'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/validatePinLogin')->middleware(['auth', 'verified', 'pin'])->name('validatePinLogin');
 
 Route::middleware('auth')->group(function () {
     Route::get('/editProfile', [ProfileController::class, 'editProfile'])->name('editProfile');

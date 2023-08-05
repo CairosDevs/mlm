@@ -22,7 +22,8 @@ class AsignProfile extends Model
         'birthdate',
         'address',
         'PostalCode',
-        'digitalContract',      
+        'digitalContract', 
+        'status',      
     ];
 
     protected $table = 'asign_profile';

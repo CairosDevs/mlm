@@ -31,10 +31,12 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/editProfile', [ProfileController::class, 'editProfile'])->name('editProfile');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/editValidate', [ProfileController::class, 'editValidate'])->name('editValidate');
     Route::get('/validationProfile', [ProfileController::class, 'validationProfile'])->name('validationProfile');
     Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
     Route::get('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');

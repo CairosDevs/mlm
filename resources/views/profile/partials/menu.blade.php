@@ -9,14 +9,21 @@
             <hr class="my-4">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <a href="{{ route('profile.edit') }}">
-                        <i class="bx bxs-check-circle" style="color:green;"></i>
-                        <span class="text-secondary">{{ __('Registrated')}}</span>
-                    </a>
+                    @if (Request::segment(1) == 'profile')
+                        <a href="{{ route('profile.edit') }}">
+                            <i class="bx bxs-check-circle" style="color:green;"></i>
+                            <span class="text-secondary">{{ __('Registrated')}}</span>
+                        </a>
+                    @else
+                        <a href="{{ route('editProfile') }}">
+                            <i class="bx bxs-check-circle" style="color:green;"></i>
+                            <span class="text-secondary">{{ __('Registrated')}}</span>
+                        </a>
+                    @endif
                 </li>
                  
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <a href="{{ route('validationProfile') }}">
+                    <a href="{{ route('editValidate') }}">
                         @if (is_null($asignProfile) || (isset($asignProfile->status) && !$asignProfile->status))
                         <i class="lni lni-cross-circle" style="color:red"></i>
                         @else
@@ -26,7 +33,7 @@
                     </a>
                 </li>                              
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    {{-- @include('profile.partials.asing-pin') --}}
+                    @include('profile.partials.asing-pin')
                 </li>
             </ul>
         </div>

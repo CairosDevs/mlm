@@ -13,6 +13,7 @@ use Mail;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AsingPinController extends Controller
 {
@@ -96,12 +97,16 @@ class AsingPinController extends Controller
             }
 
             if($request->profileInfo == "profileInfo") {
-                if ($request->user()->isDirty('email')) {
-                    $request->user()->email_verified_at = null;
-                }
-                $request->user()->save(); 
+                $data = [
+                    "name" => $request->name,
+                    "lastName" => $request->lastName,
+                    "phone" => $request->phone,
+                    "sponsorCode" => $request->sponsorCode,
+                    "email" => $request->email
+                ];
+                User::where('id',$request->user_id)->update($data);
             }
-
+            
             if($request->updatePassord == "updatePassord") {
                 $request->user()->update([
                     'password' => Hash::make($request->password),
@@ -114,10 +119,33 @@ class AsingPinController extends Controller
 
             if($request->pinView == "pinView") {
                 return view('dashboard');
-            }           
+            }  
+
+            if($request->editValidate == "editValidate") {
+                $id = $request->user_id;
+                $asignProfile = AsignProfile::where('user_id', $id)->first();
+                $asignPin = AsingPin::where('user_id', $id)->first();
+                return view('profile.validationProfile', [
+                    'user' => $request->user(),
+                    'asignProfile' => $asignProfile,
+                    'asignPin' => $asignPin,
+                ]);
+            }  
+            
+            if($request->editProfile == "editProfile") {
+                $id = $request->user_id;
+                $asignProfile = AsignProfile::where('user_id', $id)->first();
+                $asignPin = AsingPin::where('user_id', $id)->first();
+                return view('profile.edit', [
+                    'user' => $request->user(),
+                    'asignProfile' => $asignProfile,
+                    'asignPin' => $asignPin,
+                ]);
+            }       
             return Redirect::route('profile.edit')->with('status', 'profile-updated');
         }
-        return back()->withInput();
+        // dd("error");
+        return back()->with('status', 'error-pin');
     }
 
     public function pinView() {

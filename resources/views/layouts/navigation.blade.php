@@ -723,7 +723,11 @@
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bx bx-user"></i><span>{{ __('Profile') }}</span></a>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('editProfile') }}">
+                                <i class="bx bx-user"></i>
+                                <span>{{ __('Profile') }}</span>
+                            </a>
                         </li>
                         {{-- <li><a class="dropdown-item" href="javascript:;"><i class="bx bx-cog"></i><span>Settings</span></a>
                         </li>

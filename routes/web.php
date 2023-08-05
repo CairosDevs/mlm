@@ -28,14 +28,17 @@ Route::post('/validatePinUserLogin', [AsingPinController::class, 'validatePinUse
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified', 'pin'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/validatePinLogin')->middleware(['auth', 'verified', 'pin'])->name('validatePinLogin');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/editProfile', [ProfileController::class, 'editProfile'])->name('editProfile');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/editValidate', [ProfileController::class, 'editValidate'])->name('editValidate');
     Route::get('/validationProfile', [ProfileController::class, 'validationProfile'])->name('validationProfile');
     Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
     Route::get('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');

@@ -45,7 +45,7 @@
             <div class="col-sm-3"></div>
             <div class="col-sm-9 text-secondary">
                 <input type="hidden" name="updatePassord" value="updatePassord">
-                <input type="button" class="btn btn-primary px-4" value="{{ __('Save Changes') }}">
+                <input type="submit" class="btn btn-primary px-4" value="{{ __('Save Changes') }}">
                 @if (session('status') === 'password-updated')
                     <p>{{ __('Saved.') }}</p>
                 @endif

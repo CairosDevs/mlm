@@ -17,6 +17,27 @@ use App\Http\Controllers\AsingPinController as ap;
 
 class ProfileController extends Controller
 {
+    public function editProfile(Request $request)
+    {
+        $id = Auth::user()->id;
+        $request->merge(['user_id' => $id,'editProfile' => 'editProfile']);
+        $pin = new ap();
+        $pins = $pin->validatePin($request);
+        if (!$pins) {
+            return view('securitypin.validate-pin', compact('request'));
+        }
+    }
+    
+    public function editValidate(Request $request)
+    {
+        $id = Auth::user()->id;
+        $request->merge(['user_id' => $id,'editValidate' => 'editValidate']);
+        $pin = new ap();
+        $pins = $pin->validatePin($request);
+        if (!$pins) {
+            return view('securitypin.validate-pin', compact('request'));
+        }
+    }
     /**
      * Display the user's profile form.
      */
@@ -45,9 +66,11 @@ class ProfileController extends Controller
     {
         $id = Auth::user()->id;
         $asignProfile = AsignProfile::where('user_id', $id)->first();
+        $asignPin = AsingPin::where('user_id', $id)->first();
         return view('profile.validationProfile', [
         'user' => $request->user(),
         'asignProfile' => $asignProfile,
+        'asignPin' => $asignPin,
         ]);
     }
 
@@ -198,7 +221,7 @@ class ProfileController extends Controller
         $pin = new ap();
         $pins = $pin->validatePin($request);
         if (!$pins) {
-            return view('securitypin.validate - pin', compact('request'));
+            return view('securitypin.validate-pin', compact('request'));
         }
         $pin = new ap();
         $pin->activatePin($request);

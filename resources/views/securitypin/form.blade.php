@@ -13,8 +13,10 @@
         @method('post')
         <div>
             <label for="pinProfile" :value="__('Enter Pin')" ></label>
-            <input id="pinProfile" name="pinProfile" type="text" class="form-control" autocomplete="Pin" value="bc60eb28-2885-48b7-856b-36cd8813c38b" />
-            <?php // echo $errors->get('pinProfile'); ?>
+            <input id="pinProfile" name="pinProfile" type="text" class="form-control" autocomplete="Pin" />
+            @if (session('status') === 'error-pin')
+                <p>{{ __('Pin invalid.') }}</p>
+            @endif
         </div>
         <div>
             <input name="name" type="hidden" @if (isset($request->name)) value="{{$request->name}}" @endif />
@@ -36,9 +38,7 @@
             <input name="doc" type="hidden" @if (isset($request->doc)) value="{{$request->doc}}" @endif/>
         </div>
         <div>
-            <input name="current_password" type="hidden" @if (isset($request->current_password)) value="{{$request->current_password}}" @endif/>
             <input name="password" type="hidden" @if (isset($request->password)) value="{{$request->password}}" @endif/>
-            <input name="password_confirmation" type="hidden" @if (isset($request->password_confirmation)) value="{{$request->password_confirmation}}" @endif/>
             <input name="updatePassord" type="hidden" @if (isset($request->updatePassord)) value="{{$request->updatePassord}}" @endif/>
         </div>
 
@@ -47,7 +47,8 @@
             <input name="updatePin" type="hidden" @if (isset($request->updatePin)) value="{{$request->updatePin}}" @endif/>
             <input name="pinView" type="hidden"  value="{{Request::segment(3)}}" />
         </div>
-        
+        <input name="editValidate" type="hidden" @if (isset($request->editValidate)) value="{{$request->editValidate}}" @endif/>
+        <input name="editProfile" type="hidden" @if (isset($request->editProfile)) value="{{$request->editProfile}}" @endif/>
         <div class="flex items-center gap-4">
             <br>
             <button class="btn btn-primary">{{ __('Send') }}</button>

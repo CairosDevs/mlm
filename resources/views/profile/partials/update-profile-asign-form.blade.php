@@ -122,7 +122,8 @@
             <div class="col-sm-3"></div>
             <div class="col-sm-9 text-secondary">
                 <input type="hidden" name="asignProfile" value="asignProfile">
-                <input type="submit" class="btn btn-primary px-4" value="{{ __('Request Validation') }}" @if(true) disabled @endif>
+                <!-- <input type="submit" class="btn btn-primary px-4" value="{{ __('Request Validation') }}" @if(true) disabled @endif> -->
+                <input type="submit" class="btn btn-primary px-4" value="{{ __('Request Validation') }}" >
                 @if (session('status') === 'profile-updated')
                     <p>{{ __('Saved.') }}</p>
                 @endif                

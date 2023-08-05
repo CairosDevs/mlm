@@ -21,7 +21,8 @@ class securitysMiddleware
     {
         $data = AsingPin::where('user_id', Auth::user()->id)->first();
         if ($data == null) {
-            return $next($request);
+            // return $next($request);
+            return redirect('dashboard');
         } else {
             return redirect('pinView/'.$data->id.'/pinView');
         }       

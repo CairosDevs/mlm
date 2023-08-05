@@ -2,7 +2,8 @@
     @csrf
     @method('post')
     <div>
-        @if (isset($asignProfile->status) && !$asignProfile->status)
+
+        @if (is_null($asignProfile) || (isset($asignProfile->status) && !$asignProfile->status))
             <i class="lni lni-cross-circle" style="color:red"></i>
             <label for="pin">PIN 2FA</label>
         @else

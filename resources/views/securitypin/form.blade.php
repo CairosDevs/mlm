@@ -49,7 +49,7 @@
         </div>
         <input name="editValidate" type="hidden" @if (isset($request->editValidate)) value="{{$request->editValidate}}" @endif/>
         <input name="editProfile" type="hidden" @if (isset($request->editProfile)) value="{{$request->editProfile}}" @endif/>
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4" style="text-align: center;">
             <br>
             <button class="btn btn-primary">{{ __('Send') }}</button>
         </div>

@@ -33,7 +33,15 @@
                     </a>
                 </li>                              
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap"> 
-                    @include('profile.partials.asing-pin')
+                    <a href="{{ route('viewPin') }}" style="cursor:pointer !important;">
+                        @if (is_null($asignProfile) || (isset($asignProfile->status) && !$asignProfile->status))
+                            <i class="lni lni-cross-circle" style="color:red"></i>
+                            <label style="cursor:pointer !important;">PIN 2FA</label>
+                        @else
+                            <i class="bx bxs-check-circle" style="color:green;"></i>
+                            <label style="cursor:pointer !important;">PIN 2FA</label>
+                        @endif
+                    </a>
                 </li>
             </ul>
         </div>

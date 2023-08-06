@@ -17,21 +17,37 @@ use App\Http\Controllers\AsingPinController as ap;
 
 class ProfileController extends Controller
 {
+    public function molde($id)
+    {
+        $asignProfile = AsignProfile::where('user_id', $id)->first();
+        $asignPin = AsingPin::where('user_id', $id)->first();
+        return [$asignProfile,$asignPin];
+    }
+
+    public function viewPin()
+    {
+        $id = Auth::user()->id;
+        $data = $this->molde($id);
+        return view('profile.view-pin', [
+            'user' => Auth::user(),
+            'asignProfile' => $data[0],
+            'asignPin' => $data[1],
+        ]);
+    }
     public function editProfile(Request $request)
     {
         $id = Auth::user()->id;
+        $data = $this->molde($id);
         $request->merge(['user_id' => $id,'editProfile' => 'editProfile']);
         $pin = new ap();
         $pins = $pin->validatePin($request);
         if (!$pins) {
             return view('securitypin.validate-pin', compact('request'));
         } else {
-            $asignProfile = AsignProfile::where('user_id', $id)->first();
-            $asignPin = AsingPin::where('user_id', $id)->first();
             return view('profile.edit', [
                 'user' => $request->user(),
-                'asignProfile' => $asignProfile,
-                'asignPin' => $asignPin,
+                'asignProfile' => $data[0],
+                'asignPin' => $data[1],
             ]);
         }
     }
@@ -39,19 +55,17 @@ class ProfileController extends Controller
     public function editValidate(Request $request)
     {
         $id = Auth::user()->id;
+        $data = $this->molde($id);
         $request->merge(['user_id' => $id,'editValidate' => 'editValidate']);
         $pin = new ap();
         $pins = $pin->validatePin($request);
         if (!$pins) {
             return view('securitypin.validate-pin', compact('request'));
         } else {
-            $id = Auth::user()->id;
-            $asignProfile = AsignProfile::where('user_id', $id)->first();
-            $asignPin = AsingPin::where('user_id', $id)->first();
             return view('profile.validationProfile', [
                 'user' => $request->user(),
-                'asignProfile' => $asignProfile,
-                'asignPin' => $asignPin,
+                'asignProfile' => $data[0],
+                'asignPin' => $data[1],
             ]);
         }
     }
@@ -61,35 +75,32 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
         $id = Auth::user()->id;
-        $asignProfile = AsignProfile::where('user_id', $id)->first();
-        $asignPin = AsingPin::where('user_id', $id)->first();
+        $data = $this->molde($id);
         return view('profile.edit', [
             'user' => $request->user(),
-            'asignProfile' => $asignProfile,
-            'asignPin' => $asignPin,
+            'asignProfile' => $data[0],
+            'asignPin' => $data[1],
         ]);
     }
 
     public function registerProfile(Request $request): View
     {
         $id = Auth::user()->id;
-        $asignProfile = AsignProfile::where('user_id', $id)->first();
-        $asignPin = AsingPin::where('user_id', $id)->first();
+        $data = $this->molde($id);
         return view('profile.edit', [
-            'asignProfile' => $asignProfile,
-            'asignPin' => $asignPin,
+            'asignProfile' => $data[0],
+            'asignPin' => $data[1],
         ]);
     }
 
     public function validationProfile(Request $request): View
     {
         $id = Auth::user()->id;
-        $asignProfile = AsignProfile::where('user_id', $id)->first();
-        $asignPin = AsingPin::where('user_id', $id)->first();
+        $data = $this->molde($id);
         return view('profile.validationProfile', [
             'user' => $request->user(),
-            'asignProfile' => $asignProfile,
-            'asignPin' => $asignPin,
+            'asignProfile' => $data[0],
+            'asignPin' => $data[1],
         ]);
     }
 

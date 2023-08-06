@@ -21,6 +21,26 @@ class AsingPinController extends Controller
         return (string) Str::uuid();
     }
 
+    public function forwardPin(Request $request) {
+        $pin = $this->index();
+        $id = Auth::user()->id;
+        $email = Auth::user()->email;
+        $name = Auth::user()->name;
+        $lastName = Auth::user()->lastName;
+        $dataMail = [  
+            'pin' => $pin,       
+            'email' => $email,
+            'name' => $name,
+            'lastName' => $lastName,
+        ];
+        $this->sendMsj($dataMail);  
+        $data = [
+            'pin' => $pin,
+        ];
+        $user = AsingPin::where('user_id', $id)->update($data);
+        return back()->with('status', 'forwardPin');
+    }
+
     public function activatePin($data) {
         $pin = $this->index();
         $id = Auth::user()->id;
@@ -121,10 +141,10 @@ class AsingPinController extends Controller
                 return view('dashboard');
             }  
 
+            $id = $request->user_id;
+            $asignProfile = AsignProfile::where('user_id', $id)->first();
+            $asignPin = AsingPin::where('user_id', $id)->first();
             if($request->editValidate == "editValidate") {
-                $id = $request->user_id;
-                $asignProfile = AsignProfile::where('user_id', $id)->first();
-                $asignPin = AsingPin::where('user_id', $id)->first();
                 return view('profile.validationProfile', [
                     'user' => $request->user(),
                     'asignProfile' => $asignProfile,
@@ -133,9 +153,6 @@ class AsingPinController extends Controller
             }  
             
             if($request->editProfile == "editProfile") {
-                $id = $request->user_id;
-                $asignProfile = AsignProfile::where('user_id', $id)->first();
-                $asignPin = AsingPin::where('user_id', $id)->first();
                 return view('profile.edit', [
                     'user' => $request->user(),
                     'asignProfile' => $asignProfile,
@@ -144,7 +161,6 @@ class AsingPinController extends Controller
             }       
             return Redirect::route('profile.edit')->with('status', 'profile-updated');
         }
-        // dd("error");
         return back()->with('status', 'error-pin');
     }
 

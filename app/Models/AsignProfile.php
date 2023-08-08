@@ -22,9 +22,14 @@ class AsignProfile extends Model
         'birthdate',
         'address',
         'PostalCode',
-        'digitalContract', 
-        'status',      
+        'digitalContract',
+        'status',
     ];
 
     protected $table = 'asign_profile';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

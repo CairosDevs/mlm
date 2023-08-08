@@ -46,6 +46,9 @@
                     </li>
                     <li> <a href="{{ route('roles.form') }}"><i class="bx bx-right-arrow-alt"></i>{{ __('Roles') }}</a>
                     </li>
+                    <li> <a href="{{ route('profile.list.validation') }}"><i class="bx bx-right-arrow-alt"></i>{{ __('Aprove profile') }}</a>
+                    </li>
+                    
                 </ul>
             </li>
             <li>

@@ -32,9 +32,11 @@
     <link rel="stylesheet" href="{{ asset('template/assets/css/semi-dark.css') }}" />
     <link rel="stylesheet" href="{{ asset('template/assets/css/header-colors.css') }}" />
 
+    <script src="{{ asset('template/assets/js/jquery.min.js') }}"></script>
     <!-- Scripts -->
-    @include('sweetalert::alert')
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @livewireStyles
     
 </head>
@@ -54,7 +56,7 @@
     <!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
     <!--End Back To Top Button-->
     <footer class="page-footer">
-        <p class="mb-0">Copyright © 2021. All right reserved.</p>
+        <p class="mb-0">Copyright © 2023. All right reserved.</p>
     </footer>
     
     </div>
@@ -62,7 +64,6 @@
     <!-- Bootstrap JS -->
     <script src="{{ asset('template/assets/js/bootstrap.bundle.min.js') }}"></script>
     <!--plugins-->
-    <script src="{{ asset('template/assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('template/assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
     <script src="{{ asset('template/assets/plugins/metismenu/js/metisMenu.min.js') }}"></script>
     <script src="{{ asset('template/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
@@ -71,9 +72,10 @@
     <script src="{{ asset('template/assets/plugins/apexcharts-bundle/js/apexcharts.min.js') }}"></script>
     <script src="{{ asset('template/assets/plugins/chartjs/js/Chart.min.js') }}"></script>
     <script src="{{ asset('template/assets/plugins/chartjs/js/Chart.extension.js') }}"></script>
-    <script src="{{ asset('template/assets/js/index2.js') }}"></script>
+    {{-- <script src="{{ asset('template/assets/js/index2.js') }}"></script> --}}
     <!--app JS-->
     <script src="{{ asset('template/assets/js/app.js') }}"></script>
+    <script src="{{ asset('template/assets/js/mlm.js') }}"></script>
    <!--Password show & hide js -->
     <script>
         $(document).ready(function () {
@@ -89,9 +91,34 @@
 					$('#show_hide_password i').addClass("bx-show");
 				}
 			});
+
+            var success = "{{ session('success') }}";
+
+            if (success) {
+                Swal.fire({
+                    title: "¡Éxito!",
+                    text: success,
+                    icon: "success",
+                });
+                
+            }
+            
+            var error = "{{ session('error') }}";
+
+            if (error) {
+                Swal.fire({
+                    title: "Tuvimos un problema!",
+                    text: error,
+                    icon: "error",
+                });
+            }
+
 		});
     </script>
+    
     @livewireScripts
+
+    @stack('scripts')
 </body>
 
 </html>

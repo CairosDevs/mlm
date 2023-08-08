@@ -11,9 +11,6 @@
         </header>
     </section>
     <br>
-    {{-- <form id="send-verification" method="post" action="{{ route('verification.send') }}" enctype="multipart/form-data">
-        @csrf
-    </form> --}}
 
     <form method="post" action="{{ route('profile.asignProfile') }}" class="mt-6 space-y-6 row g-3" enctype="multipart/form-data">
         @csrf

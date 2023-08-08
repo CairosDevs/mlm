@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\AsingPin;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -20,7 +21,7 @@ class ProfileController extends Controller
     public function editProfile(Request $request)
     {
         $id = Auth::user()->id;
-        $request->merge(['user_id' => $id,'editProfile' => 'editProfile']);
+        $request->merge(['user_id' => $id, 'editProfile' => 'editProfile']);
         $pin = new ap();
         $pins = $pin->validatePin($request);
         if (!$pins) {
@@ -39,7 +40,7 @@ class ProfileController extends Controller
     public function editValidate(Request $request)
     {
         $id = Auth::user()->id;
-        $request->merge(['user_id' => $id,'editValidate' => 'editValidate']);
+        $request->merge(['user_id' => $id, 'editValidate' => 'editValidate']);
         $pin = new ap();
         $pins = $pin->validatePin($request);
         if (!$pins) {
@@ -148,17 +149,15 @@ class ProfileController extends Controller
     public function asignProfile(Request $request)
     {
 
-        // $validated = $request->validate([
-        //     'dni'  => ['required', 'image'],
-        //     'country'  => ['required', 'string', 'max:25'],
-        //     'placeBirth'  => ['required', 'string', 'max:25'],
-        //     'birthdate'  => ['required', 'string', 'max:25'],
-        //     'address'  => ['required', 'string', 'max:25'],
-        //     'PostalCode'  => ['required', 'string', 'max:25'],
-        //     'digitalContract' => ['required'], //,'mimes:pdf','max:2048'],
-        // ]);
-
-        // dd($request->all());
+        $validated = $request->validate([
+            'dni'  => ['required', 'image'],
+            'country'  => ['required', 'string', 'max:25'],
+            'placeBirth'  => ['required', 'string', 'max:25'],
+            'birthdate'  => ['required', 'string', 'max:25'],
+            'address'  => ['required', 'string', 'max:25'],
+            'PostalCode'  => ['required', 'string', 'max:25'],
+            'digitalContract' => ['required','mimes:pdf','max:2048'],
+        ]);
 
         $id = Auth::user()->id;
         $request->merge(['user_id' => $id]);
@@ -172,14 +171,6 @@ class ProfileController extends Controller
         }
 
         $request->merge(['doc' => $doc]);
-
-        // $pin = new ap();
-
-        // $pins = $pin->validatePin($request);
-
-        // if (!$pins) {
-        //     return view('securitypin.validate-pin', compact('request'));
-        // }
 
         $image_path = 'documents/dni/'. Str::random(8) .".". $request->dni->getClientOriginalExtension();
         
@@ -200,7 +191,6 @@ class ProfileController extends Controller
             'address'  => $request->address,
             'PostalCode'  => $request->postalCode,
             'digitalContract'  => $doc,
-            'status'  => true,
         ];
         if ($asignProfile == null) {
             $user = AsignProfile::create($data);
@@ -246,5 +236,32 @@ class ProfileController extends Controller
         $pin = new ap();
         $pin->activatePin($request);
         return Redirect::route('profile.edit')->with('status', 'pin activated');
+    }
+
+    public function listValidatation(Request $request)
+    {
+        $users = AsignProfile::where('status', false)->paginate(10);
+
+
+        return view('profile.listValidation', ['users' => $users]);
+    }
+
+    public function showValidatation(Request $request, $id)
+    {
+        $user = AsignProfile::where('id', $id)->first();
+
+        return view('profile.showValidation', ['user' => $user]);
+    }
+
+    
+    public function updateStatusDocs(Request $request, $id)
+    {
+        $user = AsignProfile::where('id', $id)->first();
+        $user->status = true;
+        $user->save();
+
+        return Redirect::route('profile.show.validation', $user->id)->with('sucess', 'perfil activado');
+
+        // return view('profile.showValidation', ['user' => $user]);
     }
 }

@@ -32,10 +32,11 @@ class SettingController extends Controller
         Setting::set($key, $request->value);
         Setting::save();
         
-        
         $config_variables = DB::table('settings')->get();
-        return redirect()->route('setting.index')->with('config_variables', $config_variables)
-                                    ->with('success', 'Variable almacenada');
+
+        return redirect()->route('setting.index')
+                         ->with('config_variables', $config_variables)
+                         ->with('success', 'Variable almacenada');
     }
 
 

@@ -23,6 +23,23 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/curl', function () {
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('POST', 'https://dashboard.aurpay.net/api/user/login', [
+        'form_params' => [
+            'username' => 'sosaheriberto2021@gmail.com',
+            'password' => 'Gi$I^jJsctogz%9Z',
+        ],
+    ]);
+    return $response->getBody();
+});
+
+Route::get('/key', function () {
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('GET', 'https://dashboard.aurpay.net/api/plugin/key');
+    return $response->getBody();
+});
+
 Route::get('/pinView/{id}/{type}', [AsingPinController::class, 'pinView'])->name('pinView');
 // Route::post('/validatePinUserLogin', [AsingPinController::class, 'validatePinUser'])->name('pin.validatePinUserLogin');
 
@@ -31,6 +48,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/validatePinLogin')->middleware(['auth', 'verified', 'pin'])->name('validatePinLogin');
+Route::get('register/confirm/{token}', [UserController::class, 'confirm']);
+Route::get('/password/reset', [UserController::class, 'createPassword'])->name('create.password');
+Route::post('/password/create/store', [UserController::class, 'passwordCreateStore'])->name('password.create.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/editProfile', [ProfileController::class, 'editProfile'])->name('editProfile');
@@ -41,8 +61,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/editValidate', [ProfileController::class, 'editValidate'])->name('editValidate');
     Route::get('/validationProfile', [ProfileController::class, 'validationProfile'])->name('validationProfile');
     Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
-    Route::get('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');
 
+    Route::get('/listValidatation', [ProfileController::class, 'listValidatation'])->name('profile.list.validation');
+    Route::get('/showValidatation/{id}', [ProfileController::class, 'showValidatation'])->name('profile.show.validation');
+    Route::put('/profileStatusUpdate/{id}', [ProfileController::class, 'updateStatusDocs'])->name('profile.StatusUpdate');
+
+    Route::get('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');
 
     /**
     * TODO
@@ -54,12 +78,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/setting/{id}', [SettingController::class, 'destroy'])->name('setting.destroy');
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
     Route::get('/roles', [RoleController::class, 'form'])->name('roles.form');
-
+    Route::put('/roles/update/{id}', [RoleController::class, 'update'])->name('roles.update');
 
     Route::post('/asignProfile', [ProfileController::class, 'asignProfile'])->name('profile.asignProfile');
     Route::post('/validatePinUser', [AsingPinController::class, 'validatePinUser'])->name('pin.validatePinUser');
+    
     /**
      * TODO
      * ADD PERMISION ONLY SYSTEM

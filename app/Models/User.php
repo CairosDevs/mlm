@@ -24,7 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone',
         'sponsorCode',
         'email',
-        'password',        
+        'password',
     ];
 
     /**
@@ -45,4 +45,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function asignProfile()
+    {
+        return $this->hasOne(AsignProfile::class, 'user_id');
+    }
 }

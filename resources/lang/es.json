@@ -1,6 +1,7 @@
 {
     "E-Mail Address": "Correo electrónico",
     "Password": "Contraseña",
+    "Password Confirmation": "Confirmación de contraseña",
     "Remember Me": "Recuérdame",
     "Login": "Acceder",
     "Forgot Your Password?": "¿Olvidaste tu contraseña?",
@@ -71,6 +72,17 @@
     "lastName": "Apellido",
     "Action": "Acción",
     "lastname": "Acción",
-    "See": "Ver"
+    "See": "Ver",
+    "User": "Usuario",
+    "Select User": "Selecciona Usuario",
+    "User role": "Rol del usuario",
+    "Select new role": "Selecciona el nuevo rol",
+    "Create users": "Crear usuarios",
+    "Status": "Estado",
+    "Aprove profile": "Aprobar perfil",
+    "Users pending for validation": "Usuarios pendientes por validación",
+    "Download signed contract": "Descargue Contrato firmado",
+    "Docs pending for validate": "Datos pendientes por validación",
+    "Aprove":"Aprobar"
 
 }

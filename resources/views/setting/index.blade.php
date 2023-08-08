@@ -3,7 +3,6 @@
     <div class="page-wrapper">
         <div class="page-content">
             <div class="container py-5">
- 
                 <form method="POST" action="{{ route('setting.store') }}" >
                     @csrf
                 
@@ -90,10 +89,5 @@
     </div>
     <!--end page wrapper -->
 
-<script>
-    $(function() {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
 </x-app-layout>
 

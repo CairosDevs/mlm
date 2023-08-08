@@ -23,25 +23,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/curl', function () {
-    $client = new \GuzzleHttp\Client();
-    $response = $client->request('POST', 'https://dashboard.aurpay.net/api/user/login', [
-        'form_params' => [
-            'username' => 'sosaheriberto2021@gmail.com',
-            'password' => 'Gi$I^jJsctogz%9Z',
-        ],
-    ]);
-    return $response->getBody();
-});
-
-Route::get('/key', function () {
-    $client = new \GuzzleHttp\Client();
-    $response = $client->request('GET', 'https://dashboard.aurpay.net/api/plugin/key');
-    return $response->getBody();
-});
-
 Route::get('/pinView/{id}/{type}', [AsingPinController::class, 'pinView'])->name('pinView');
-// Route::post('/validatePinUserLogin', [AsingPinController::class, 'validatePinUser'])->name('pin.validatePinUserLogin');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -61,6 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/editValidate', [ProfileController::class, 'editValidate'])->name('editValidate');
     Route::get('/validationProfile', [ProfileController::class, 'validationProfile'])->name('validationProfile');
     Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
+
+    Route::get('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');
+    Route::get('/viewPin', [ProfileController::class, 'viewPin'])->name('viewPin');
+    Route::post('/forwardPin', [AsingPinController::class, 'forwardPin'])->name('forwardPin');
 
     Route::get('/listValidatation', [ProfileController::class, 'listValidatation'])->name('profile.list.validation');
     Route::get('/showValidatation/{id}', [ProfileController::class, 'showValidatation'])->name('profile.show.validation');

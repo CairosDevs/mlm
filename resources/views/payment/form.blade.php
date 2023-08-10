@@ -92,6 +92,36 @@
                     <!-- End -->
                 </div>
             </div>
+
+
+            
+        </div>
+
+        
+    </div>
+
+    <div class="container">
+        <div class="row mx-0 pt-5 d-flex justify-content-center">
+            <div class="col-xs-4 col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                <div class="card shadow-lg">
+                    <div class="card-header card-header-divider text-center pt-4"> <img
+                            src="https://apirone.com/static/promo/bitcoin_logo_vector.svg" class="img-fluid"
+                            style="max-height: 42px;" width="205" alt=""><br>
+                        <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=bitcoin%3A1DonateWffyhwAjskoEwXt83pHZxhLTr8H%3Famount%3D0.15050000"
+                            style="max-width: 190px;" alt="">
+                    </div>
+                    <div class="card-body px-0">
+                        <p>20 USDT</p>
+                        <p>Send 20 USDT (in ONE payment) to:
+                        don't include transaction fee in this amount</p>
+                        <p class="text-center"><small><strong>1DonateWffyhwAjskoEwXt83pHZxhLTr8H</strong></small></p>
+                        <p class="text-muted text-center">Scan QR code and top-up your<br>
+                            Bitcoin balance for any amount.<br>
+                            Payment will be credited after 1 confirmation.<br>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -1899,8 +1899,8 @@ a {
 }
 
 .btn-white {
-	background-color: #fff;
-	border-color: #e7eaf3
+	background-color: #fff !important;
+	border-color: #e7eaf3 !important;
 }
 
 .chart-container1 {

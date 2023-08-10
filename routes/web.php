@@ -25,6 +25,9 @@ Route::get('/', function () {
 
 Route::get('/pinView/{id}/{type}', [AsingPinController::class, 'pinView'])->name('pinView');
 
+Route::get('/ipn_novo', [PaymentController::class, 'ipnHandler']);
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -52,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/showValidatation/{id}', [ProfileController::class, 'showValidatation'])->name('profile.show.validation');
     Route::put('/profileStatusUpdate/{id}', [ProfileController::class, 'updateStatusDocs'])->name('profile.StatusUpdate');
 
+    Route::get('/membership', [PaymentController::class, 'membership'])->name('payment.membership');
     Route::get('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');
 
     /**
@@ -72,11 +76,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/asignProfile', [ProfileController::class, 'asignProfile'])->name('profile.asignProfile');
     Route::post('/validatePinUser', [AsingPinController::class, 'validatePinUser'])->name('pin.validatePinUser');
     
+    Route::post('/pay', [PaymentController::class, 'createCryptoPayment'])->name('pay');
+
     /**
      * TODO
      * ADD PERMISION ONLY SYSTEM
      */
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('logs');
+    Route::get('/createCryptoPayment', [App\Http\Controllers\PaymentController::class, 'createCryptoPayment'])->name('createCryptoPayment');
 });
 
 require __DIR__.'/auth.php';

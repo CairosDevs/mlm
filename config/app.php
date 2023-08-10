@@ -190,8 +190,7 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-
-
+        PrevailExcel\Nowpayments\NowpaymentsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -223,6 +222,8 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Nowpayments' => PrevailExcel\Nowpayments\Facades\Nowpayments::class,
+
 
     ])->toArray(),
 

@@ -47,7 +47,8 @@ class RegisteredUserController extends Controller
             "sponsorCode" => $request->sponsorCode,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]);
+        ]);        
+        $user->assignRole('Customer');
 
         event(new Registered($user));
 

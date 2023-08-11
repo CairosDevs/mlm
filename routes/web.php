@@ -56,7 +56,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/profileStatusUpdate/{id}', [ProfileController::class, 'updateStatusDocs'])->name('profile.StatusUpdate');
 
     Route::get('/membership', [PaymentController::class, 'membership'])->name('payment.membership');
-    Route::get('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');
+    Route::post('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');
+
+    Route::post('/cancelOrderPayment', [PaymentController::class, 'cancelOrderPayment'])->name('payment.cancel');
+    Route::get('/orderStatus/{id}', [PaymentController::class, 'orderStatus'])->name('payment.order.status');
+
 
     /**
     * TODO

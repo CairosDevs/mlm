@@ -30,18 +30,6 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
-    /**
-     * Handle an incoming authentication request.
-     */
-    // public function store(LoginRequest $request): RedirectResponse
-    // {
-    //     $request->authenticate();
-
-    //     $request->session()->regenerate();
-
-    //     return redirect()->intended(RouteServiceProvider::HOME);
-    // }
-
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
@@ -54,12 +42,11 @@ class AuthenticatedSessionController extends Controller
         $pinActivo = $this->UserStatusService->consultarEstadoPin($user);
     
         if ($perfilActivo && $pinActivo) {
-            $membresiaAprobada = $this->UserStatusService->verificarMembresia();
+            $membresiaAprobada = $this->UserStatusService->verificarMembresia($user);
             if (!$membresiaAprobada) {
                 return redirect()->route('membership');
             }
         } else {
-            // Si el perfil o los pines no están activos, rederigir a perfil
             return redirect()->route('editProfile')->withErrors(['Debes terminar de activar tu perfil.']);
         }
 

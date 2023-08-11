@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\AsingPin;
 use App\Models\AsignProfile;
+use App\Models\OrderPayment;
 use Illuminate\Support\Facades\Auth;
 
 class UserStatusService
@@ -30,8 +31,16 @@ class UserStatusService
         }
     }
 
-    public function verificarMembresia()
+    public function verificarMembresia($usuario)
     {
-        return Auth::user()->membership;
+        $membership = OrderPayment::where('user_id', $usuario->id)
+                                        ->where('type', 'membership')
+                                        ->first();
+    
+        if ($membership && $membership->status == 'paid') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

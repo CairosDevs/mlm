@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('template/assets/css/header-colors.css') }}" />
 
     <script src="{{ asset('template/assets/js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 

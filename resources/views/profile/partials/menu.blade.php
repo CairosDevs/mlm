@@ -48,6 +48,20 @@
                         @endif
                     </a>
                 </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                
+                    <a href="{{ (is_null($asignPin)) ? " #": route('payment.membership') }}"
+                        style="cursor:pointer !important;">
+                
+                        @if (is_null($membership))
+                        <i class="lni lni-cross-circle" style="color:red"></i>
+                        <label style="cursor:pointer !important;">{{ __('Membership')}}</label>
+                        @else
+                        <i class="bx bxs-check-circle" style="color:green;"></i>
+                        <label style="cursor:pointer !important;">{{ __('Membership')}}</label>
+                        @endif
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

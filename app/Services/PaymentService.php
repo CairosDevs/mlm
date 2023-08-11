@@ -5,42 +5,38 @@ namespace App\Services;
 use App\PaymentGateway\BinanceGateway;
 use App\PaymentGateway\NowPaymentsGateway;
 
-
 class PaymentService
 {
     protected $gateway;
 
-    public function __construct(BinanceGateway $gateway)
+    public function __construct(NowPaymentsGateway $gateway)
     {
         $this->gateway = $gateway;
     }
 
-    public function processPayment($amount, $paymentMethod)
+    /**
+     * Envia solicitud de pago a pasarela
+     *
+     * @param float $amount
+     */
+    public function charge($amount)
     {
-        // Llamar al método charge del gateway para procesar el pago
-        $result = $this->gateway->charge($amount, $paymentMethod);
-
-        // TODO Guardar en la BD
-        
-        return $result;
+        return $this->gateway->create_payment($amount);
     }
 
-    public function charge($amount, $paymentMethod)
+    /**
+     * Valida si orden esta paga
+     *
+     * @param float $amount
+     */
+    public function isPaid($orderId)
     {
-        $gateway = new BinanceGateway();
-        $result = $gateway->charge($amount, $paymentMethod);
-
-        if ($result) {
-            echo 'El pago fue exitoso';
-            //return redirect(json_decode($result)->data->checkoutUrl);
-        } else {
-            echo 'El pago falló';
-        }
+        return $this->gateway->payment_status($orderId);
     }
+
 
     public function ipn(Request $request)
     {
-        
     }
 
 }

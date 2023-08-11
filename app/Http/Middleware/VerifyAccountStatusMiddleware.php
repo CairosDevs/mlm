@@ -3,6 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\AsingPin;
+use App\Models\AsignProfile;
+use App\Models\OrderPayment;
 use Illuminate\Http\Request;
 use App\Services\UserStatusService;
 use Illuminate\Support\Facades\Auth;
@@ -31,8 +34,8 @@ class VerifyAccountStatusMiddleware
         if ($usuario) {
             $perfilActivo = $this->UserStatusService->consultarEstadoPerfil($usuario);
             $pinesActivos = $this->UserStatusService->consultarEstadoPin($usuario);
-            $membresiaAprobada = $this->UserStatusService->verificarMembresia();
-            
+            $membresiaAprobada = $this->UserStatusService->verificarMembresia($usuario);
+
             View::share('UserStatus', [
                 'perfilActivo' => $perfilActivo && $pinesActivos && $membresiaAprobada,
             ]);
@@ -41,25 +44,4 @@ class VerifyAccountStatusMiddleware
         return $next($request);
     }
 
-    public function consultarEstadoPerfil($usuario)
-    {
-        $perfil = AsignProfile::where('user_id', $usuario->id)->first();
-    
-        if ($perfil && $perfil->status) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function consultarEstadoPin($usuario)
-    {
-        $pines = AsingPin::where('user_id', $usuario->id)->first();
-    
-        if ($pines && $pines->status) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

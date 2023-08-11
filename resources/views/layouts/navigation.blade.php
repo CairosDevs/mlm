@@ -20,20 +20,7 @@
                 </a>
             </li>
         @if( $UserStatus['perfilActivo'])
-            <li>
-                <a href="{{ route('payment.form') }}">
-                    <div class="parent-icon"> <i class="bx bx-dollar-circle"></i>
-                    </div>
-                    <div class="menu-title">{{  __('Payment') }}</div>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('payment.membership') }}">
-                    <div class="parent-icon"> <i class="bx bx-dollar-circle"></i>
-                    </div>
-                    <div class="menu-title">{{ __('Membership') }}</div>
-                </a>
-            </li>
+            
             <li>
                 <a href="#">
                     <div class="parent-icon"> <i class="bx bx-wallet"></i>

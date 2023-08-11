@@ -31,4 +31,20 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'nowpayments' => [
+        'enviroment' => env('NOWPAYMENTS_ENV'),
+
+        'user' => env('NOWPAYMENTS_EMAIL'),
+        'password'  => env('NOWPAYMENTS_PASSWORD'),
+
+        'api_key'  => env('NOWPAYMENTS_API_KEY'),
+        'ipn_key'  => env('NOWPAYMENTS_IPN_KEY'),
+        'jwt_token'  => env('NOWPAYMENTS_JWT_TOKEN'),
+
+        'api_key_dev'  => env('NOWPAYMENTS_API_KEY_DEV'),
+        'ipn_key_dev'  => env('NOWPAYMENTS_IPN_KEY_DEV'),
+
+        'callback_url'  => env('NOWPAYMENTS_CALLBACK_URL'),
+    ],
+
 ];

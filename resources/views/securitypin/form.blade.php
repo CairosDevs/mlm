@@ -7,6 +7,9 @@
         <p class="mt-1 text-sm text-gray-600">
             {{ __('In order to make changes it is necessary to enter the security pin.') }}
         </p>
+        <p class="mt-1 text-sm text-gray-600">
+            {{ __('the security pin has been sent to your email') }}
+        </p>
     </header>
     <form method="post" action="{{ route('pin.validatePinUser') }}" class="mt-6 space-y-6">
         @csrf

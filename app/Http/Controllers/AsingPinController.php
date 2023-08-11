@@ -88,9 +88,26 @@ class AsingPinController extends Controller
     {
         $asignPin = AsingPin::where('user_id',$data->user_id)->where('status',true)->first();
         if ($asignPin != null) { 
+            $this->validatePinSend();
             return false;
         }
         return true;
+    }
+
+    public function validatePinSend() {
+        $pin = $this->index();
+        $id = Auth::user()->id;
+        $email = Auth::user()->email;
+        $name = Auth::user()->name;
+        $lastName = Auth::user()->lastName;
+        $dataMail = [  
+            'pin' => $pin,       
+            'email' => $email,
+            'name' => $name,
+            'lastName' => $lastName,
+        ];
+        AsingPin::where('user_id',$id)->update(['pin' => $pin]);
+        $this->sendMsj($dataMail);
     }
 
     public function validatePinUser(Request $request)

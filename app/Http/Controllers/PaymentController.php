@@ -88,6 +88,8 @@ class PaymentController extends Controller
         $status = $this->paymentService->isPaid($orderId);
         
         if ($status) {
+            $this->updateOrderStatus($orderId, 'paid');
+
             return response()->json([
                 'status' => true,
                 'success' => "La orden fue pagada exitosamente",
@@ -98,6 +100,15 @@ class PaymentController extends Controller
                 'error' => "No se ha realizado el pago",
             ]);
         }
+    }
+
+    public function updateOrderStatus($orderId, $status)
+    {
+        $orderPayment = OrderPayment::where('external_payment_id', $orderId)->first();
+
+        $orderPayment->status = $status;
+        $orderPayment->save();
+
     }
 
     /**

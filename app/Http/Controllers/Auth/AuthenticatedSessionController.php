@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
         if ($perfilActivo && $pinActivo) {
             $membresiaAprobada = $this->UserStatusService->verificarMembresia($user);
             if (!$membresiaAprobada) {
-                return redirect()->route('membership');
+                return redirect()->route('payment.membership');
             }
         } else {
             return redirect()->route('editProfile')->withErrors(['Debes terminar de activar tu perfil.']);

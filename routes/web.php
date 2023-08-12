@@ -6,6 +6,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\AsingPinController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\EWalletController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +61,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/cancelOrderPayment', [PaymentController::class, 'cancelOrderPayment'])->name('payment.cancel');
     Route::get('/orderStatus/{id}', [PaymentController::class, 'orderStatus'])->name('payment.order.status');
+
+    Route::get('/ewallets', [EwalletController::class, 'index'])->name('ewallets.index');
+    Route::post('/ewallets', [EwalletController::class, 'store'])->name('ewallets.store');
 
 
     /**

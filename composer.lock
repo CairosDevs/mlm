@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a43ec5eda4a4144717af44364c3ab302",
+    "content-hash": "19b6a664b2b6fe62e4f4663634598bdd",
     "packages": [
         {
             "name": "anlutro/l4-settings",
@@ -152,6 +152,76 @@
                 "source": "https://github.com/bavix/laravel-wallet/tree/9.6.2"
             },
             "time": "2023-03-15T17:27:13+00:00"
+        },
+        {
+            "name": "bavix/laravel-wallet-warmup",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bavix/laravel-wallet-warmup.git",
+                "reference": "d0ca0dc73e34d8d9d4935ed67bec1b6f58adf536"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bavix/laravel-wallet-warmup/zipball/d0ca0dc73e34d8d9d4935ed67bec1b6f58adf536",
+                "reference": "d0ca0dc73e34d8d9d4935ed67bec1b6f58adf536",
+                "shasum": ""
+            },
+            "require": {
+                "bavix/laravel-wallet": "^9.0|^10.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "ergebnis/phpstan-rules": "^1.0",
+                "infection/infection": "^0.26",
+                "orchestra/testbench": "^7.0",
+                "phpstan/phpstan": "^1.2",
+                "phpunit/phpunit": "^9.5",
+                "rector/rector": "^0.14",
+                "symplify/easy-coding-standard": "^11.0",
+                "vimeo/psalm": "^4.13"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bavix\\WalletWarmUp\\WarmUpServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bavix\\WalletWarmUp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Babichev Maxim",
+                    "email": "info@babichev.net"
+                }
+            ],
+            "description": "Addition to the package laravel-wallet.",
+            "homepage": "https://github.com/bavix/laravel-wallet",
+            "keywords": [
+                "bavix",
+                "command",
+                "credits",
+                "laravel",
+                "laravel-wallet",
+                "payments",
+                "virtual",
+                "wallet",
+                "warmup"
+            ],
+            "support": {
+                "issues": "https://github.com/bavix/laravel-wallet-warmup/issues",
+                "source": "https://github.com/bavix/laravel-wallet-warmup/tree/2.2.0"
+            },
+            "time": "2023-01-23T15:57:40+00:00"
         },
         {
             "name": "brick/math",
@@ -10076,5 +10146,5 @@
         "php": "^8.0.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

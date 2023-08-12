@@ -22,7 +22,7 @@
         @if( $UserStatus['perfilActivo'])
             
             <li>
-                <a href="#">
+                <a href="{{ route('ewallets.index') }}">
                     <div class="parent-icon"> <i class="bx bx-wallet"></i>
                     </div>
                     <div class="menu-title">{{ __('Wallets') }}</div>

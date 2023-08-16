@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 use App\Models\OrderPayment;
 use Illuminate\Http\Request;
+use App\Services\EWalletService;
 use App\Services\PaymentService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -15,10 +16,15 @@ use PrevailExcel\Nowpayments\Facades\Nowpayments;
 class PaymentController extends Controller
 {
     protected $paymentService;
+    protected $EWalletService;
 
-    public function __construct(PaymentService $paymentService)
+    public function __construct(
+        PaymentService $paymentService,
+        EWalletService $EWalletService
+    )
     {
         $this->paymentService = $paymentService;
+        $this->EWalletService = $EWalletService;
     }
     
     /**
@@ -34,19 +40,32 @@ class PaymentController extends Controller
      */
     public function paymentForm(Request $request)
     {
-        $data = $this->paymentService->charge($request->amount);
-        
-        $uuid = (string) Str::uuid();
-        $shortUuid = substr($uuid, 0, 8);
+        if ($request->type != 'withdraw') {
 
-        $orderPayment = OrderPayment::create([
-            'payment_id' => $shortUuid,
-            'external_payment_id' => $data['payment_id'],
-            'user_id' => Auth::user()->id,
-            'amount' => $data['price_amount'],
-            'type' => 'membership',
-            'status' => 'pending',
-        ]);
+            $data = $this->paymentService->charge($request->amount);
+            if (isset($data['status']) && $data['status'] == false) {
+                return back()->with(['error' => $data['message']]);
+            }
+            Log::debug("response API", [$data]);
+
+            $uuid = (string) Str::uuid();
+            $shortUuid = substr($uuid, 0, 8);
+        
+            $orderPayment = OrderPayment::create([
+                'payment_id' => $shortUuid,
+                'external_payment_id' => $data['payment_id'],
+                'user_id' => Auth::user()->id,
+                'amount' => $data['price_amount'],
+                'type' => $request->type,
+                'status' => 'pending',
+            ]);
+        }
+
+        $this->EWalletService->transaction($request->amount, $request->type);
+
+        if ($request->type == 'withdraw') {
+            return view('dashboard')->with('success', 'retiro temporal exitoso');
+        }
 
         if (!isset($data['error'])) {
             return view('payment.form')->with('payment_data', $data);
@@ -108,7 +127,6 @@ class PaymentController extends Controller
 
         $orderPayment->status = $status;
         $orderPayment->save();
-
     }
 
     /**

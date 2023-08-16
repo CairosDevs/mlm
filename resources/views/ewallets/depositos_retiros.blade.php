@@ -14,25 +14,36 @@
                                         <div class="col-3"></div>
                                         <div class="col-6">
                                             <div class="card bg-gradient-deepblue rounded-4 border border-4 border-white shadow">
-                                                <div class="card-body">
-                                                    <div class="d-flex align-items-center justify-content-between">
-                                                        <div class="">
-                                                            <h4 class="mb-0 text-white">Depositar</h4>
+                                                <form action="{{ route('payment.form') }}" method="post">
+                                                    @csrf
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="">
+                                                                <h4 class="mb-0 text-white">Depositar</h4>
+                                                            </div>
+                                                            <div class="widgets-icons rounded-circle bg-light-transparent-2 text-white">
+                                                                <i class="bx bx-dollar"></i>
+                                                            </div>
                                                         </div>
-                                                        <div class="widgets-icons rounded-circle bg-light-transparent-2 text-white">
-                                                            <i class="bx bx-dollar"></i>
+                                                        <div class="mt-3">
+                                                            <input style="font-size:36px; border: none !important; outline: none !important;" class="mb-0 bg-transparent text-white" type="number" id="deposit_amount" name="amount" value="0">
+                                                            <input type="hidden" name="type" value="deposit">
                                                         </div>
-                                                    </div>
-                                                    <div class="mt-3">
-                                                        <input style="font-size:36px; border: none !important; outline: none !important;" class="mb-0 bg-transparent text-white" type="number" id="deposit_amount" name="deposit_amount" value="0">
-                                                    </div>
-                                                    <div class="mt-3">
-                                                        <button id="deposit_plus" type="button" class="btn btn-primary rounded-circle">+</button>
-                                                        <button id="deposit_minus" type="button" class="btn btn-primary rounded-circle">-</button>                                                    
-                                                    </div>
+                                                        <div class="mt-3">
+                                                            <button id="deposit_plus" type="button" class="btn btn-primary rounded-circle">+</button>
+                                                            <button id="deposit_minus" type="button" class="btn btn-primary rounded-circle">-</button>                                                    
+                                                        </div>
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="">
+                                                        
+                                                            </div>
+                                                            <div class="">
+                                                                <button id="deposit_enviar" type="submit" class="btn btn-primary">Enviar</button>
+                                                            </div>
+                                                        </div>
 
-                                                </div>
-                                                
+                                                    </div>
+                                                </form>                                                
                                             </div>
                                         </div>
                                         <div class="col-3"></div>
@@ -51,27 +62,38 @@
                                         <div class="col-3"></div>
                                         <div class="col-6">
                                             <div class="card bg-gradient-deepblue rounded-4 border border-4 border-white shadow">
-                                                <div class="card-body">
-                                                    <div class="d-flex align-items-center justify-content-between">
-                                                        <div class="">
-                                                            <h4 class="mb-0 text-white">Retirar</h4>
+                                                <form action="{{ route('payment.form') }}" method="post">
+                                                    @csrf
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="">
+                                                                <h4 class="mb-0 text-white">Retirar</h4>
+                                                            </div>
+                                                            <div class="widgets-icons rounded-circle bg-light-transparent-2 text-white">
+                                                                <i class="bx bx-dollar"></i>
+                                                            </div>
                                                         </div>
-                                                        <div class="widgets-icons rounded-circle bg-light-transparent-2 text-white">
-                                                            <i class="bx bx-dollar"></i>
+                                                        <div class="mt-3">
+                                                            <input style="font-size:36px; border: none !important; outline: none !important;"
+                                                                class="mb-0 bg-transparent text-white" type="number" id="withdraw_amount"
+                                                                name="amount" value="0">
+                                                            <input type="hidden" name="type" value="withdraw">
                                                         </div>
+                                                        <div class="mt-3">
+                                                            <button id="withdraw_plus" type="button" class="btn btn-primary rounded-circle">+</button>
+                                                            <button id="withdraw_minus" type="button" class="btn btn-primary rounded-circle">-</button>
+                                                        </div>
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="">
+                                                                
+                                                            </div>
+                                                            <div class="">
+                                                                <button id="withdraw_enviar" type="submit" class="btn btn-primary">Enviar</button>
+                                                            </div>
+                                                        </div>
+                                    
                                                     </div>
-                                                    <div class="mt-3">
-                                                        <input style="font-size:36px; border: none !important; outline: none !important;"
-                                                            class="mb-0 bg-transparent text-white" type="number" id="withdraw_amount"
-                                                            name="withdraw_amount" value="0">
-                                                    </div>
-                                                    <div class="mt-3">
-                                                        <button id="withdraw_plus" type="button" class="btn btn-primary rounded-circle">+</button>
-                                                        <button id="withdraw_minus" type="button" class="btn btn-primary rounded-circle">-</button>
-                                                    </div>
-                                
-                                                </div>
-                                
+                                                </form>                                
                                             </div>
                                         </div>
                                         <div class="col-3"></div>
@@ -101,7 +123,7 @@
                 </div>
 
                 <div class="col-9">
-                    <div class="card">
+                    <div style="border:0px; box-shadow: 0px 0px 0px white;"class="card">
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-primary justify-content-center" role="tablist">
                                 <li class="nav-item" role="presentation">

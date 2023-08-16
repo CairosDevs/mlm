@@ -18,6 +18,12 @@ class EWalletController extends Controller
         return view('ewallets.index')->with('ewallet', $ewallet);
     }
 
+    public function depositos_retiros()
+    {
+        return view('ewallets.depositos_retiros');
+    }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -45,5 +51,4 @@ class EWalletController extends Controller
         return redirect()->route('ewallets.index')->with('ewallet', $ewallet)
                                   ->with('success', 'La dirección de su wallet fue almacenada');
     }
-
 }

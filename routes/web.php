@@ -63,6 +63,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/orderStatus/{id}', [PaymentController::class, 'orderStatus'])->name('payment.order.status');
 
     Route::get('/ewallets', [EwalletController::class, 'index'])->name('ewallets.index');
+    Route::get('/depositos_retiros', [EwalletController::class, 'depositos_retiros'])->name('ewallets.depositos_retiros');
+
     Route::post('/ewallets', [EwalletController::class, 'store'])->name('ewallets.store');
 
 

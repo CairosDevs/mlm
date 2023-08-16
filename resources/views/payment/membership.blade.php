@@ -5,7 +5,7 @@
             <div class="row row-cols-3 product-grid">
                 <div class="col"></div>
                 <div class="col">
-                    <div class="card rounded-4 bg-gradient-primary">
+                    <div class="card rounded-4 bg-gradient-deepblue">
                         <form action="{{ route('payment.form') }}" method="post">
                         @csrf                        
                         <div class="card-body text-center">

@@ -173,12 +173,14 @@
                                                         <tr>
                                                             <th># Payment Order</th>
                                                             <th>Total</th>
+                                                            <th>Estatus</th>
                                                             <th>Fecha</th>
                                                             {{-- <th>View Details</th>
                                                             <th>Actions</th> --}}
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach ($deposits as $item)
                                                         <tr>
                                                             <td>
                                                                 <div class="d-flex align-items-center">
@@ -186,12 +188,13 @@
                                                                         <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
                                                                     </div>
                                                                     <div class="ms-2">
-                                                                        <h6 class="mb-0 font-14">#OS-000354</h6>
+                                                                        <h6 class="mb-0 font-14">{{ $item->payment_id }}</h6>
                                                                     </div>
                                                                 </div>
                                                             </td>                                                            
-                                                            <td>$485.20</td>
-                                                            <td>June 10, 2020</td>
+                                                            <td>${{ $item->amount }}</td>
+                                                            <td>{{ $item->status }}</td>
+                                                            <td>{{ $item->created_at }}</td>
                                                             {{-- <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button>
                                                             </td>
                                                             <td>
@@ -201,56 +204,11 @@
                                                                 </div>
                                                             </td> --}}
                                                         </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-                                                                    </div>
-                                                                    <div class="ms-2">
-                                                                        <h6 class="mb-0 font-14">#OS-000986</h6>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            
-                                                            <td>$650.30</td>
-                                                            <td>June 12, 2020</td>
-                                                            {{-- <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex order-actions">
-                                                                    <a href="javascript:;" class=""><i class="bx bxs-edit"></i></a>
-                                                                    <a href="javascript:;" class="ms-3"><i class="bx bxs-trash"></i></a>
-                                                                </div>
-                                                            </td> --}}
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-                                                                    </div>
-                                                                    <div class="ms-2">
-                                                                        <h6 class="mb-0 font-14">#OS-000536</h6>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            
-                                                            <td>$159.45</td>
-                                                            <td>June 14, 2020</td>
-                                                            {{-- <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View Details</button>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex order-actions">
-                                                                    <a href="javascript:;" class=""><i class="bx bxs-edit"></i></a>
-                                                                    <a href="javascript:;" class="ms-3"><i class="bx bxs-trash"></i></a>
-                                                                </div>
-                                                            </td> --}}
-                                                        </tr>
-                                                    
-                                                        </tr>
+                                                        @endforeach
+                                                        
                                                     </tbody>
                                                 </table>
+                                                {{ $deposits->links() }}
                                             </div>
                                         </div>
                                     </div>
@@ -276,12 +234,14 @@
                                                         <tr>
                                                             <th># Payment Order</th>
                                                             <th>Total</th>
+                                                            <th>Estatus</th>
                                                             <th>Fecha</th>
                                                             {{-- <th>View Details</th>
                                                             <th>Actions</th> --}}
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach ($withdraws as $item)                                                        
                                                         <tr>
                                                             <td>
                                                                 <div class="d-flex align-items-center">
@@ -289,12 +249,13 @@
                                                                         <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
                                                                     </div>
                                                                     <div class="ms-2">
-                                                                        <h6 class="mb-0 font-14">#OS-000354</h6>
+                                                                        <h6 class="mb-0 font-14">#{{ $item->payment_id }}</h6>
                                                                     </div>
                                                                 </div>
                                                             </td>
-                                                            <td>$485.20</td>
-                                                            <td>June 10, 2020</td>
+                                                            <td>${{ $item->amount }}</td>
+                                                            <td>{{ $item->status }}</td>
+                                                            <td>{{ $item->created_at }}</td>
                                                             {{-- <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View
                                                                     Details</button>
                                                             </td>
@@ -305,58 +266,10 @@
                                                                 </div>
                                                             </td> --}}
                                                         </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-                                                                    </div>
-                                                                    <div class="ms-2">
-                                                                        <h6 class="mb-0 font-14">#OS-000986</h6>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                    
-                                                            <td>$650.30</td>
-                                                            <td>June 12, 2020</td>
-                                                            {{-- <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View
-                                                                    Details</button>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex order-actions">
-                                                                    <a href="javascript:;" class=""><i class="bx bxs-edit"></i></a>
-                                                                    <a href="javascript:;" class="ms-3"><i class="bx bxs-trash"></i></a>
-                                                                </div>
-                                                            </td> --}}
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
-                                                                    </div>
-                                                                    <div class="ms-2">
-                                                                        <h6 class="mb-0 font-14">#OS-000536</h6>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                    
-                                                            <td>$159.45</td>
-                                                            <td>June 14, 2020</td>
-                                                            {{-- <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View
-                                                                    Details</button>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex order-actions">
-                                                                    <a href="javascript:;" class=""><i class="bx bxs-edit"></i></a>
-                                                                    <a href="javascript:;" class="ms-3"><i class="bx bxs-trash"></i></a>
-                                                                </div>
-                                                            </td> --}}
-                                                        </tr>
-                                    
-                                                        </tr>
+                                                        @endforeach
                                                     </tbody>
                                                 </table>
+                                                {{ $withdraws->links() }}
                                             </div>
                                         </div>
                                     </div>

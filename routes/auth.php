@@ -15,6 +15,8 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
+    Route::get('register/{code}', [RegisteredUserController::class, 'create']);
+
     Route::get('reloadCaptcha', [RegisteredUserController::class, 'reloadCaptcha']);
 
     Route::post('register', [RegisteredUserController::class, 'store']);

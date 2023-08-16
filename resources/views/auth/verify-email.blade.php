@@ -23,16 +23,16 @@
                                             @csrf
                                     
                                             <div>
-                                                <x-primary-button>
+                                                <button class="btn btn-primary">
                                                     {{ __('Resend Verification Email') }}
-                                                </x-primary-button>
+                                                </button>
                                             </div>
                                         </form>
                                     
                                         <form method="POST" action="{{ route('logout') }}">
                                             @csrf
                                     
-                                            <button type="submit"
+                                            <button type="submit" class="btn btn-danger"
                                                 class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                                 {{ __('Log Out') }}
                                             </button>

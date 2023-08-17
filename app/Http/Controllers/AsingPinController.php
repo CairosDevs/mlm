@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Referral;
 
 class AsingPinController extends Controller
 {
@@ -169,13 +170,17 @@ class AsingPinController extends Controller
             $membership = OrderPayment::where('user_id', $id)
                                         ->where('type', 'membership')
                                         ->first();
-
+            $rurl = Referral::where('referral_code', '!=', null)
+                            ->where('user_id', $id)
+                            ->first();
+            $url = url("/register/{$rurl->referral_code}");
             if ($request->editValidate == "editValidate") {
                 return view('profile.validationProfile', [
                     'user' => $request->user(),
                     'asignProfile' => $asignProfile,
                     'asignPin' => $asignPin,
                     'membership' => $membership,
+                    'referral_url' => $url,
                 ]);
             }
             
@@ -185,6 +190,7 @@ class AsingPinController extends Controller
                     'asignProfile' => $asignProfile,
                     'asignPin' => $asignPin,
                     'membership' => $membership,
+                    'referral_url' => $url,
                 ]);
             }
             return Redirect::route('profile.edit')->with('status', 'profile-updated');

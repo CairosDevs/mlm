@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Referral;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\AsignProfile;
+use App\Models\OrderPayment;
+use App\Models\AsingPin;
 
 class ReferralController extends Controller
 {
@@ -57,48 +62,47 @@ class ReferralController extends Controller
             }
         }  
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Referral  $referral
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Referral $referral)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Referral  $referral
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Referral $referral)
+    public function index()
     {
-        //
-    }
+        $rs = Referral::where('user_id', Auth::user()->id)->get();
+        $rurl = Referral::where('referral_code', '!=', null)->where('user_id', Auth::user()->id)->first();
+        $url = url("/register/{$rurl->referral_code}");
+        $rcount = count($rs);
+        $father = [];
+        foreach ($rs as $key => $value) {
+            $child = User::where('id', $value->child)->first();
+            $father[$key]['child'] = $child;
+            if ($value->grandchild != null) {
+                $grandchild = User::where('id', $value->grandchild)->first();
+                $data = [
+                    'name' => $grandchild->name ?? '',
+                    'lastName' => $grandchild->lastName ?? '',
+                ];
+                $father[$key]['child']['grandchild'] = (object)$data;
+            } else {
+                $data = [
+                    'name' => null,
+                    'lastName' => null,
+                ];
+                $father[$key]['child']['grandchild'] = (object)$data;
+            }
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Referral  $referral
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Referral $referral)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Referral  $referral
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Referral $referral)
-    {
-        //
+        $id = Auth::user()->id;
+        $asignProfile = AsignProfile::where('user_id', $id)->first();
+        $asignPin = AsingPin::where('user_id', $id)->first();
+        $membership = OrderPayment::where('user_id', $id)
+                                    ->where('type', 'membership')
+                                    ->first();
+        return view('profile.referral', [
+            'user' => Auth::user(),
+            'asignProfile' => $asignProfile,
+            'asignPin' => $asignPin,
+            'membership' => $membership,
+            'father' => $father,
+            'rcount' => $rcount,
+            'referral_url' => $url,
+        ]);
     }
 }

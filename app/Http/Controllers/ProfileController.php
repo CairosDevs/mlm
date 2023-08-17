@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Controllers\AsingPinController as ap;
+use App\Models\Referral;
 
 class ProfileController extends Controller
 {
@@ -26,7 +27,11 @@ class ProfileController extends Controller
         $asignedMembership = OrderPayment::where('user_id', $id)
                                         ->where('type', 'membership')
                                         ->first();
-        return [$asignProfile,$asignPin,$asignedMembership];
+        $rurl = Referral::where('referral_code', '!=', null)
+                        ->where('user_id', $id)
+                        ->first();
+        $url = url("/register/{$rurl->referral_code}");
+        return [$asignProfile,$asignPin,$asignedMembership,$url];
     }
 
     public function viewPin()
@@ -38,6 +43,7 @@ class ProfileController extends Controller
             'asignProfile' => $data[0],
             'asignPin' => $data[1],
             'membership' => $data[2],
+            'referral_url' => $data[3],
         ]);
     }
     public function editProfile(Request $request)
@@ -57,6 +63,7 @@ class ProfileController extends Controller
                 'asignProfile' => $data[0],
                 'asignPin' => $data[1],
                 'membership' => $data[2],
+                'referral_url' => $data[3],
             ]);
         }
     }
@@ -76,6 +83,7 @@ class ProfileController extends Controller
                 'asignProfile' => $data[0],
                 'asignPin' => $data[1],
                 'membership' => $data[2],
+                'referral_url' => $data[3],
             ]);
         }
     }
@@ -91,6 +99,7 @@ class ProfileController extends Controller
             'asignProfile' => $data[0],
             'asignPin' => $data[1],
             'membership' => $data[2],
+            'referral_url' => $data[3],
         ]);
     }
 
@@ -102,6 +111,7 @@ class ProfileController extends Controller
             'asignProfile' => $data[0],
             'asignPin' => $data[1],
             'membership' => $data[2],
+            'referral_url' => $data[3],
         ]);
     }
 
@@ -114,6 +124,7 @@ class ProfileController extends Controller
             'asignProfile' => $data[0],
             'asignPin' => $data[1],
             'membership' => $data[2],
+            'referral_url' => $data[3],
         ]);
     }
 

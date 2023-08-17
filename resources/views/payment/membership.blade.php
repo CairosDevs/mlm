@@ -5,9 +5,10 @@
             <div class="row row-cols-3 product-grid">
                 <div class="col"></div>
                 <div class="col">
-                    <div class="card rounded-4 bg-gradient-primary">
+                    <div class="card rounded-4 bg-gradient-deepblue">
                         <form action="{{ route('payment.form') }}" method="post">
-                        @csrf                        
+                        @csrf
+                        <input type="hidden" name="type" value="membership">
                         <div class="card-body text-center">
                             <h3 class="text-white">Membresia</h3>
                             <p class="mb-0 text-white">20 USDT</p>

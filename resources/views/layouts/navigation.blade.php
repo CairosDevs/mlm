@@ -28,6 +28,14 @@
                     <div class="menu-title">{{ __('Wallets') }}</div>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('ewallets.depositos_retiros') }}">
+                    <div class="parent-icon"> <i class="bx bx-wallet"></i>
+                    </div>
+                    <div class="menu-title">{{ __('Savings & Withdraws') }}</div>
+                </a>
+            </li>
+            
             @if(Auth::user()->hasRole('System') || Auth::user()->hasRole('Admin') )
             <li>
                 <a href="{{ route('users.index') }}">

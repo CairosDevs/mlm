@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderPayment;
 use App\Models\User;
 use App\Models\EWallet;
 use Illuminate\Http\Request;
@@ -17,6 +18,17 @@ class EWalletController extends Controller
         $ewallet = EWallet::where('user_id', Auth::user()->id)->first();
         return view('ewallets.index')->with('ewallet', $ewallet);
     }
+
+    public function depositos_retiros()
+    {
+        $deposits = OrderPayment::where('user_id', Auth::user()->id)->where('type', 'deposit')->paginate(5);
+        $withdraws = OrderPayment::where('user_id', Auth::user()->id)->where('type', 'withdraw')->paginate(5);
+
+        // dd($deposits);
+
+        return view('ewallets.depositos_retiros', compact('deposits','withdraws'));
+    }
+
 
 
     /**
@@ -45,5 +57,4 @@ class EWalletController extends Controller
         return redirect()->route('ewallets.index')->with('ewallet', $ewallet)
                                   ->with('success', 'La dirección de su wallet fue almacenada');
     }
-
 }

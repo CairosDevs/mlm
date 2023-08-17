@@ -2,6 +2,25 @@
     <!--start page wrapper -->
     <div class="page-wrapper">
         <div class="page-content">
+            <div class="row">
+                <div class="col-3">
+                    <div class="card bg-gradient-deepblue rounded-4 border border-4 border-white shadow">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h4 class="mb-0 text-white">Balance</h4>
+                                </div>
+                                <div class="widgets-icons rounded-circle bg-light-transparent-2 text-white">
+                                    <i class="bx bx-dollar"></i>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <h3 class="mb-0 text-white">$ {{ Auth::user()->balanceInt }} </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     
             
             <!--end row-->

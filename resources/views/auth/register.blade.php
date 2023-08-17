@@ -21,33 +21,28 @@
 
                                                 <div class="col-sm-6">
                                                     <label for="name" class="form-label">First Name</label>
-                                                    <!-- <input type="text" class="form-control rounded-5 @error('name') is-invalid @enderror" id="name" name="name"
-                                                        placeholder="Jhon"> -->
-                                                        <input type="text" class="form-control rounded-5 @error('name') is-invalid @enderror" id="name" name="name" value="demo">
+                                                    <input type="text" class="form-control rounded-5 @error('name') is-invalid @enderror" id="name" name="name" placeholder="Jhon" required>
                                                     @error('name')
                                                         <div id="validationName" class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="lastName" class="form-label">Last Name</label>
-                                                    <input id="lastName" type="text" class="form-control rounded-5 @error('lastName') is-invalid @enderror" id="lastName" name="lastName"
-                                                    value="demo">
+                                                    <input id="lastName" type="text" class="form-control rounded-5 @error('lastName') is-invalid @enderror" id="lastName" name="lastName" placeholder="Doe" required>
                                                     @error('lastName')
                                                     <div id="validationLastName" class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                                 <div class="col-6">
                                                     <label for="inputEmailAddress" class="form-label">Email Address</label>
-                                                    <input type="email" class="form-control rounded-5 @error('email') is-invalid @enderror" id="email" name="email"
-                                                    value="xhnl21+{{ Request::segment(2) }}@gmail.com">
+                                                    <input type="email" class="form-control rounded-5 @error('email') is-invalid @enderror" id="email" name="email" required>
                                                     @error('email') 
                                                         <div id="validationEmail" class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                                 <div class="col-6">
                                                     <x-input-label for="phone" class="form-label" :value="__('Teléfono')" />
-                                                    <x-text-input id="phone" class="form-control rounded-5" type="text" name="phone" value="1111111111"
-                                                        required autocomplete="phone" />
+                                                    <x-text-input id="phone" class="form-control rounded-5" type="text" name="phone" required autocomplete="phone" />
                                                     <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                                                     @error('phone')
                                                     <div id="validationEmail" class="invalid-feedback">{{ $message }}</div>
@@ -70,7 +65,7 @@
                                                     <label for="inputChoosePassword" class="form-label">Password</label>
                                                     <div class="input-group" id="show_hide_password">
                                                         <input type="password" class="form-control rounded-5 @error('password') is-invalid @enderror"
-                                                            id="password" name="password" placeholder="Enter Password" value="123456789">
+                                                            id="password" name="password" placeholder="Enter Password">
                                                         @error('password')
                                                         <div id="validationPassword" class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
@@ -80,7 +75,7 @@
                                                 <div class="col-12">
                                                     <label for="inputChoosePassword" class="form-label">Password confirmation</label>
                                                     <div class="input-group" >
-                                                        <input type="password" class="form-control rounded-5 @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Repeat Password" value="123456789">
+                                                        <input type="password" class="form-control rounded-5 @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Repeat Password">
                                                         @error('password_confirmation')
                                                         <div id="validationPasswordConfirmation" class="invalid-feedback">{{ $message }}</div>
                                                         @enderror

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\AsingPin;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\AsingPinController as apc;
 class securitysMiddleware
 {
     /**
@@ -24,6 +24,8 @@ class securitysMiddleware
             // return $next($request);
             return redirect('dashboard');
         } else {
+            $apc = new apc();
+            $apc->validatePinSend();
             return redirect('pinView/'.$data->id.'/pinView');
         }       
     }

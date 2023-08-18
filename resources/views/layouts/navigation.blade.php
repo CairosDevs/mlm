@@ -28,6 +28,7 @@
                     <div class="menu-title">{{ __('Wallets') }}</div>
                 </a>
             </li>
+            @if(Auth::user()->hasRole('Customer') )
             <li>
                 <a href="{{ route('ewallets.depositos_retiros') }}">
                     <div class="parent-icon"> <i class="bx bx-wallet"></i>
@@ -35,10 +36,18 @@
                     <div class="menu-title">{{ __('Savings & Withdraws') }}</div>
                 </a>
             </li>
+            @endif
             
-            @if(Auth::user()->hasRole('System') || Auth::user()->hasRole('Admin') )
+            @if(Auth::user()->hasRole('Admin') )
             <li>
-                <a href="{{ route('users.index') }}">
+                <a href="{{ route('ewallets.capital_garantia') }}">
+                    <div class="parent-icon"> <i class="bx bx-wallet"></i>
+                    </div>
+                    <div class="menu-title">{{ __('Capital Garantia') }}</div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
                     <div class="parent-icon"> <i class="bx bx-user-circle"></i>
                     </div>
                     <div class="menu-title">{{ __('Users & Roles') }}</div>

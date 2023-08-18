@@ -23,10 +23,20 @@ class EWalletController extends Controller
     {
         $deposits = OrderPayment::where('user_id', Auth::user()->id)->where('type', 'deposit')->paginate(5);
         $withdraws = OrderPayment::where('user_id', Auth::user()->id)->where('type', 'withdraw')->paginate(5);
+        $transations = OrderPayment::where('type', '!=', 'membership')->paginate(5);
 
-        // dd($deposits);
 
-        return view('ewallets.depositos_retiros', compact('deposits','withdraws'));
+        return view('ewallets.depositos_retiros', compact('deposits', 'withdraws', 'transations'));
+    }
+
+    public function capital_garantia()
+    {
+        $allDeposits = OrderPayment::where('type', 'deposit')->sum('amount');
+        $withdraws = OrderPayment::where('user_id', Auth::user()->id)->where('type', 'withdraw')->paginate(5);
+        $transations = OrderPayment::where('type', '!=', 'membership')->paginate(5);
+
+
+        return view('ewallets.admin.capital_garantia', compact('allDeposits', 'withdraws', 'transations'));
     }
 
 

@@ -79,6 +79,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/ewallets', [EwalletController::class, 'index'])->name('ewallets.index');
     Route::get('/depositos_retiros', [EwalletController::class, 'depositos_retiros'])->name('ewallets.depositos_retiros');
+    Route::get('/capital_garantia', [EwalletController::class, 'capital_garantia'])->name('ewallets.capital_garantia');
 
     Route::post('/ewallets', [EwalletController::class, 'store'])->name('ewallets.store');
 

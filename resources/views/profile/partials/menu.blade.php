@@ -95,7 +95,7 @@
                                     <br>
                                     <input type="hidden" name="generateCode" value="generateCode">
                                     <button class="btn btn-sm btn-primary">
-                                        <i class="bx bx-plus-circle"></i> Crear Codigo de Referido
+                                        <i class="bx bx-plus-circle"></i> {{ __('create Code Referral') }}
                                     </button>
                                 </form>
                             @endif

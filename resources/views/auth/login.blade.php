@@ -40,7 +40,7 @@
 
                                         <div class="flex items-center justify-start mt-4">
                                             <div class="captcha">
-                                                <span>{!! captcha_img('math') !!}</span>
+                                                <span>{!! captcha_img('flat') !!}</span>
                                             </div>
                                             <x-primary-button type="button" class="btn btn-danger reload" id="reload" onclick="reloadCaptcha()">
                                                 &#x21bb;

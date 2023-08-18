@@ -6,12 +6,25 @@
             </h2>
         </header>
         <div class="input-group">
-            <input type="text" class="form-control" id="referralLinks" readonly value="{{$referral_url}}">
-            <div class="input-group-append">
-                <button class="btn btn-sm btn-primary" onclick="copyReferralLinks()">
-                    <i class="bx bx-copy"></i> Copy
-                </button>
-            </div>
+            @if ($referral_url)
+                <input type="text" class="form-control" id="referralLinks" readonly value="{{$referral_url}}">
+                <div class="input-group-append">
+                    <button class="btn btn-sm btn-primary" onclick="copyReferralLinks()">
+                        <i class="bx bx-copy"></i> Copy
+                    </button>
+                </div>
+            @else
+                <form method="post" action="{{ route('referral.code') }}">
+                    @csrf
+                    @method('post')
+                    {{ __('no referral code.') }}
+                    <br>
+                    <input type="hidden" name="generateCode" value="generateCode">
+                    <button class="btn btn-sm btn-primary">
+                        <i class="bx bx-plus-circle"></i> Crear Codigo de Referido
+                    </button>
+                </form>
+            @endif
         </div>
         <br>
         <p class="mt-1 text-sm text-gray-600">
@@ -19,20 +32,34 @@
         </p>
         <div class="container" style="margin-top:30px;">
             <div class="row">
-                @foreach ($father as $key => $item)
-                    <div class="col-md-4">
-                        <ul id="tree{{($key + 1)}}" style="border: 1px solid blue; cursor:pointer;">
-                            <li>
-                                <a href="#">{{$item['child']->name}} {{$item['child']->lastName}} 6%</a>
-                                @if($item['child']['grandchild']->name != null && $item['child']['grandchild']->lastName != null) 
-                                    <ul>
-                                        <li>{{$item['child']['grandchild']->name}} {{$item['child']['grandchild']->lastName}} 4%</li>
-                                    </ul>
+                @if ($rcount > 0) 
+                    @foreach ($father as $key => $item)
+                        <div class="col-md-4">
+                            <ul id="tree{{($key + 1)}}" style="border: 1px solid blue; cursor:pointer;">
+                                <li>
+                                @if($item['child']['name'] != null && $item['child']['lastName'] != null)
+                                    <a href="#">{{$item['child']['name']}} {{$item['child']['lastName']}} 6%</a>
+                                    @if($item['child']['grandchild']['name'] != null && $item['child']['grandchild']['lastName'] != null) 
+                                        <ul>
+                                            <li>{{$item['child']['grandchild']['name']}} {{$item['child']['grandchild']['lastName']}} 4%</li>
+                                        </ul>
+                                    @endif
+                                @else
+                                    <a href="#">No tiene referidos</a>
                                 @endif
+                                </li>
+                            </ul>
+                        </div>
+                    @endforeach
+                @else
+                    <div class="col-md-4">
+                        <ul id="treeDefault" style="border: 1px solid blue; cursor:pointer;">
+                            <li>
+                                <a href="#">No tiene refereridos</a>
                             </li>
                         </ul>
                     </div>
-                @endforeach
+                @endif
             </div>
         </div>
     </section>
@@ -162,6 +189,7 @@ for (let index = 1; index <= count; index++) {
     $('#tree'+index).treed();
 }
 
+$('#treeDefault').treed();
 
 function copyReferralLinks() {
     var input = document.getElementById("referralLinks");

@@ -64,6 +64,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/validationProfile', [ProfileController::class, 'validationProfile'])->name('validationProfile');
     Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
     Route::get('/referral', [ReferralController::class, 'index'])->name('profile.referral');
+    Route::post('/generateReferralCode', [ReferralController::class, 'generateReferralCode'])->name('referral.code');
 
     Route::get('/payment', [PaymentController::class, 'paymentForm'])->name('payment.form');
     Route::get('/viewPin', [ProfileController::class, 'viewPin'])->name('viewPin');

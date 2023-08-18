@@ -34,10 +34,7 @@
                 </li>                              
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap"> 
                     
-                    <a href="{{ (is_null($asignProfile) || !$asignProfile->status) ? "#": route('viewPin') }}" 
-                    
-                        style="cursor:pointer !important;"
-                     >
+                    <a href="{{ (is_null($asignProfile) || !$asignProfile->status) ? "#": route('viewPin') }}" style="cursor:pointer !important;">
                     
                         @if (is_null($asignPin))
                             <i class="lni lni-cross-circle" style="color:red"></i>
@@ -83,12 +80,25 @@
                     </li>  
                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="referralLink" readonly value="{{$referral_url}}">
-                            <div class="input-group-append">
-                                <button class="btn btn-sm btn-primary" onclick="copyReferralLink()">
-                                    <i class="bx bx-copy"></i> Copy
-                                </button>
-                            </div>
+                            @if ($referral_url)
+                                <input type="text" class="form-control" id="referralLinks" readonly value="{{$referral_url}}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-sm btn-primary" onclick="copyReferralLink()">
+                                        <i class="bx bx-copy"></i> Copy
+                                    </button>
+                                </div>
+                            @else
+                                <form method="post" action="{{ route('referral.code') }}">
+                                    @csrf
+                                    @method('post')
+                                    {{ __('no referral code.') }}
+                                    <br>
+                                    <input type="hidden" name="generateCode" value="generateCode">
+                                    <button class="btn btn-sm btn-primary">
+                                        <i class="bx bx-plus-circle"></i> Crear Codigo de Referido
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </li>
                 </ul>

@@ -88,5 +88,6 @@
     "Forward Pin": "Reenviar pin",
     "the security pin has been sent to your email":"el pin de seguridad, ha sido reenviado a su correo",
     "Referral":"Referido",
-    "Referral List.":"Lista de Referidos"
+    "Referral List.":"Lista de Referidos",
+    "no referral code.":"No tiene codigo de referido, dele click al boton para crear un codigo de referido."
 }

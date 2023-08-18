@@ -21,6 +21,27 @@ class ReferralController extends Controller
         return $code;
     }
 
+    public function generateReferralCode(Request $request)
+    {
+        $c = $this->getUniqueReferralCode();
+        $data = [
+            'user_id' => Auth::user()->id,
+            'referral_code' => $c
+        ];
+        $new = Referral::create($data);
+
+        $rs = $this->index(true);
+        return back()->with([
+            'user' => $rs["user"],
+            'asignProfile' => $rs["asignProfile"],
+            'asignPin' => $rs["asignPin"],
+            'membership' => $rs["membership"],
+            'father' => $rs["father"],
+            'rcount' => $rs["rcount"],
+            'referral_url' => $rs["referral_url"],
+        ]);
+    }
+
     public function valitCode($data)
     {
         return Referral::where('referral_code', $data)->exists();
@@ -63,46 +84,72 @@ class ReferralController extends Controller
         }  
     }
 
-    public function index()
+    public function index($invoker = false)
     {
-        $rs = Referral::where('user_id', Auth::user()->id)->get();
-        $rurl = Referral::where('referral_code', '!=', null)->where('user_id', Auth::user()->id)->first();
-        $url = url("/register/{$rurl->referral_code}");
+        $id = Auth::user()->id;
+        $rs = Referral::where('user_id', $id)->get();
+        $rurl = Referral::where('referral_code', '!=', null)->where('user_id', $id)->first();
+        $url = false;
+        if ($rurl != null) {
+            $url = url("/register/{$rurl->referral_code}");
+        }
         $rcount = count($rs);
         $father = [];
+        $i = 0;
         foreach ($rs as $key => $value) {
             $child = User::where('id', $value->child)->first();
-            $father[$key]['child'] = $child;
-            if ($value->grandchild != null) {
-                $grandchild = User::where('id', $value->grandchild)->first();
-                $data = [
-                    'name' => $grandchild->name ?? '',
-                    'lastName' => $grandchild->lastName ?? '',
-                ];
-                $father[$key]['child']['grandchild'] = (object)$data;
-            } else {
-                $data = [
-                    'name' => null,
-                    'lastName' => null,
-                ];
-                $father[$key]['child']['grandchild'] = (object)$data;
-            }
+            if ($child != null) {
+                $father[$key]['child']['name'] = $child->name ?? '';
+                $father[$key]['child']['lastName'] = $child->lastName ?? '';
+                if ($value->grandchild != null) {
+                    $grandchild = User::where('id', $value->grandchild)->first();
+                    $father[$key]['child']['grandchild']['name'] = $grandchild->name ?? '';
+                    $father[$key]['child']['grandchild']['lastName'] = $grandchild->lastName ?? '';
+                } else {
+                    $father[$key]['child']['grandchild']['name'] = null;
+                    $father[$key]['child']['grandchild']['lastName'] = null;
+                }
+            }else{
+                $father[$key]['child']['name'] = null;
+                $father[$key]['child']['lastName'] = null;
+                $father[$key]['child']['grandchild']['name'] = null;
+                $father[$key]['child']['grandchild']['lastName'] = null;
+            }            
+            $i++;
         }
-
-        $id = Auth::user()->id;
         $asignProfile = AsignProfile::where('user_id', $id)->first();
         $asignPin = AsingPin::where('user_id', $id)->first();
         $membership = OrderPayment::where('user_id', $id)
-                                    ->where('type', 'membership')
-                                    ->first();
-        return view('profile.referral', [
-            'user' => Auth::user(),
-            'asignProfile' => $asignProfile,
-            'asignPin' => $asignPin,
-            'membership' => $membership,
-            'father' => $father,
-            'rcount' => $rcount,
-            'referral_url' => $url,
-        ]);
+                                        ->where('type', 'membership')
+                                        ->first();
+        $rurl = Referral::where('referral_code', '!=', null)
+                        ->where('user_id', $id)
+                        ->first();
+        $url = false;
+        if ($rurl != null) {
+            $url = url("/register/{$rurl->referral_code}");
+        }                        
+        if (!$invoker) {
+            return view('profile.referral', [
+                'user' => Auth::user(),
+                'asignProfile' => $asignProfile,
+                'asignPin' => $asignPin,
+                'membership' => $membership,
+                'father' => $father,
+                'rcount' => $rcount,
+                'referral_url' => $url,
+            ]);
+        }else{
+            return [
+                'user' => Auth::user(),
+                'asignProfile' => $asignProfile,
+                'asignPin' => $asignPin,
+                'membership' => $membership,
+                'father' => $father,
+                'rcount' => $rcount,
+                'referral_url' => $url,
+            ];
+        }
+
     }
 }

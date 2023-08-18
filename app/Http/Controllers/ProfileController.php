@@ -30,7 +30,10 @@ class ProfileController extends Controller
         $rurl = Referral::where('referral_code', '!=', null)
                         ->where('user_id', $id)
                         ->first();
-        $url = url("/register/{$rurl->referral_code}");
+        $url = false;
+        if ($rurl != null) {
+            $url = url("/register/{$rurl->referral_code}");
+        }
         return [$asignProfile,$asignPin,$asignedMembership,$url];
     }
 

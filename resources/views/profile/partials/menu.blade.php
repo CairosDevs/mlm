@@ -81,7 +81,7 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <div class="input-group">
                             @if ($referral_url)
-                                <input type="text" class="form-control" id="referralLinks" readonly value="{{$referral_url}}">
+                                <input type="text" class="form-control" id="referralLink" readonly value="{{$referral_url}}">
                                 <div class="input-group-append">
                                     <button class="btn btn-sm btn-primary" onclick="copyReferralLink()">
                                         <i class="bx bx-copy"></i> Copy

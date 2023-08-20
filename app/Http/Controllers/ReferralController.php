@@ -59,16 +59,13 @@ class ReferralController extends Controller
 
         $old = Referral::where('referral_code', $code)->first();
         if ($old->child == null) {       
-            //abuelo
-            Referral::where('grandchild', '=', null)->where('child', $old->user_id)->update(['grandchild' => $id]);
-
             Referral::where('referral_code', $code)->update(['child' => $id]);
         }
-        if ($old->grandchild == null) {
+        if ($old->child != null && $old->grandchild == null) {
             //abuelo
             Referral::where('grandchild', '=', null)->where('child', $old->user_id)->update(['grandchild' => $id]);
 
-            Referral::where('user_id', $old->user_id)->update(['grandchild' => $id]);
+            Referral::where('user_id', $old->user_id)->where('grandchild', '=', null)->update(['grandchild' => $id]);
         } 
         if ($old->child != null && $old->grandchild != null) {
             $grandchild = Referral::where('user_id', $old->user_id)->where('grandchild', null)->first();

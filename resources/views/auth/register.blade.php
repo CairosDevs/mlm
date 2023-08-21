@@ -81,12 +81,13 @@
 
                                                 <div class="col-12">
                                                     <div class="flex items-center justify-start mt-4">
-                                                        <div class="captcha">
+                                                        <div class="captcha text-center">
                                                             <span>{!! captcha_img('flat') !!}</span>
+                                                            <x-primary-button type="button" class="btn btn-danger reload" id="reload" onclick="reloadCaptcha()">
+                                                                &#x21bb;
+                                                                </x-primary-button>
                                                         </div>
-                                                        <x-primary-button type="button" class="btn btn-danger reload" id="reload" onclick="reloadCaptcha()">
-                                                            &#x21bb;
-                                                        </x-primary-button>
+                                                        
                                                     </div>
                                                     <div class="mt-4">
                                                         <input type="text" class="form-control rounded-5" name="captcha">

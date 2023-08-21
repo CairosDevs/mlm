@@ -20,7 +20,7 @@
                 </a>
             </li>
         @if( $UserStatus['perfilActivo'])
-            
+            @if(Auth::user()->hasRole('Customer') )
             <li>
                 <a href="{{ route('ewallets.index') }}">
                     <div class="parent-icon"> <i class="bx bx-wallet"></i>
@@ -28,6 +28,7 @@
                     <div class="menu-title">{{ __('Wallets') }}</div>
                 </a>
             </li>
+            @endif
             @if(Auth::user()->hasRole('Customer') )
             <li>
                 <a href="{{ route('ewallets.depositos_retiros') }}">
@@ -47,7 +48,35 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('ewallets.logro_metas') }}">
+                    <div class="parent-icon"> <i class="bx bx-wallet"></i>
+                    </div>
+                    <div class="menu-title">{{ __('Logros Meta') }}</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('ewallets.solicitudes_retiros') }}">
+                    <div class="parent-icon"> <i class="bx bx-wallet"></i>
+                    </div>
+                    <div class="menu-title">{{ __('Solicitudes de retiros') }}</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('ewallets.solicitudes_pendientes') }}">
+                    <div class="parent-icon"> <i class="bx bx-wallet"></i>
+                    </div>
+                    <div class="menu-title">{{ __('Solicitudes pendientes') }}</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('ewallets.solicitudes_pagadas') }}">
+                    <div class="parent-icon"> <i class="bx bx-wallet"></i>
+                    </div>
+                    <div class="menu-title">{{ __('Solicitudes pagadas') }}</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('profile.list.validation') }}">
                     <div class="parent-icon"> <i class="bx bx-user-circle"></i>
                     </div>
                     <div class="menu-title">{{ __('Users & Roles') }}</div>

@@ -39,6 +39,40 @@ class EWalletController extends Controller
         return view('ewallets.admin.capital_garantia', compact('allDeposits', 'withdraws', 'transations'));
     }
 
+    public function logro_metas()
+    {
+        $allDeposits = OrderPayment::where('type', 'deposit')->sum('amount');
+        $withdraws = OrderPayment::where('user_id', Auth::user()->id)->where('type', 'withdraw')->paginate(5);
+        $transations = OrderPayment::where('type', '!=', 'membership')->paginate(5);
+
+
+        return view('ewallets.admin.logro_metas', compact('allDeposits', 'withdraws', 'transations'));
+    }
+
+    public function solicitudes_retiros()
+    {
+        $withdraws = OrderPayment::where('type', 'withdraw')->where('status', 'requested')->paginate(5);
+
+
+        return view('ewallets.admin.solicitudes_retiros', compact('withdraws'));
+    }
+
+    public function solicitudes_pendientes()
+    {
+        $withdraws = OrderPayment::where('type', 'withdraw')->where('status', 'pending')->paginate(5);
+
+
+        return view('ewallets.admin.solicitudes_pendientes', compact('withdraws'));
+    }
+
+    public function solicitudes_pagadas()
+    {
+        $withdraws = OrderPayment::where('type', 'withdraw')->where('status', 'paid')->paginate(5);
+
+
+        return view('ewallets.admin.solicitudes_pagadas', compact('withdraws'));
+    }
+
 
 
     /**

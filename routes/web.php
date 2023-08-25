@@ -82,6 +82,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/ewallets', [EwalletController::class, 'index'])->name('ewallets.index');
     Route::get('/depositos_retiros', [EwalletController::class, 'depositos_retiros'])->name('ewallets.depositos_retiros');
+    Route::get('/capital_garantia', [EwalletController::class, 'capital_garantia'])->name('ewallets.capital_garantia');
+    Route::get('/logro_metas', [EwalletController::class, 'logro_metas'])->name('ewallets.logro_metas');
+
+    Route::get('/solicitudes_retiros', [EwalletController::class, 'solicitudes_retiros'])->name('ewallets.solicitudes_retiros');
+    Route::get('/solicitudes_pendientes', [EwalletController::class, 'solicitudes_pendientes'])->name('ewallets.solicitudes_pendientes');
+    Route::get('/solicitudes_pagadas', [EwalletController::class, 'solicitudes_pagadas'])->name('ewallets.solicitudes_pagadas');
+
+
 
     Route::post('/ewallets', [EwalletController::class, 'store'])->name('ewallets.store');
 

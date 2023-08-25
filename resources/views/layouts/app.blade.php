@@ -87,7 +87,7 @@
     <script src="{{ asset('template/assets/plugins/apexcharts-bundle/js/apexcharts.min.js') }}"></script>
     <script src="{{ asset('template/assets/plugins/chartjs/js/Chart.min.js') }}"></script>
     <script src="{{ asset('template/assets/plugins/chartjs/js/Chart.extension.js') }}"></script>
-    {{-- <script src="{{ asset('template/assets/js/index2.js') }}"></script> --}}
+    <script src="{{ asset('template/assets/js/index2.js') }}"></script>
     <!--app JS-->
     <script src="{{ asset('template/assets/js/app.js') }}"></script>
     <script src="{{ asset('template/assets/js/mlm.js') }}"></script>

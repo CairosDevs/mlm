@@ -73,7 +73,7 @@ class PaymentController extends Controller
                 'user_id' => Auth::user()->id,
                 'amount' => $request->amount,
                 'type' => $request->type,
-                'status' => 'pending',
+                'status' => 'requested',
             ]);
 
             return view('dashboard')->with('success', 'retiro temporal exitoso');

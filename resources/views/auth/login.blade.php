@@ -42,9 +42,7 @@
                                             <div class="captcha">
                                                 <span>{!! captcha_img('flat') !!}</span>
                                             </div>
-                                            <x-primary-button type="button" class="btn btn-danger reload" id="reload" onclick="reloadCaptcha()">
-                                                &#x21bb;
-                                            </x-primary-button>
+                                            
                                         </div>
                                         <div class="mt-4 col-12">
                                             <input type="text" class="form-control rounded-5" name="captcha" placeholder="Captcha">
@@ -69,7 +67,7 @@
                                             <p class="mb-0">{{ __("Don't have an account yet?") }} <a href="{{ route('register') }}">{{ __('Sign up here') }}</a></p>
                                         </div>
                                         <div class="col-12 text-center">
-                                            <p class="mb-0">v1.0.0</a></p>
+                                            <p class="mb-0">v0.4.1</a></p>
                                         </div>
 
                                     </form>

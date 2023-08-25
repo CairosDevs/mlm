@@ -51,34 +51,55 @@ class ReferralController extends Controller
     {
         // a los nuevos se crea su codigo de referido
         $c = $this->getUniqueReferralCode();
+
+        // hijo
         $data = [
             'user_id' => $id,
             'referral_code' => $c
         ];
         $new = Referral::create($data);
 
+        // padre
         $old = Referral::where('referral_code', $code)->first();
-        if ($old->child == null) {       
+        if ($old->child == null) {  
+            // guarda a su primer hijo     
             Referral::where('referral_code', $code)->update(['child' => $id]);
-        }
-        if ($old->child != null && $old->grandchild == null) {
-            //abuelo
-            Referral::where('grandchild', '=', null)->where('child', $old->user_id)->update(['grandchild' => $id]);
 
-            Referral::where('user_id', $old->user_id)->where('grandchild', '=', null)->update(['grandchild' => $id]);
-        } 
-        if ($old->child != null && $old->grandchild != null) {
-            $grandchild = Referral::where('user_id', $old->user_id)->where('grandchild', null)->first();
-            if ($grandchild != null) {
-                Referral::where('grandchild', null)->where('user_id', $old->user_id)->update(['grandchild' => $id]);
-            } else {
-                $data = [
-                    'user_id' => $old->user_id,
-                    'child' => $id,
-                ];
-                $new = Referral::create($data);
-            }
-        }  
+            // hijo buscando al padre
+            $father = Referral::where('grandchild', '=', null)->where('referral_code', $code)->first();
+            if ($father != null) {
+                // padre buscando al padre
+                $gradfather = Referral::where('grandchild', '=', null)->where('child', $father->user_id)->first();
+                Referral::where('grandchild', '=', null)->where('child', $father->user_id)->update(['grandchild' => $id]);
+            }  
+        } else {
+            // crea su segundo hijo
+            $data = [
+                'user_id' => $old->user_id,
+                'child' => $id,
+            ];
+            $new = Referral::create($data);
+        }
+
+
+        // if ($old->child != null && $old->grandchild == null) {
+        //     //abuelo
+        //     Referral::where('grandchild', '=', null)->where('child', $old->user_id)->update(['grandchild' => $id]);
+
+        //     Referral::where('user_id', $old->user_id)->where('grandchild', '=', null)->update(['grandchild' => $id]);
+        // } 
+        // if ($old->child != null && $old->grandchild != null) {
+        //     $grandchild = Referral::where('user_id', $old->user_id)->where('grandchild', null)->first();
+        //     if ($grandchild != null) {
+        //         Referral::where('grandchild', null)->where('user_id', $old->user_id)->update(['grandchild' => $id]);
+        //     } else {
+        //         $data = [
+        //             'user_id' => $old->user_id,
+        //             'child' => $id,
+        //         ];
+        //         $new = Referral::create($data);
+        //     }
+        // }  
     }
 
     public function index($invoker = false)

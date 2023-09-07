@@ -21,7 +21,10 @@ class AsingPinController extends Controller
 {
     public function index()
     {
-        return (string) Str::uuid();
+        $uuid = (string) Str::uuid();
+        $uuid  = substr($uuid, 0, 8);
+
+        return (string) $uuid;
     }
 
     public function forwardPin(Request $request)
@@ -92,27 +95,28 @@ class AsingPinController extends Controller
 
     public function validatePin($data)
     {
-        $asignPin = AsingPin::where('user_id',$data->user_id)->where('status',true)->first();
-        if ($asignPin != null) { 
+        $asignPin = AsingPin::where('user_id', $data->user_id)->where('status', true)->first();
+        if ($asignPin != null) {
             $this->validatePinSend();
             return false;
         }
         return true;
     }
 
-    public function validatePinSend() {
+    public function validatePinSend()
+    {
         $pin = $this->index();
         $id = Auth::user()->id;
         $email = Auth::user()->email;
         $name = Auth::user()->name;
         $lastName = Auth::user()->lastName;
-        $dataMail = [  
-            'pin' => $pin,       
+        $dataMail = [
+            'pin' => $pin,
             'email' => $email,
             'name' => $name,
             'lastName' => $lastName,
         ];
-        AsingPin::where('user_id',$id)->update(['pin' => $pin]);
+        AsingPin::where('user_id', $id)->update(['pin' => $pin]);
         $this->sendMsj($dataMail);
     }
 

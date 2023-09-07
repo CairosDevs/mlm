@@ -20,21 +20,21 @@
                                                 @csrf
 
                                                 <div class="col-sm-6">
-                                                    <label for="name" class="form-label">First Name</label>
-                                                    <input type="text" class="form-control rounded-5 @error('name') is-invalid @enderror" id="name" name="name" placeholder="Jhon" required>
+                                                    <label for="name" class="form-label">Nombre</label>
+                                                    <input type="text" class="form-control rounded-5 @error('name') is-invalid @enderror" id="name" name="name"  required>
                                                     @error('name')
                                                         <div id="validationName" class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <label for="lastName" class="form-label">Last Name</label>
-                                                    <input id="lastName" type="text" class="form-control rounded-5 @error('lastName') is-invalid @enderror" id="lastName" name="lastName" placeholder="Doe" required>
+                                                    <label for="lastName" class="form-label">Apellido</label>
+                                                    <input id="lastName" type="text" class="form-control rounded-5 @error('lastName') is-invalid @enderror" id="lastName" name="lastName" required>
                                                     @error('lastName')
                                                     <div id="validationLastName" class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                                 <div class="col-6">
-                                                    <label for="inputEmailAddress" class="form-label">Email Address</label>
+                                                    <label for="inputEmailAddress" class="form-label">Email</label>
                                                     <input type="email" class="form-control rounded-5 @error('email') is-invalid @enderror" id="email" name="email" required>
                                                     @error('email') 
                                                         <div id="validationEmail" class="invalid-feedback">{{ $message }}</div>
@@ -62,10 +62,10 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-12">
-                                                    <label for="inputChoosePassword" class="form-label">Password</label>
+                                                    <label for="inputChoosePassword" class="form-label">Contraseña</label>
                                                     <div class="input-group" id="show_hide_password">
                                                         <input type="password" class="form-control rounded-5 @error('password') is-invalid @enderror"
-                                                            id="password" name="password" placeholder="Enter Password">
+                                                            id="password" name="password" placeholder="Ingrese Contraseña">
                                                         @error('password')
                                                         <div id="validationPassword" class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
@@ -73,9 +73,9 @@
                                                 </div>
 
                                                 <div class="col-12">
-                                                    <label for="inputChoosePassword" class="form-label">Password confirmation</label>
+                                                    <label for="inputChoosePassword" class="form-label">Confirme contraseña</label>
                                                     <div class="input-group" >
-                                                        <input type="password" class="form-control rounded-5 @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Repeat Password">
+                                                        <input type="password" class="form-control rounded-5 @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Repita Contraseña">
                                                         @error('password_confirmation')
                                                         <div id="validationPasswordConfirmation" class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
@@ -84,19 +84,20 @@
 
                                                 <div class="col-12">
                                                     <div class="flex items-center justify-start mt-4">
-                                                        <div class="captcha">
+                                                        <div class="captcha text-center">
                                                             <span>{!! captcha_img('flat') !!}</span>
+                                                            <x-primary-button type="button" class="btn btn-danger reload" id="reload" onclick="reloadCaptcha()">
+                                                                &#x21bb;
+                                                            </x-primary-button>
                                                         </div>
-                                                        <x-primary-button type="button" class="btn btn-danger reload" id="reload" onclick="reloadCaptcha()">
-                                                            &#x21bb;
-                                                        </x-primary-button>
+
                                                     </div>
                                                     <div class="mt-4">
                                                         <input type="text" class="form-control rounded-5" name="captcha">
                                                         <x-input-error :messages="$errors->get('captcha')" class="mt-2" />
                                                     </div>
-                                                </div>                                               
-                                                
+                                                </div>
+
                                                 <div class="col-12">
                                                     <div class="d-grid">
                                                         <button type="submit" class="btn btn-gradient-info rounded-5"><i

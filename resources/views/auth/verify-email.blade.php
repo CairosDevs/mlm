@@ -5,26 +5,26 @@
                     <div class="col mx-auto">
                         <div class="card rounded-4">
                             <div class="card-body">
-                                <div class="border p-4 rounded-4">
+                                <div class="border p-4 rounded-4 text-center">
         
                                     <div class="mb-4 text-sm text-gray-600">
-                                        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we
-                                        just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+                                        {{ __("Gracias por registrarte! Antes de comenzar, ¿podría verificar su dirección de correo electrónico haciendo clic en el
+                                        enlace que ¿Te acabo de enviar un correo electrónico? Si no recibió el correo electrónico, con gusto le enviaremos otro.") }}
                                     </div>
                                     
                                     @if (session('status') == 'verification-link-sent')
                                     <div class="mb-4 font-medium text-sm text-green-600">
-                                        {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+                                        {{ __('Se ha enviado un nuevo enlace de verificación a la dirección de correo electrónico que proporcionó durante el registro.') }}
                                     </div>
                                     @endif
                                     
-                                    <div class="mt-4 flex items-center justify-between">
+                                    <div class="mt-4 flex items-center justify-between text-center">
                                         <form method="POST" action="{{ route('verification.send') }}">
                                             @csrf
                                     
                                             <div>
                                                 <button class="btn btn-primary">
-                                                    {{ __('Resend Verification Email') }}
+                                                    {{ __('Reenviar correo electrónico de verificación') }}
                                                 </button>
                                             </div>
                                         </form>

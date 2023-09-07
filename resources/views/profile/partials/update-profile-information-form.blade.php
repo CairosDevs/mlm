@@ -39,7 +39,7 @@
             </div>
             <div class="col-sm-9 text-secondary">
                 <input id="phone" name="phone" type="text" class="form-control" value="{{old('phone') ?? $user->phone}}" required autocomplete="Phone" />
-                <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                <x-input-error :messages="$errors->get('phone')" class="mt-2"/>
             </div>
         </div>
         <div class="row mb-3">
@@ -47,7 +47,7 @@
                 <h6 class="mb-0">{{ __('Sponsor Code') }}</h6>
             </div>
             <div class="col-sm-9 text-secondary">
-                <input id="sponsorCode" name="sponsorCode" type="text" class="form-control" value="{{old('sponsorCode') ?? $user->sponsorCode}}" readonly />
+                <input id="sponsorCode" name="sponsorCode" type="text" class="form-control" value="{{old('sponsorCode') ?? $user->sponsorCode}}" disabled />
             </div>
         </div>
         <div class="row mb-3">
@@ -55,7 +55,7 @@
                 <h6 class="mb-0">{{ __('Email') }}</h6>
             </div>
             <div class="col-sm-9 text-secondary">
-                <input id="email" name="email" type="email" class="form-control" value="{{old('email') ?? $user->email}}" readonly />
+                <input id="email" name="email" type="email" class="form-control" value="{{old('email') ?? $user->email}}" disabled />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
         </div>

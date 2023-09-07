@@ -24,14 +24,20 @@
                  <img width="30px" src="{{ Storage::disk('local')->url($asignProfile->dni) }}">
             </div>
             <div class="col-sm-8 text-secondary">
+                <label for="dni" class="custom-file-upload">
+                    Seleccionar archivo
+                </label>
                 <input id="dni" name="dni" type="file" class="form-control" value="{{old('dni') ?? $asignProfile->dni ?? ''}}"
-                    required autocomplete="Name" />
+                    required autocomplete="Name" style="display: none;" />
                 <x-input-error class="mt-2" :messages="$errors->get('dni')" />
             </div>
             @else
             <div class="col-sm-9 text-secondary">
+            <label for="dni" class="custom-file-upload">
+                Seleccionar archivo
+            </label>
                 <input id="dni" name="dni" type="file" class="form-control" value="{{old('dni') ?? $asignProfile->dni ?? ''}}"
-                    required autocomplete="Name" />
+                    required autocomplete="Name" style="display: none;" />
                 <x-input-error class="mt-2" :messages="$errors->get('dni')" />
             </div>
             @endif
@@ -94,21 +100,26 @@
                     
                 </div>
                 <div class="col-sm-8 text-secondary">
+                    <label for="digitalContract" class="custom-file-upload">
+                        Seleccionar archivo
+                    </label>
                     <input id="digitalContract" name="digitalContract" type="file" class="form-control"
                         value="{{old('digitalContract') ?? $asignProfile->digitalContract ?? ''}}" required
-                        autocomplete="Digital Contract" />
+                        autocomplete="Digital Contract" style="display:none;"/>
                     <x-input-error class="mt-2" :messages="$errors->get('digitalContract')" />
-                    <span><a href="{{ asset('contract/contrato.pdf') }}" download rel="noopener noreferrer">{{ __('Download contract to
-                            sign')}}</a></span>
+                    <span><a href="{{ asset('contract/contrato.pdf') }}" download rel="noopener noreferrer">{{ __('Descargue documento para firmar')}}</a></span>
                 </div>
             @else
                 <div class="col-sm-9 text-secondary">
+                    <label for="digitalContract" class="custom-file-upload">
+                        Seleccionar archivo
+                    </label>
                     <input id="digitalContract" name="digitalContract" type="file" class="form-control"
                         value="{{old('digitalContract') ?? $asignProfile->digitalContract ?? ''}}" required
-                        autocomplete="Digital Contract" />
+                        autocomplete="Digital Contract" style="display:none;"/>
                     <x-input-error class="mt-2" :messages="$errors->get('digitalContract')" />
-                    <span><a href="{{ asset('contract/contrato.pdf') }}" download rel="noopener noreferrer">{{ __('Download contract to
-                            sign')}}</a></span>
+                        <br>
+                    <span><a href="{{ asset('contract/contrato.pdf') }}" download rel="noopener noreferrer">{{ __('Descargue documento para firmar')}}</a></span>
                 </div>
             @endif
             

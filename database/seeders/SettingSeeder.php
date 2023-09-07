@@ -16,12 +16,14 @@ class SettingSeeder extends Seeder
     public function run()
     {
         Setting::set('app_name', 'MLM');
-        Setting::set('aurpay_API_key', 'actualice su api key');
-        Setting::set('aurpay_access_token', 'actualice su Access Token');
-        Setting::set('rango_1_from', '10');
-        Setting::set('rango_1_to', '50');
-        Setting::set('rango_2_from', '51');
-        Setting::set('rango_2_to', '1000');
+        Setting::set('wallet_address_TRC_20', 'actualice su direccion wallet');
+        Setting::set('nowpayments_API_key', 'actualice su api key');
+        Setting::set('nowpayments_access_token', 'actualice su Access Token');
+        Setting::set('rango_bajo_from', '1000');
+        Setting::set('rango_bajo_to', '50000');
+        Setting::set('porcentaje_rango_bajo', '10');
+        Setting::set('rango_alto_from', '50001');
+        Setting::set('porcentaje_rango_alto', '16');
         Setting::save();
     }
 }

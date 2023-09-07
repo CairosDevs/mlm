@@ -42,7 +42,7 @@ Route::get('/tx/{op}/{amount}', function ($op, $amount) {
 
 Route::get('/pinView/{id}/{type}', [AsingPinController::class, 'pinView'])->name('pinView');
 
-Route::get('/ipn_novo', [PaymentController::class, 'ipnHandler']);
+Route::post('/ipn_novo', [PaymentController::class, 'ipnHandler']);
 
 
 Route::get('/dashboard', function () {

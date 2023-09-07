@@ -32,23 +32,25 @@
                                         <div class="col-12">
     
                                             <input type="password" class="form-control rounded-5" @error('password') is-invalid @enderror name="password" id="password"
-                                                placeholder="Password">
+                                                placeholder="Contraseña">
                                                 @error('password') 
                                                 <div id="validationEmail" class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
 
                                         <div class="flex items-center justify-start mt-4">
-                                            <div class="captcha">
+                                            <div class="captcha text-center">
                                                 <span>{!! captcha_img('flat') !!}</span>
+                                                <x-primary-button type="button" class="btn btn-danger reload" id="reload" onclick="reloadCaptcha()">
+                                                    &#x21bb;
+                                                </x-primary-button>
                                             </div>
-                                            
                                         </div>
+                                        
                                         <div class="mt-4 col-12">
                                             <input type="text" class="form-control rounded-5" name="captcha" placeholder="Captcha">
                                             <x-input-error :messages="$errors->get('captcha')" class="mt-2" />
                                         </div>
-    
     
                                         <div class="col-12">
                                             <div class="d-grid">

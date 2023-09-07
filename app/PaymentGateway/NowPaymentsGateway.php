@@ -115,7 +115,7 @@ class NowPaymentsGateway
                         "pay_amount" => (float) $amount,
                         "price_currency" => "usd",
                         "pay_currency" => "usdt",
-                        "ipn_callback_url" => "http://192.168.0.105/ipn_novo/",
+                        // "ipn_callback_url" => "http://157.230.10.32:81/ipn_novo",
                         "order_id" => "RGDBP-21314",
                         // "case" => "failed",
                         "case" => "success",
@@ -123,7 +123,7 @@ class NowPaymentsGateway
                     //https://api.nowpayments.io/v1/payment
                     //https://api-sandbox.nowpayments.io/v1/payment
                     $response = Http::withHeaders($headers)->post('https://api-sandbox.nowpayments.io/v1/payment', $body);
-                    
+                    // dd($response->getBody());
                     $data = json_decode($response->getBody(), true);
                     
                     return $data;

@@ -164,6 +164,6 @@ class PaymentController extends Controller
 
     public function ipnHandler(Request $request)
     {
-        Log::debug("Hola", [$request->all()]);
+        Log::debug("Notificacion ", [$request->all()]);
     }
 }

@@ -28,7 +28,7 @@
                         @method('PUT')
 
                         <button type="submit" class="btn btn-primary">{{  __('Aprove') }}</button>
-
+                        <button class="btn btn-danger">{{ __('Rechazar') }}</button>
                     </form>
                 </div>
 
@@ -113,7 +113,7 @@
                                         </div>
                                         <div class="col-sm-9 text-secondary">
                                             <input id="Birthdate" name="birthdate" type="date" class="form-control"
-                                                value="$user->birthdate" disabled />
+                                                value="{{ $user->birthdate }}" disabled />
                                         </div>
                                     </div>
                                     <div class="row mb-3">

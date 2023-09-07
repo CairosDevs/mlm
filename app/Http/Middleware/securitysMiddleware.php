@@ -19,14 +19,14 @@ class securitysMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        
         $data = AsingPin::where('user_id', Auth::user()->id)->first();
         if ($data == null) {
-            // return $next($request);
             return redirect('dashboard');
         } else {
             $apc = new apc();
             $apc->validatePinSend();
             return redirect('pinView/'.$data->id.'/pinView');
-        }       
+        }
     }
 }

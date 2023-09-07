@@ -37,6 +37,10 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
+    {{-- toastr --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @livewireStyles
 
@@ -127,6 +131,19 @@
                     icon: "error",
                 });
             }
+
+            var info = "{{ session('info') }}";
+            
+            if (info) {
+                Swal.fire({
+                title: "Atención!",
+                text: info,
+                icon: "info",
+            });
+            }
+            
+            $.get('isProfileAproved');
+            
 
 		});
     </script>

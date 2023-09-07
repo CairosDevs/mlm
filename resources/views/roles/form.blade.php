@@ -72,18 +72,26 @@
                 const users = @json($users);
         
                 // Escuchar el evento 'change' del select
+                const roleNames = {
+                'System': 'Sistemas',
+                'Admin': 'Admin',
+                'Operator': 'Operador',
+                'Customer': 'Socio'
+                };
+                
                 select.on('change', function() {
-                    // Obtener el id del usuario seleccionado
-                    let userId = $(this).val();
-        
-                    // Buscar el usuario en la lista de usuarios
-                    let user = users.find(user => user.id == userId);
-       
-                    // Actualizar la sección de roles con la información del usuario
-                    let rolesList = '<ul>';                    
-                    rolesList += '<li>' + user.roles[0].name + '</li>';                    
+                // Obtener el id del usuario seleccionado
+                let userId = $(this).val();
+                
+                // Buscar el usuario en la lista de usuarios
+                let user = users.find(user => user.id == userId);
+                
+                // Actualizar la sección de roles con la información del usuario
+                let rolesList = '<ul>';
+                    let roleName = roleNames[user.roles[0].name];
+                    rolesList += '<li>' + roleName + '</li>';
                     rolesList += '</ul>';
-                    rolesSection.html(rolesList);
+                rolesSection.html(rolesList);
                 });
             });
                 

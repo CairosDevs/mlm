@@ -18,8 +18,12 @@ class NowPaymentsGateway
     protected $now_payments_api_key_dev;
     protected $now_payments_ipn_key_dev;
 
+    protected $now_payments_base_url;
+
     public function __construct()
     {
+        $this->now_payments_base_url = 'https://api.nowpayments.io/';
+
         $this->now_payments_enviroment = config('services.nowpayments.enviroment');
 
         //prod
@@ -44,7 +48,7 @@ class NowPaymentsGateway
     {
 
         try {
-            $response = Http::get('https://api-sandbox.nowpayments.io/v1/status');
+            $response = Http::get($this->now_payments_base_url.'v1/status');
             $data = json_decode($response->getBody(), true);
 
             if ($data['message'] == 'OK') {
@@ -67,9 +71,9 @@ class NowPaymentsGateway
     {
         try {
             $headers = [
-                'x-api-key' => $this->now_payments_api_key_dev,
+                'x-api-key' => $this->now_payments_api_key,
             ];
-            $response = Http::withHeaders($headers)->get('https://api-sandbox.nowpayments.io/v1/payment/'.$orderId);
+            $response = Http::withHeaders($headers)->get($this->now_payments_base_url.'payment/'.$orderId);
             $data = json_decode($response->getBody(), true);
 
             switch ($data['payment_status']) {
@@ -106,7 +110,7 @@ class NowPaymentsGateway
         if ($this->is_available()) {
             try {
                     $headers = [
-                        'x-api-key' => $this->now_payments_api_key_dev,
+                        'x-api-key' => $this->now_payments_api_key,
                         'Content-Type' => 'application/json',
                     ];
 
@@ -115,16 +119,12 @@ class NowPaymentsGateway
                         "pay_amount" => (float) $amount,
                         "price_currency" => "usd",
                         "pay_currency" => "usdt",
-                        // "ipn_callback_url" => "http://157.230.10.32:81/ipn_novo",
-                        "order_id" => "RGDBP-21314",
-                        // "case" => "failed",
-                        "case" => "success",
                     ];
-                    //https://api.nowpayments.io/v1/payment
-                    //https://api-sandbox.nowpayments.io/v1/payment
-                    $response = Http::withHeaders($headers)->post('https://api-sandbox.nowpayments.io/v1/payment', $body);
-                    // dd($response->getBody());
+                    $response = Http::withHeaders($headers)->post($this->now_payments_base_url.'v1/payment', $body);
+                   
                     $data = json_decode($response->getBody(), true);
+
+                    // dd($data);
                     
                     return $data;
             } catch (\Exception $e) {

@@ -41,10 +41,10 @@
             
             @if(Auth::user()->hasRole('Admin') )
             <li>
-                <a href="{{ route('ewallets.capital_garantia') }}">
+                <a href="{{ route('ewallets.capital') }}">
                     <div class="parent-icon"> <i class="bx bx-wallet"></i>
                     </div>
-                    <div class="menu-title">{{ __('Capital Garantia') }}</div>
+                    <div class="menu-title">{{ __('Capital') }}</div>
                 </a>
             </li>
             <li>

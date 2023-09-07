@@ -72,6 +72,10 @@ html.minimal-theme .page-footer{
 	background: #f7f7ff;
 }
 
+.metismenu a {
+	text-decoration: none !important;
+}
+
 @media screen and (min-width:1025px) {
 	html.minimal-theme .wrapper.toggled.sidebar-hovered .sidebar-wrapper {
 		box-shadow: 0 .3rem .8rem rgba(0, 0, 0, .12)!important

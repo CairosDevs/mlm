@@ -42,6 +42,7 @@ class PaymentController extends Controller
     {
         if ($request->type != 'withdraw') {
             $data = $this->paymentService->charge($request->amount);
+            
             if (isset($data['status']) && $data['status'] == false) {
                 return back()->with(['error' => $data['message']]);
             }

@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\EWalletController;
 use App\Http\Controllers\ReferralController;
+use App\Http\Controllers\UserNotificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -82,7 +83,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/ewallets', [EwalletController::class, 'index'])->name('ewallets.index');
     Route::get('/depositos_retiros', [EwalletController::class, 'depositos_retiros'])->name('ewallets.depositos_retiros');
-    Route::get('/capital_garantia', [EwalletController::class, 'capital_garantia'])->name('ewallets.capital_garantia');
+    Route::get('/capital', [EwalletController::class, 'capital_garantia'])->name('ewallets.capital');
     Route::get('/logro_metas', [EwalletController::class, 'logro_metas'])->name('ewallets.logro_metas');
 
     Route::get('/solicitudes_retiros', [EwalletController::class, 'solicitudes_retiros'])->name('ewallets.solicitudes_retiros');
@@ -93,6 +94,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/ewallets', [EwalletController::class, 'store'])->name('ewallets.store');
 
+    Route::get('isProfileAproved', [UserNotificationController::class, 'isProfileAproved'])->name('global.isProfileAproved');
 
     /**
     * TODO

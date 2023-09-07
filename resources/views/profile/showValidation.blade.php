@@ -27,8 +27,10 @@
                         @csrf
                         @method('PUT')
 
-                        <button type="submit" class="btn btn-primary">{{  __('Aprove') }}</button>
-                        <button class="btn btn-danger">{{ __('Rechazar') }}</button>
+                        <input type="hidden" id="status" name="status" value="">
+                        <button type="submit" class="btn btn-primary" onclick="setStatus('aprobado')">{{ __('Aprove') }}</button>
+                        <button type="submit" class="btn btn-danger" onclick="setStatus('rechazo')">{{ __('Rechazar') }}</button>
+
                     </form>
                 </div>
 
@@ -148,10 +150,12 @@
     <!--end page wrapper -->
 
 <script>
-        $(document).ready(function () {
 
+    function setStatus(status) {
+        document.getElementById('status').value = status;
+    }
     
-    		});
-    </script>
+</script>
+
 </x-app-layout>
 

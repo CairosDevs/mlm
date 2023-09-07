@@ -294,9 +294,14 @@ class ProfileController extends Controller
     public function updateStatusDocs(Request $request, $id)
     {
         $user = AsignProfile::where('id', $id)->first();
-        $user->status = true;
+        $user->status = $request->input('status') == 'aprobado' ? true : false;
+        $user->is_reviewed = true;
         $user->save();
 
-        return Redirect::route('profile.show.validation', $user->id)->with('sucess', 'perfil activado');
+        if ($user->status) {
+            return Redirect::route('profile.show.validation', $user->id)->with('success', 'Perfil activado');
+        } else {
+            return Redirect::route('profile.show.validation', $user->id)->with('info', 'Usuario notificado de rechazo');
+        }
     }
 }

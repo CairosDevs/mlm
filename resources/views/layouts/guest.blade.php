@@ -26,7 +26,7 @@
     <link href="{{ asset('template/assets/css/icons.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @livewireStyles
     @include('sweetalert::alert')
 </head>

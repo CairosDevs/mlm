@@ -99,6 +99,6 @@ class EWalletController extends Controller
         }
         
         return redirect()->route('ewallets.index')->with('ewallet', $ewallet)
-                                  ->with('success', 'La dirección de su wallet fue almacenada');
+                                  ->with('sweet-success', 'La dirección de su wallet fue almacenada');
     }
 }

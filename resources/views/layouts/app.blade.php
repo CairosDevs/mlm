@@ -111,7 +111,7 @@
 				}
 			});
 
-            var success = "{{ session('success') }}";
+            var success = "{{ session('sweet-success') }}";
 
             if (success) {
                 Swal.fire({
@@ -122,7 +122,7 @@
                 
             }
             
-            var error = "{{ session('error') }}";
+            var error = "{{ session('sweet-error') }}";
 
             if (error) {
                 Swal.fire({
@@ -132,7 +132,7 @@
                 });
             }
 
-            var info = "{{ session('info') }}";
+            var info = "{{ session('sweet-info') }}";
             
             if (info) {
                 Swal.fire({

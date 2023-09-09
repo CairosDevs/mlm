@@ -299,9 +299,9 @@ class ProfileController extends Controller
         $user->save();
 
         if ($user->status) {
-            return Redirect::route('profile.show.validation', $user->id)->with('success', 'Perfil activado');
+            return Redirect::route('profile.list.validation', $user->id)->with('sweet-success', 'Perfil activado');
         } else {
-            return Redirect::route('profile.show.validation', $user->id)->with('info', 'Usuario notificado de rechazo');
+            return Redirect::route('profile.list.validation', $user->id)->with('sweet-info', 'Usuario notificado de rechazo');
         }
     }
 }

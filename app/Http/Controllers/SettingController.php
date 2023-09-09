@@ -36,7 +36,7 @@ class SettingController extends Controller
 
         return redirect()->route('setting.index')
                          ->with('config_variables', $config_variables)
-                         ->with('success', 'Variable almacenada');
+                         ->with('sweet-success', 'Variable almacenada');
     }
 
 
@@ -53,7 +53,7 @@ class SettingController extends Controller
                                     ->update([ 'value' => $request->value ]);
         $config_variables = DB::table('settings')->get();
         return redirect()->route('setting.index')->with('config_variables', $config_variables)
-                                    ->with('success', 'Variable actualizada');
+                                    ->with('sweet-success', 'Variable actualizada');
     }
 
     /**
@@ -68,6 +68,6 @@ class SettingController extends Controller
 
         $config_variables = DB::table('settings')->get();
         return redirect()->route('setting.index')->with('config_variables', $config_variables)
-                                    ->with('success', 'Variable eliminada');
+                                    ->with('sweet-success', 'Variable eliminada');
     }
 }

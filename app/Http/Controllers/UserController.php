@@ -64,7 +64,7 @@ class UserController extends Controller
         $users = User::paginate(10);
 
         return redirect()->route('users.index')->with('users', $users)
-                                  ->with('success', 'Usuario creado con éxito');
+                                  ->with('sweet-success', 'Usuario creado con éxito');
     }
 
     /**
@@ -119,7 +119,7 @@ class UserController extends Controller
 
         if (!$user) {
             // Token is invalid
-            return redirect('/')->with('error', 'Invalid confirmation token.');
+            return redirect('/')->with('sweet-error', 'Invalid confirmation token.');
         }
 
     // Confirm the user's account

@@ -84,7 +84,7 @@ class PaymentController extends Controller
 
         if (!isset($data['error'])) {
             if ($request->type == 'withdraw') {
-                return view('dashboard')->with('success', 'retiro temporal exitoso');
+                return view('dashboard')->with('sweet-success', 'retiro temporal exitoso');
             } else {
                 return view('payment.form')->with('payment_data', $data);
             }

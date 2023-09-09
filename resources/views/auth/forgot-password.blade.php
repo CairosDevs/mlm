@@ -10,8 +10,8 @@
                             <div class="text-center">
                                 <img class="mx-auto" src="{{ asset('template/assets/images/logo-icon.png') }}" width="120" alt="" />
                             </div>
-                            <h4 class="mt-5 font-weight-bold">{{  __('Forgot Password?') }}</h4>
-                            <p class="text-muted">{{ __('Enter your registered email to reset the password') }}</p>
+                            <h4 class="mt-5 font-weight-bold">{{  __('Olvido su contraseña?') }}</h4>
+                            <p class="text-muted">{{ __('Ingrese su correo para reiniciar su contraseña') }}</p>
                             <div class="my-4">
                                 <label class="form-label">Email</label>
                                 <input type="text" name="email" class="form-control form-control-lg rounded-5 @error('email') is-invalid @enderror"
@@ -21,9 +21,9 @@
                                 @enderror
                             </div>
                             <div class="d-grid gap-2">
-                                <button type="button" class="btn btn-gradient-primary btn-lg rounded-5">{{ __('Email Password Reset Link') }}</button>
+                                <button type="submit" class="btn btn-gradient-primary btn-lg rounded-5">{{ __('Enviar link de reinicio') }}</button>
                                 <a href="{{ route('login') }}" class="btn btn-light btn-lg rounded-5"><i
-                                        class='bx bx-arrow-back me-1'></i>{{ __('Return to login') }}</a>
+                                        class='bx bx-arrow-back me-1'></i>{{ __('Regresar a inicio') }}</a>
                             </div>
                         </div>
                     </div>

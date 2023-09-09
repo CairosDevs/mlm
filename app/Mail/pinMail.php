@@ -31,7 +31,7 @@ class pinMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Pin Activated',
+            subject: 'Activación de pin 2FA',
         );
     }
 

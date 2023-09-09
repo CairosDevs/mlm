@@ -83,8 +83,8 @@ class AsingPinController extends Controller
     public function sendMsj($data)
     {
         $mailData = [
-            'title' => 'Security pin.',
-            'body' => 'this is the security pin.',
+            'title' => 'Código de seguridad 2FA.',
+            'body' => 'Este es su código 2FA.',
             'email' => $data['email'],
             'name' => $data['name'],
             'lastName' => $data['lastName'],

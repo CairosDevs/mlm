@@ -7,6 +7,6 @@
 {{$mailData['pin']}}
 </x-mail::panel>
 
-Thanks,<br>
+Gracias,<br>
 {{ config('app.name') }}
 </x-mail::message>

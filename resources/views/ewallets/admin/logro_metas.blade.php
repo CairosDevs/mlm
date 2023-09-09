@@ -26,7 +26,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="">
-                                            <h4 class="mb-0 text-white">Porcentaje de ganancia a las garantia</h4>
+                                            <h4 class="mb-0 text-white">Porcentaje de ganancia al capital</h4>
                                         </div>
                                         <div class="widgets-icons rounded-circle bg-light-transparent-2 text-white">
                                             <i class="bx bx-dollar"></i>

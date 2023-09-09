@@ -16,7 +16,7 @@
                     <table class="table mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th># Payment Order</th>
+                                <th># Orden de pago</th>
                                 <th>Usuario</th>
                                 <th>Transacción</th>
                                 <th>Total</th>

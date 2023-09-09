@@ -63,12 +63,36 @@ class NowPaymentsGateway
     }
 
     /**
+     * Retorna el estatus actual del API de nowpayments
+     *
+     * @return boolean
+     */
+    public function get_currencies()
+    {
+        try {
+            $headers = [
+                'x-api-key' => $this->now_payments_api_key,
+            ];
+            $response = Http::withHeaders($headers)->get($this->now_payments_base_url.'v1/merchant/coins');
+            $data = json_decode($response->getBody(), true);
+
+            // dd($data);
+        } catch (\Exception $e) {
+            Log::error("Ocurrió un error al hacer la llamada HTTP: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
      * Retorna si una orden esta paga
      *
      * @param float $amount
      */
     public function payment_status($orderId)
     {
+        if (config('app.env')) {
+            return true;
+        }
         try {
             $headers = [
                 'x-api-key' => $this->now_payments_api_key,
@@ -118,7 +142,7 @@ class NowPaymentsGateway
                         "price_amount" => (float) $amount,
                         "pay_amount" => (float) $amount,
                         "price_currency" => "usd",
-                        "pay_currency" => "usdt",
+                        "pay_currency" => "USDTTRC20",
                     ];
                     $response = Http::withHeaders($headers)->post($this->now_payments_base_url.'v1/payment', $body);
                    

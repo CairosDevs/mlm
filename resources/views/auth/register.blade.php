@@ -11,7 +11,7 @@
                                 <div class="card-body">
                                     <div class="border p-4  rounded-4">
                                         <div class="text-center">
-                                            <img src="assets/images/logo-icon.png" width="70" alt="" />
+                                            {{-- <img src="assets/images/logo-icon.png" width="70" alt="" /> --}}
                                             <p class="mb-4">{{ __('Create Your New Account')}}</p>
                                         </div>
             

@@ -180,7 +180,7 @@
                                     <table class="table mb-0">
                                         <thead class="table-light">
                                             <tr>
-                                                <th># Payment Order</th>
+                                                <th># Orden de pago</th>
                                                 <th>Total</th>
                                                 <th>Estatus</th>
                                                 <th>Fecha</th>
@@ -203,7 +203,7 @@
                                                     </div>
                                                 </td>
                                                 <td>${{ $item->amount }}</td>
-                                                <td>{{ $item->status }}</td>
+                                                <td>{{ __($item->status) }}</td>
                                                 <td>{{ $item->created_at }}</td>
                                                 {{-- <td><button type="button"
                                                         class="btn btn-primary btn-sm radius-30 px-4">View
@@ -247,7 +247,7 @@
                                     <table class="table mb-0">
                                         <thead class="table-light">
                                             <tr>
-                                                <th># Payment Order</th>
+                                                <th># Orden de pago</th>
                                                 <th>Total</th>
                                                 <th>Estatus</th>
                                                 <th>Fecha</th>

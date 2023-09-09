@@ -11,7 +11,7 @@
                             <input type="hidden" id="orderId" name="orderId" value="{{ $payment_data['payment_id'] }}">
                         </div>
                         <div class="card-body px-0">
-                    
+                            <p>Orden de pago <span style="font-weight:bold;">{{ $payment_data['payment_id'] }}</span></p>
                             <p class="text-center">Envia {{ $payment_data['price_amount'] }} USDT (en UN pago) a:
                                 no se incluye el fee de la transacción en este monto</p>
                             <p class="text-center"><small><strong id="pay_address">{{ $payment_data['pay_address'] }}</strong></small></p>
@@ -116,7 +116,6 @@
                     url: '/orderStatus/' + orderId,
                     type: 'GET',
                     success: function(response) {
-
                         if (response.status === true) {
                             Swal.fire({
                                 title: "Gracias por pago",

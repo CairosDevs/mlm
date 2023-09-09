@@ -23,8 +23,8 @@
                                 <table class="table mb-0">
                                     <thead class="table-light">
                                         <tr>
-                                            <th># Withdraw Order</th>
-                                            <th>Wallet</th>
+                                            <th># Orden de retiro</th>
+                                            <th>Billetera</th>
                                             <th>Usuario</th>
                                             <th>Monto</th>
                                             <th>Fecha</th>
@@ -50,7 +50,7 @@
                                             <td>{{ $item->user->name . ' ' . $item->user->lastName}}</td>
                                             <td>${{ $item->amount }}</td>                                            
                                             <td>{{ $item->created_at }}</td>
-                                            <td>{{ $item->status }}</td>
+                                            <td>{{ __($item->status) }}</td>
                                             {{-- <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View
                                                     Details</button>
                                             </td>

@@ -40,9 +40,11 @@ class PaymentController extends Controller
      */
     public function paymentForm(Request $request)
     {
+        // $this->paymentService->get_currencies();
+
         if ($request->type != 'withdraw') {
             $data = $this->paymentService->charge($request->amount);
-            
+                        
             if (isset($data['status']) && $data['status'] == false) {
                 return back()->with(['error' => $data['message']]);
             }
@@ -128,11 +130,13 @@ class PaymentController extends Controller
 
             return response()->json([
                 'status' => true,
+                'orderId' => $orderId,
                 'success' => "La orden fue pagada exitosamente",
             ]);
         } else {
             return response()->json([
                 'status' => false,
+                'orderId' => $orderId,
                 'error' => "No se ha realizado el pago",
             ]);
         }

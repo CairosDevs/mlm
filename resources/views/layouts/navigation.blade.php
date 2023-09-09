@@ -25,7 +25,7 @@
                 <a href="{{ route('ewallets.index') }}">
                     <div class="parent-icon"> <i class="bx bx-wallet"></i>
                     </div>
-                    <div class="menu-title">{{ __('Wallets') }}</div>
+                    <div class="menu-title">{{ __('Billeteras') }}</div>
                 </a>
             </li>
             @endif
@@ -34,7 +34,7 @@
                 <a href="{{ route('ewallets.depositos_retiros') }}">
                     <div class="parent-icon"> <i class="bx bx-wallet"></i>
                     </div>
-                    <div class="menu-title">{{ __('Savings & Withdraws') }}</div>
+                    <div class="menu-title">{{ __('Depositos & Retiros') }}</div>
                 </a>
             </li>
             @endif

@@ -47,4 +47,12 @@ return [
         'callback_url'  => env('NOWPAYMENTS_CALLBACK_URL'),
     ],
 
+    'unipayments' => [
+        'enviroment' => env('UNIPAYMENTS_ENV'),
+        'app_id' => env('UNIPAYMENTS_APP_ID'),
+        'client_id' => env('UNIPAYMENTS_CLIENT_ID'),
+        'client_secret'  => env('UNIPAYMENTS_CLIENT_SECRET'),
+
+    ],
+
 ];

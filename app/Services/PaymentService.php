@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\PaymentGateway\BinanceGateway;
 use App\PaymentGateway\NowPaymentsGateway;
+use App\PaymentGateway\UniPaymentsGateway;
 
 class PaymentService
 {
@@ -25,6 +26,14 @@ class PaymentService
     }
 
     /**
+     * Lista Monedas disponibles para pago
+     */
+    public function get_currencies()
+    {
+        return $this->gateway->get_currencies();
+    }
+
+    /**
      * Valida si orden esta paga
      *
      * @param float $amount
@@ -38,5 +47,4 @@ class PaymentService
     public function ipn(Request $request)
     {
     }
-
 }

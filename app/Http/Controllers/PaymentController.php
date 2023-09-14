@@ -11,6 +11,7 @@ use App\Services\PaymentService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use anlutro\LaravelSettings\Facades\Setting;
 use PrevailExcel\Nowpayments\Facades\Nowpayments;
 
 class PaymentController extends Controller
@@ -43,6 +44,14 @@ class PaymentController extends Controller
         // $this->paymentService->get_currencies();
 
         if ($request->type != 'withdraw') {
+            if ($request->amount < Setting::get('deposito_minimo')) {
+                return back()->with(['error' => 'El monto minimo de deposito es de '. Setting::get('deposito_minimo').'$' ]);
+            }
+
+            if ($request->amount > Setting::get('deposito_maximo')) {
+                return back()->with(['error' => 'El monto máximo de deposito es de '. Setting::get('deposito_maximo').'$' ]);
+            }
+
             $data = $this->paymentService->charge($request->amount);
                         
             if (isset($data['status']) && $data['status'] == false) {

@@ -25,7 +25,7 @@
                                             <input
                                                 style="font-size:36px; border: none !important; outline: none !important;"
                                                 class="mb-0 bg-transparent text-white" type="number" id="deposit_amount"
-                                                name="amount" value="0">
+                                                name="amount" value="{{ Setting::get('deposito_minimo') }}">
                                             <input type="hidden" name="type" value="deposit">
                                         </div>
                                         <div class="mt-3">

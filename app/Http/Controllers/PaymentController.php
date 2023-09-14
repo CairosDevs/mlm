@@ -6,11 +6,13 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 use App\Models\OrderPayment;
 use Illuminate\Http\Request;
+use App\Services\EmailService;
 use App\Services\EWalletService;
 use App\Services\PaymentService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use App\Jobs\SendEmailPaymentConfirmedJob;
 use anlutro\LaravelSettings\Facades\Setting;
 use PrevailExcel\Nowpayments\Facades\Nowpayments;
 
@@ -18,14 +20,17 @@ class PaymentController extends Controller
 {
     protected $paymentService;
     protected $EWalletService;
+    protected $emailService;
 
     public function __construct(
         PaymentService $paymentService,
-        EWalletService $EWalletService
+        EWalletService $EWalletService,
+        EmailService $emailService
     )
     {
         $this->paymentService = $paymentService;
         $this->EWalletService = $EWalletService;
+        $this->emailService = $emailService;
     }
     
     /**
@@ -41,7 +46,6 @@ class PaymentController extends Controller
      */
     public function paymentForm(Request $request)
     {
-        // $this->paymentService->get_currencies();
 
         if ($request->type != 'withdraw') {
             if ($request->amount < Setting::get('deposito_minimo')) {
@@ -157,6 +161,8 @@ class PaymentController extends Controller
 
         $orderPayment->status = $status;
         $orderPayment->save();
+
+        $this->emailService->sendPaymentConfirmation($orderPayment->user, $orderPayment, $status);
     }
 
     /**

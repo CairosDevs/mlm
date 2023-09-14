@@ -3,6 +3,7 @@
     <div class="page-wrapper">
         <div class="page-content">
             <div class="container py-5">
+                @if (Auth::user()->hasRole('System'))
                 <form method="POST" action="{{ route('setting.store') }}" >
                     @csrf
                 
@@ -42,6 +43,7 @@
                         </div>
                     </div>
                 </form>
+                @endif
                 <div class="row">
                     <div class="col-lg-9">
                         <div class="card">
@@ -67,6 +69,7 @@
                                                 <button type="submit" class="btn btn-primary">Actualizar</button>
                                             </form>
                                         </div>
+                                        @if (Auth::user()->hasRole('System'))
                                         <div class="col-sm-3 text-secondary">
                                             <form action="{{ route('setting.destroy', $item->id) }}" method="POST">
                                                 @csrf
@@ -75,6 +78,7 @@
                                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                                             </form>
                                         </div>
+                                        @endif
                                     </div>
                                 @endforeach
                                 

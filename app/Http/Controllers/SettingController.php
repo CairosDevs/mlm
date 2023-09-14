@@ -15,7 +15,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        $config_variables = DB::table('settings')->get();
+        $config_variables = DB::table('settings')->orderBy('id')->get();
         return view('setting.index')->with('config_variables', $config_variables);
     }
 

@@ -105,6 +105,13 @@
             
            
             @if(Auth::user()->hasRole('System'))
+            <li>
+                <a href="{{ route('setting.index') }}">
+                    <div class="parent-icon"> <i class="bx bx-wrench"></i>
+                    </div>
+                    <div class="menu-title">{{ __('Setting') }}</div>
+                </a>
+            </li>
             <li class="menu-label">{{ __('Support') }}</li>
             <li>
                 <a href="{{ route('logs') }}">

@@ -26,16 +26,12 @@ class PasswordController extends Controller
         $id = Auth::user()->id;
         $request->merge(['user_id' => $id]);
 
-        $pin = new ap();
-        $pins = $pin->validatePin($request);
-        if (!$pins) {
-            return view('securitypin.validate-pin', compact('request'));
-        } 
-
         $request->user()->update([
             'password' => Hash::make($validated['password']),
         ]);
 
-        return back()->with('status', 'password-updated');
+        return back()
+            ->with('sweet-success', 'Sus contraseña fue actualizada')
+            ->with('status', 'password-updated');
     }
 }

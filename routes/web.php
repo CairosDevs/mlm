@@ -56,12 +56,12 @@ Route::get('/password/reset', [UserController::class, 'createPassword'])->name('
 Route::post('/password/create/store', [UserController::class, 'passwordCreateStore'])->name('password.create.store');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/editProfile', [ProfileController::class, 'editProfile'])->name('editProfile');
+    Route::middleware('pin')->get('/editProfile', [ProfileController::class, 'editProfile'])->name('editProfile');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/editValidate', [ProfileController::class, 'editValidate'])->name('editValidate');
+    Route::middleware('pin')->get('/editValidate', [ProfileController::class, 'editValidate'])->name('editValidate');
     Route::get('/validationProfile', [ProfileController::class, 'validationProfile'])->name('validationProfile');
     Route::post('/asignPin', [ProfileController::class, 'asingPin'])->name('profile.asingPin');
     Route::get('/referral', [ReferralController::class, 'index'])->name('profile.referral');
@@ -81,7 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/cancelOrderPayment', [PaymentController::class, 'cancelOrderPayment'])->name('payment.cancel');
     Route::get('/orderStatus/{id}', [PaymentController::class, 'orderStatus'])->name('payment.order.status');
 
-    Route::get('/ewallets', [EwalletController::class, 'index'])->name('ewallets.index');
+    Route::middleware('pin')->get('/ewallets', [EwalletController::class, 'index'])->name('ewallets.index');
     Route::get('/depositos_retiros', [EwalletController::class, 'depositos_retiros'])->name('ewallets.depositos_retiros');
     Route::get('/capital', [EwalletController::class, 'capital_garantia'])->name('ewallets.capital');
     Route::get('/logro_metas', [EwalletController::class, 'logro_metas'])->name('ewallets.logro_metas');

@@ -3,12 +3,8 @@
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Safety pin 2FA') }}
         </h2>
-
         <p class="mt-1 text-sm text-gray-600">
-            {{ __('In order to make changes it is necessary to enter the security pin.') }}
-        </p>
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __('the security pin has been sent to your email') }}
+            {{ __('Ingrese su código de seguridad para completar la transacción') }}
         </p>
     </header>
     <form method="post" action="{{ route('pin.validatePinUser') }}" class="mt-6 space-y-6">
@@ -22,6 +18,7 @@
             @endif
         </div>
         <div>
+            <input name="url" type="hidden" value="{{ session('url.intended') }}" />
             <input name="name" type="hidden" @if (isset($request->name)) value="{{$request->name}}" @endif />
             <input name="lastName" type="hidden" @if (isset($request->lastName)) value="{{$request->lastName}}" @endif />
             <input name="phone" type="hidden" @if (isset($request->phone)) value="{{$request->phone}}" @endif />

@@ -55,20 +55,14 @@ class ProfileController extends Controller
 
         $data = $this->molde($id);
         $request->merge(['user_id' => $id, 'editProfile' => 'editProfile']);
-        $pin = new ap();
-        $pins = $pin->validatePin($request);
-
-        if (!$pins) {
-            return view('securitypin.validate-pin', compact('request'));
-        } else {
-            return view('profile.edit', [
-                'user' => $request->user(),
-                'asignProfile' => $data[0],
-                'asignPin' => $data[1],
-                'membership' => $data[2],
-                'referral_url' => $data[3],
-            ]);
-        }
+ 
+        return view('profile.edit', [
+            'user' => $request->user(),
+            'asignProfile' => $data[0],
+            'asignPin' => $data[1],
+            'membership' => $data[2],
+            'referral_url' => $data[3],
+        ]);
     }
     
     public function editValidate(Request $request)
@@ -76,19 +70,14 @@ class ProfileController extends Controller
         $id = Auth::user()->id;
         $data = $this->molde($id);
         $request->merge(['user_id' => $id, 'editValidate' => 'editValidate']);
-        $pin = new ap();
-        $pins = $pin->validatePin($request);
-        if (!$pins) {
-            return view('securitypin.validate-pin', compact('request'));
-        } else {
-            return view('profile.validationProfile', [
-                'user' => $request->user(),
-                'asignProfile' => $data[0],
-                'asignPin' => $data[1],
-                'membership' => $data[2],
-                'referral_url' => $data[3],
-            ]);
-        }
+
+        return view('profile.validationProfile', [
+            'user' => $request->user(),
+            'asignProfile' => $data[0],
+            'asignPin' => $data[1],
+            'membership' => $data[2],
+            'referral_url' => $data[3],
+        ]);
     }
     /**
      * Display the user's profile form.
@@ -138,12 +127,6 @@ class ProfileController extends Controller
     {
         $id = Auth::user()->id;
         $request->merge(['user_id' => $id]);
-        
-        $pin = new ap();
-        $pins = $pin->validatePin($request);
-        if (!$pins) {
-            return view('securitypin.validate-pin', compact('request'));
-        }
 
         $request->user()->fill($request->validated());
 
@@ -153,7 +136,9 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')
+                                  ->with('sweet-success', 'Sus datos de perfil fueron actualizados')
+                                  ->with('status', 'profile-updated');
     }
 
     /**
@@ -266,13 +251,10 @@ class ProfileController extends Controller
         $request->merge(['user_id' => $id]);
 
         $pin = new ap();
-        $pins = $pin->validatePin($request);
-        if (!$pins) {
-            return view('securitypin.validate-pin', compact('request'));
-        }
-        $pin = new ap();
         $pin->activatePin($request);
-        return Redirect::route('profile.edit')->with('status', 'pin activated');
+        return Redirect::route('profile.edit')
+                        ->with('sweet-success', 'Pin activado')
+                        ->with('status', 'pin activated');
     }
 
     public function listValidatation(Request $request)

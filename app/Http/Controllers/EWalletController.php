@@ -7,16 +7,17 @@ use App\Models\User;
 use App\Models\EWallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AsingPinController as ap;
 
 class EWalletController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ewallet = EWallet::where('user_id', Auth::user()->id)->first();
-        return view('ewallets.index')->with('ewallet', $ewallet);
+            $ewallet = EWallet::where('user_id', Auth::user()->id)->first();
+            return view('ewallets.index')->with('ewallet', $ewallet);
     }
 
     public function depositos_retiros()

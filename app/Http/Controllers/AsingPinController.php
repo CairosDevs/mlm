@@ -6,16 +6,17 @@ use Mail;
 use App\Models\User;
 use App\Mail\pinMail;
 use App\Models\AsingPin;
+use App\Models\Referral;
 use Illuminate\Support\Str;
 use App\Models\AsignProfile;
 use App\Models\OrderPayment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\Referral;
 
 class AsingPinController extends Controller
 {
@@ -123,7 +124,17 @@ class AsingPinController extends Controller
     public function validatePinUser(Request $request)
     {
         $asignPin = AsingPin::where('pin', $request->pinProfile)->first();
+       // dd($request->all());
+
         if ($asignPin != null) {
+            
+            $request->session()->put('pin_validated', true);
+            $request->session()->put('pin_validated_at', Carbon::now()->timestamp);
+
+            if ($request->url != '') {
+                return Redirect::to(env('APP_URL').$request->url);
+            }
+
             if ($request->asignProfile == "asignProfile") {
                 $asignProfile = AsignProfile::where('user_id', $request->user_id)->first();
                 $data = [
@@ -197,6 +208,7 @@ class AsingPinController extends Controller
                     'referral_url' => $url,
                 ]);
             }
+
             return Redirect::route('profile.edit')->with('status', 'profile-updated');
         }
         return back()->with('status', 'error-pin');

@@ -60,29 +60,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">{{ __('Password') }}</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="">
-                                    @error('password')
-                                    <div id="validationPasswordConfirmation" class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">{{ __('Password Confirmation') }}</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" value="">
-                                    @error('password_confirmation')
-                                    <div id="validationPasswordConfirmation" class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                            </div>
+                            
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">

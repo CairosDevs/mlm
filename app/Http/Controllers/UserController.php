@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -38,7 +39,7 @@ class UserController extends Controller
             'lastName' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class, new CustomValidationEmailRule()],
-            'password' => ['required', 'confirmed'],
+            
         ]);
 
         $user = User::create([
@@ -47,20 +48,13 @@ class UserController extends Controller
             "phone" => $request->phone,
             'email' => $request->email,
             'confirmed' => true,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make(Str::random(60))
         ]);
         $user->assignRole('Customer');
         $user->markEmailAsVerified();
 
-        // $token = Str::random(60);
-        // $user->confirmation_token = hash('sha256', $token);
-        // $user->save();
-
-        // Mail::send('emails.user.confirm', ['user' => $user, 'token' => $token], function ($message) use ($user) {
-        //     $message->to($user->email, $user->name)->subject('Confirm your account');
-        // });
-
         event(new Registered($user));
+        Password::sendResetLink(['email' => $user->email]);
         $users = User::paginate(10);
 
         return redirect()->route('users.index')->with('users', $users)

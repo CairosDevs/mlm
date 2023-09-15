@@ -26,21 +26,6 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/tx/{op}/{amount}', function ($op, $amount) {
-
-    switch ($op) {
-        case 'd':
-            // dd("d", [$op, $amount]);
-            Auth::user()->deposit($amount);
-            break;
-
-        case 'r':
-            // dd("r", [$op, $amount]);
-            Auth::user()->withdraw($amount);
-            break;
-    }
-});
-
 Route::get('/pinView/{id}/{type}', [AsingPinController::class, 'pinView'])->name('pinView');
 
 Route::post('/ipn_novo', [PaymentController::class, 'ipnHandler']);

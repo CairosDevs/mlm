@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderPayment;
 use App\Models\User;
 use App\Models\EWallet;
+use App\Models\OrderPayment;
 use Illuminate\Http\Request;
+use App\Exports\WithdrawPaidExport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\WithdrawPendingExport;
 use App\Http\Controllers\AsingPinController as ap;
 
 class EWalletController extends Controller
@@ -53,25 +56,41 @@ class EWalletController extends Controller
     public function solicitudes_retiros()
     {
         $withdraws = OrderPayment::where('type', 'withdraw')->where('status', 'requested')->paginate(5);
-
-
         return view('ewallets.admin.solicitudes_retiros', compact('withdraws'));
     }
 
     public function solicitudes_pendientes()
     {
         $withdraws = OrderPayment::where('type', 'withdraw')->where('status', 'pending')->paginate(5);
-
-
         return view('ewallets.admin.solicitudes_pendientes', compact('withdraws'));
+    }
+
+    public function excelWithdrawPending()
+    {
+        OrderPayment::where('status', 'requested')->update(['status' => 'pending']);
+        return Excel::download(new WithdrawPendingExport, 'retiros-pendientes.xlsx');
+    }
+
+    public function statusToPaid()
+    {
+        OrderPayment::where('status', 'pending')->update(['status' => 'paid']);
+    }
+
+    public function excelWithdrawPending2()
+    {
+        return Excel::download(new WithdrawPendingExport, 'retiros-pendientes-2.xlsx');
     }
 
     public function solicitudes_pagadas()
     {
         $withdraws = OrderPayment::where('type', 'withdraw')->where('status', 'paid')->paginate(5);
 
-
         return view('ewallets.admin.solicitudes_pagadas', compact('withdraws'));
+    }
+
+    public function excelWithdrawPaid()
+    {
+        return Excel::download(new WithdrawPaidExport, 'retiros-pagados.xlsx');
     }
 
 

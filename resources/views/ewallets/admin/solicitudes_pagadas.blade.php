@@ -10,8 +10,8 @@
                                     <input type="text" class="form-control ps-5 radius-30" placeholder="Search Order"> <span
                                         class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
                                 </div> --}}
-                                
-                    
+                                <a class="btn btn-info" href="{{ route('excel.withdrawPaid') }}">Descargar</a>
+                                                    
                     
                             </div>
                             <div class="table-responsive">
@@ -21,7 +21,8 @@
                                             <th># Orden de retiro</th>
                                             <th>Billetera</th>
                                             <th>Usuario</th>
-                                            <th>Monto</th>
+                                            <th>Monto Solicitado</th>
+                                            <th>Monto Pagado</th>
                                             <th>Fecha solicitud</th>
                                             <th>Fecha de pago</th>
                                             <th>Estatus</th>
@@ -45,8 +46,9 @@
                                             <td>{{ $item->user->eWallet->wallet_id }}</td>
                                             <td>{{ $item->user->name . ' ' . $item->user->lastName}}</td>
                                             <td>${{ $item->amount }}</td>                                            
-                                            <td>{{ $item->created_at }}</td>
-                                            <td>{{ $item->updated_at }}</td>
+                                            <td>${{ $item->paid_amount ? $item->paid_amount : 0 }}</td>
+                                            <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                                            <td>{{ $item->paid_at ? $item->paid_at->format('d-m-Y') : 'Pendiente de pago' }}</td>
                                             <td>{{ __($item->status) }}</td>
                                             {{-- <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View
                                                     Details</button>

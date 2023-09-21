@@ -26,6 +26,26 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+/**
+ * Ruta para pruebas de transacciones en la wallet de forma directa
+ */
+Route::get('/t/{type}/{amount}', function ($type, $amount) {
+    switch ($type) {
+        case 'd':
+            Auth::user()->deposit((integer) $amount / 2);
+            break;
+        
+        case 'w':
+            Auth::user()->withdraw((integer) $amount / 2);
+            break;
+        
+        default:
+            return response()->json(['balance' => Auth::user()->balanceInt]);
+    }
+
+    return response()->json(['success' => true]);
+});
+
 Route::get('/pinView/{id}/{type}', [AsingPinController::class, 'pinView'])->name('pinView');
 
 Route::post('/ipn_novo', [PaymentController::class, 'ipnHandler']);
@@ -67,13 +87,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/orderStatus/{id}', [PaymentController::class, 'orderStatus'])->name('payment.order.status');
 
     Route::middleware('pin')->get('/ewallets', [EwalletController::class, 'index'])->name('ewallets.index');
-    Route::get('/depositos_retiros', [EwalletController::class, 'depositos_retiros'])->name('ewallets.depositos_retiros');
+    Route::middleware('pin')->get('/depositos_retiros', [EwalletController::class, 'depositos_retiros'])->name('ewallets.depositos_retiros');
     Route::get('/capital', [EwalletController::class, 'capital_garantia'])->name('ewallets.capital');
     Route::get('/logro_metas', [EwalletController::class, 'logro_metas'])->name('ewallets.logro_metas');
 
     Route::get('/solicitudes_retiros', [EwalletController::class, 'solicitudes_retiros'])->name('ewallets.solicitudes_retiros');
     Route::get('/solicitudes_pendientes', [EwalletController::class, 'solicitudes_pendientes'])->name('ewallets.solicitudes_pendientes');
+    Route::get('/excelWithdrawPending', [EwalletController::class, 'excelWithdrawPending'])->name('excel.withdrawPending');
+    Route::get('/excelWithdrawPending2', [EwalletController::class, 'excelWithdrawPending2'])->name('excel.withdrawPending2');
     Route::get('/solicitudes_pagadas', [EwalletController::class, 'solicitudes_pagadas'])->name('ewallets.solicitudes_pagadas');
+    Route::get('/excelWithdrawPaid', [EwalletController::class, 'excelWithdrawPaid'])->name('excel.withdrawPaid');
+
+    Route::get('/status_paid', [EwalletController::class, 'statusToPaid'])->name('statusToPaid');
+
+
 
 
 

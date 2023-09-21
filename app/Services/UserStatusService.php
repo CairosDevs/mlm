@@ -30,7 +30,7 @@ class UserStatusService
             return false;
         }
     }
-
+ 
     public function verificarMembresia($usuario)
     {
         $membership = OrderPayment::where('user_id', $usuario->id)

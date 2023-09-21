@@ -84,7 +84,7 @@
                                 <input type="text" class="form-control" id="referralLink" readonly value="{{$referral_url}}">
                                 <div class="input-group-append">
                                     <button class="btn btn-sm btn-primary" onclick="copyReferralLink()">
-                                        <i class="bx bx-copy"></i> Copy
+                                        <i class="bx bx-copy"></i> Copiar
                                     </button>
                                 </div>
                             @else

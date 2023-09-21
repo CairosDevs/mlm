@@ -10,13 +10,8 @@
                                     <input type="text" class="form-control ps-5 radius-30" placeholder="Search Order"> <span
                                         class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
                                 </div> --}}
-                                <div class="ms-auto">
-                                    <button type="button" class="btn btn-primary radius-30 mt-2 mt-lg-0" data-bs-toggle="modal"
-                                        data-bs-target="#depositModal">
-                                        <i class="bx bxs-plus-square"></i>Generar Excel
-                                    </button>
-                                </div>
-                    
+                            <a id="descargar-btn" class="btn btn-info" href="{{ route('excel.withdrawPending') }}">Descargar</a>
+
                     
                             </div>
                             <div class="table-responsive">
@@ -82,5 +77,40 @@
 
 
 <script>
+
+    document.getElementById('descargar-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        var url = this.href;
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "Una vez descargado, el estado de las órdenes de pago cambiarán a 'pendientes'.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDownload) => {
+            if (willDownload) {
+                axios({
+                    url: url,
+                    method: 'GET',
+                    responseType: 'blob',
+                })
+                .then(response => {
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'retiros-pendientes.xlsx'; 
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                })
+                .then(() => {
+                    
+                    location.reload();
+                });
+            }
+        });
+    });
+
 </script>
 </x-app-layout>

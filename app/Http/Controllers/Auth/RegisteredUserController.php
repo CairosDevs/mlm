@@ -41,12 +41,13 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],            
         ]);
         
-        // $rc = new rc();
-        // $rs = $rc->valitCode($request->sponsorCode);
-        // if (!$rs) {
-        //     return back()->with('status', 'invalitReferralCode');
-        // }
-        // dd($request->all());
+        $rc = new rc();
+        $rs = $rc->valitCode($request->sponsorCode);
+
+        if (!$rs) {
+            return back()->with('status', 'invalitReferralCode');
+        }
+
         $user = User::create([
             'name' => $request->name,
             "lastName" => $request->lastName,
@@ -56,9 +57,9 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);        
         $user->assignRole('Customer');
-        // dd($request->all());
-        // $rcs = new rc();
-        // $rs = $rcs->store($user->id, $request->sponsorCode);
+
+        $rcs = new rc();
+        $rs = $rcs->store($user->id, $request->sponsorCode);
 
         event(new Registered($user));
 

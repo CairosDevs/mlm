@@ -10,7 +10,7 @@
                 <input type="text" class="form-control" id="referralLinks" readonly value="{{$referral_url}}">
                 <div class="input-group-append">
                     <button class="btn btn-sm btn-primary" onclick="copyReferralLinks()">
-                        <i class="bx bx-copy"></i> Copy
+                        <i class="bx bx-copy"></i> Copiar
                     </button>
                 </div>
             @else
@@ -38,12 +38,12 @@
                             <ul id="tree{{($key + 1)}}" style="border: 1px solid blue; cursor:pointer;">
                                 <li>
                                 @if($item['child']['name'] != null && $item['child']['lastName'] != null)
-                                    <a href="#">{{$item['child']['name']}} {{$item['child']['lastName']}} 6%</a>
-                                    @if($item['child']['grandchild']['name'] != null && $item['child']['grandchild']['lastName'] != null) 
+                                    <a href="#">{{$item['child']['name']}} {{$item['child']['lastName']}} {{ Setting::get('porcentaje_comision') }}%</a>
+                                    {{-- @if($item['child']['grandchild']['name'] != null && $item['child']['grandchild']['lastName'] != null) 
                                         <ul>
                                             <li>{{$item['child']['grandchild']['name']}} {{$item['child']['grandchild']['lastName']}} 4%</li>
                                         </ul>
-                                    @endif
+                                    @endif --}}
                                 @else
                                     <a href="#">No tiene referidos</a>
                                 @endif

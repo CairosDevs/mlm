@@ -156,7 +156,9 @@
                     </li>
                 </ul>
 
+                {{-- tabla de ordenes --}}
                 <div class="tab-content py-3">
+                    {{-- depositos --}}
                     <div class="tab-pane fade active show" id="primaryhome" role="tabpanel">
                         <div class="card">
                             <div class="card-body">
@@ -226,6 +228,8 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- retiros --}}
                     <div class="tab-pane fade" id="primaryprofile" role="tabpanel">
                         <div class="card">
                             <div class="card-body">
@@ -236,9 +240,16 @@
                                             class="position-absolute top-50 product-show translate-middle-y"><i
                                                 class="bx bx-search"></i></span>
                                     </div> --}}
+                                    @if(!Auth::user()->can_withdraw)
+                                    <div class="ms-auto" data-bs-toggle="tooltip" data-placement="top"
+                                        title="Los retiros de ganancias solo estan disponibles los viernes luego de las 16:00">
+                                    @else
                                     <div class="ms-auto">
-                                        <button type="button" class="btn btn-primary radius-30 mt-2 mt-lg-0"
-                                            data-bs-toggle="modal" data-bs-target="#withdrawModal">
+                                    @endif
+                                        <button id="solicitar_retiros" type="button" class="btn btn-primary radius-30 mt-2 mt-lg-0"
+                                            data-bs-toggle="modal" data-bs-target="#withdrawModal" 
+                                            
+                                            @if(!Auth::user()->can_withdraw)disabled @endif>
                                             <i class="bx bxs-minus-square"></i>Solicitar retiro
                                         </button>
                                     </div>

@@ -58,7 +58,7 @@
                 <a href="{{ route('ewallets.solicitudes_retiros') }}">
                     <div class="parent-icon"> <i class="bx bx-wallet"></i>
                     </div>
-                    <div class="menu-title">{{ __('Solicitudes de retiros') }}</div>
+                    <div class="menu-title">{{ __('Solicitudes de retiros de ganancias') }}</div>
                 </a>
             </li>
             <li>

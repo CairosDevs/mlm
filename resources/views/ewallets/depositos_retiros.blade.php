@@ -11,11 +11,10 @@
     </div>
     <!--end page wrapper -->
 
-    <!-- Modal -->
-
-
 <script>
         $(document).ready(function() {
+            $("#solicitar_retiros").tooltip();
+
             $("#deposit_plus").click(function() {
                 var currentValue = parseInt($("#deposit_amount").val());
                 $("#deposit_amount").val(currentValue + 1);

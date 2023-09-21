@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profit;
 use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 use App\Models\OrderPayment;
 use Illuminate\Http\Request;
 use App\Services\EmailService;
+use Illuminate\Support\Carbon;
 use App\Services\EWalletService;
 use App\Services\PaymentService;
 use Illuminate\Support\Facades\Log;
@@ -48,8 +50,10 @@ class PaymentController extends Controller
     {
 
         if ($request->type != 'withdraw') {
-            if ($request->amount < Setting::get('deposito_minimo')) {
-                return back()->with(['error' => 'El monto minimo de deposito es de '. Setting::get('deposito_minimo').'$' ]);
+            if ($request->type == 'deposit') {
+                if ($request->amount < Setting::get('deposito_minimo')) {
+                    return back()->with(['error' => 'El monto minimo de deposito es de '. Setting::get('deposito_minimo').'$' ]);
+                }
             }
 
             if ($request->amount > Setting::get('deposito_maximo')) {
@@ -76,10 +80,24 @@ class PaymentController extends Controller
             ]);
         }
 
-        $this->EWalletService->transaction($request->amount, $request->type);
-
-
         if ($request->type == 'withdraw') {
+            $lastMonday = Carbon::now()->subWeek()->startOfWeek();
+            $lastFriday = Carbon::now()->subWeek()->endOfWeek()->subDays(2);
+
+            $userWeek = Profit::where('user_id', Auth::user()->id)
+                            ->where('start', $lastMonday)
+                            ->where('end', $lastFriday)
+                            ->first();
+
+            if ($request->amount > $userWeek->profit) {
+                return back()->with(['error' => 'Tus ganancias disponibles para retiro son de máximo '. $userWeek->profit .'$ para esta semana' ]);
+            }
+
+            $userWeek->profit -= $request->amount;
+            $comission = $request->amount * Setting::get('porcentaje_comision')/100;
+            $userWeek->profit -= $comission;
+            $userWeek->save();
+
             $uuid = (string) Str::uuid();
             $shortUuid = substr($uuid, 0, 8);
         
@@ -87,13 +105,16 @@ class PaymentController extends Controller
                 'payment_id' => $shortUuid,
                 'external_payment_id' => 0,
                 'user_id' => Auth::user()->id,
-                'amount' => $request->amount,
+                'amount' => $request->amount + $comission,
                 'type' => $request->type,
                 'status' => 'requested',
             ]);
 
             return view('dashboard')->with('success', 'retiro temporal exitoso');
         }
+
+        $this->EWalletService->transaction($request->amount, $request->type);
+
 
         if (!isset($data['error'])) {
             if ($request->type == 'withdraw') {

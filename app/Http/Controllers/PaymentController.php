@@ -49,11 +49,9 @@ class PaymentController extends Controller
     public function paymentForm(Request $request)
     {
 
-        if ($request->type != 'withdraw') {
-            if ($request->type == 'deposit') {
-                if ($request->amount < Setting::get('deposito_minimo')) {
-                    return back()->with(['error' => 'El monto minimo de deposito es de '. Setting::get('deposito_minimo').'$' ]);
-                }
+        if ($request->type == 'deposit') {
+            if ($request->amount < Setting::get('deposito_minimo')) {
+                return back()->with(['error' => 'El monto minimo de deposito es de '. Setting::get('deposito_minimo').'$' ]);
             }
 
             if ($request->amount > Setting::get('deposito_maximo')) {
@@ -78,6 +76,8 @@ class PaymentController extends Controller
                 'type' => $request->type,
                 'status' => 'pending',
             ]);
+
+            $this->EWalletService->transaction($request->amount, $request->type);
         }
 
         if ($request->type == 'withdraw') {
@@ -94,7 +94,7 @@ class PaymentController extends Controller
             }
 
             $userWeek->profit -= $request->amount;
-            $comission = $request->amount * Setting::get('porcentaje_comision')/100;
+            $comission = $request->amount * Setting::get('porcentaje_comision') / 100;
             $userWeek->profit -= $comission;
             $userWeek->save();
 
@@ -110,10 +110,40 @@ class PaymentController extends Controller
                 'status' => 'requested',
             ]);
 
+            $this->EWalletService->transaction($request->amount, $request->type);
+
+
             return view('dashboard')->with('success', 'retiro temporal exitoso');
         }
 
-        $this->EWalletService->transaction($request->amount, $request->type);
+        if ($request->type == 'total') {
+            if (!Auth::user()->totalWithdraw()) {
+                return response()->json(['error' => 'Aún no tienes 60 días registrado en el sistema'], 400);
+            }
+
+            if ( Auth::user()->balanceInt == 0 ) {
+                return response()->json(['error' => 'No posee capital para realizar retiro'], 400);
+            }
+
+            $comission = $request->amount * 0.20;
+
+            $uuid = (string) Str::uuid();
+            $shortUuid = substr($uuid, 0, 8);
+        
+            $orderPayment = OrderPayment::create([
+                'payment_id' => $shortUuid,
+                'external_payment_id' => 0,
+                'user_id' => Auth::user()->id,
+                'amount' => $request->amount - $comission,
+                'type' => $request->type,
+                'status' => 'requested',
+            ]);
+
+            $this->EWalletService->transaction($request->amount, $request->type);
+
+            return response()->json(['success' => 'Solicitud de retiro de capital enviada'], 200);
+        }
+
 
 
         if (!isset($data['error'])) {

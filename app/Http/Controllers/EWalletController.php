@@ -10,6 +10,7 @@ use App\Exports\WithdrawPaidExport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\WithdrawPendingExport;
+use App\Exports\TotalWithdrawPendingExport;
 use App\Http\Controllers\AsingPinController as ap;
 
 class EWalletController extends Controller
@@ -59,10 +60,22 @@ class EWalletController extends Controller
         return view('ewallets.admin.solicitudes_retiros', compact('withdraws'));
     }
 
+    public function solicitudes_retiros_total()
+    {
+        $withdraws = OrderPayment::where('type', 'total')->where('status', 'requested')->paginate(5);
+        return view('ewallets.admin.solicitudes_retiros_total', compact('withdraws'));
+    }
+
     public function solicitudes_pendientes()
     {
-        $withdraws = OrderPayment::where('type', 'withdraw')->where('status', 'pending')->paginate(5);
+        $withdraws = OrderPayment::whereIn('type', ['withdraw', 'total'])->where('status', 'pending')->paginate(5);
         return view('ewallets.admin.solicitudes_pendientes', compact('withdraws'));
+    }
+
+    public function excelTotalWithdrawPending()
+    {
+        OrderPayment::where('type', 'total')->where('status', 'requested')->update(['status' => 'pending']);
+        return Excel::download(new TotalWithdrawPendingExport, 'retiros-total-pendientes.xlsx');
     }
 
     public function excelWithdrawPending()
@@ -73,7 +86,12 @@ class EWalletController extends Controller
 
     public function statusToPaid()
     {
-        OrderPayment::where('status', 'pending')->update(['status' => 'paid']);
+        OrderPayment::where('type', 'withdraw')->where('status', 'pending')->update(['status' => 'paid']);
+    }
+
+    public function totalStatusToPaid()
+    {
+        OrderPayment::where('type', 'total')->where('status', 'pending')->update(['status' => 'paid']);
     }
 
     public function excelWithdrawPending2()
@@ -92,8 +110,6 @@ class EWalletController extends Controller
     {
         return Excel::download(new WithdrawPaidExport, 'retiros-pagados.xlsx');
     }
-
-
 
     /**
      * Store a newly created resource in storage.

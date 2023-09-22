@@ -15,6 +15,53 @@
         $(document).ready(function() {
             $("#solicitar_retiros").tooltip();
 
+            $("#retiro-total").click(function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "Una vez aceptes, se procedera a procesar su solicitud de retiro total de capital",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        let formData = new FormData();
+                        formData.append('type', $("#tipo_total").val());
+                        formData.append('amount', $('#amount_total').val());
+                        formData.append('_token', $('input[name=_token]').val());
+                        axios({
+                            url: "{{ route('payment.form') }}",
+                            method: 'POST',
+                            data: formData,
+                        })
+                        .then(function (response) {
+
+                            console.log(response);
+
+                            Swal.fire({
+                                title: "¡Éxito!",
+                                text: response.data.success,
+                                icon: "success",
+                            });
+                        })
+                        .catch(function (error) {
+
+                            console.log(error);
+
+                            if (error.response) {
+                                
+                                Swal.fire({
+                                    title: "Error",
+                                    text: error.response.data.error,
+                                    icon: "error",
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
             $("#deposit_plus").click(function() {
                 var currentValue = parseInt($("#deposit_amount").val());
                 $("#deposit_amount").val(currentValue + 1);

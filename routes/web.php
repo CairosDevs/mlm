@@ -92,13 +92,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/logro_metas', [EwalletController::class, 'logro_metas'])->name('ewallets.logro_metas');
 
     Route::get('/solicitudes_retiros', [EwalletController::class, 'solicitudes_retiros'])->name('ewallets.solicitudes_retiros');
+    Route::get('/solicitudes_retiros_total', [EwalletController::class, 'solicitudes_retiros_total'])->name('ewallets.solicitudes_retiros_total');
     Route::get('/solicitudes_pendientes', [EwalletController::class, 'solicitudes_pendientes'])->name('ewallets.solicitudes_pendientes');
     Route::get('/excelWithdrawPending', [EwalletController::class, 'excelWithdrawPending'])->name('excel.withdrawPending');
+    Route::get('/excelTotalWithdrawPending', [EwalletController::class, 'excelTotalWithdrawPending'])->name('excel.totalWithdrawPending');
+
     Route::get('/excelWithdrawPending2', [EwalletController::class, 'excelWithdrawPending2'])->name('excel.withdrawPending2');
     Route::get('/solicitudes_pagadas', [EwalletController::class, 'solicitudes_pagadas'])->name('ewallets.solicitudes_pagadas');
     Route::get('/excelWithdrawPaid', [EwalletController::class, 'excelWithdrawPaid'])->name('excel.withdrawPaid');
 
     Route::get('/status_paid', [EwalletController::class, 'statusToPaid'])->name('statusToPaid');
+    Route::get('/total_status_paid', [EwalletController::class, 'totalStatusToPaid'])->name('totalStatusToPaid');
 
 
 

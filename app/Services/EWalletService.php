@@ -27,6 +27,10 @@ class EWalletService
             case 'withdraw':
                 Auth::user()->withdraw((integer) $amount);
                 break;
+
+            case 'total':
+                Auth::user()->withdraw((integer) $amount);
+                break;
             
             default:
                 Auth::user()->balanceInt;

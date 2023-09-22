@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Carbon;
+use Laravel\Sanctum\HasApiTokens;
+use Bavix\Wallet\Traits\HasWallet;
+use Bavix\Wallet\Interfaces\Wallet;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use Bavix\Wallet\Traits\HasWallet;
-use Bavix\Wallet\Interfaces\Wallet;
 
 class User extends Authenticatable implements MustVerifyEmail, Wallet
 {
@@ -61,5 +64,21 @@ class User extends Authenticatable implements MustVerifyEmail, Wallet
     public function eWallet()
     {
         return $this->hasOne(EWallet::class, 'user_id');
+    }
+
+    public function totalWithdraw()
+    {
+        $user = Auth::user();
+
+        $created = $user->created_at;
+        $now = Carbon::now();
+
+        $difference = $now->diffInDays($created);
+        
+        if ($difference > 60) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

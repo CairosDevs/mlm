@@ -126,6 +126,18 @@
                 </div>
             </div>
         </div>
+   
+        <div class="ms-auto" data-bs-toggle="tooltip" data-placement="top"
+            title="Los retiros de capital solo estan disponibles luego de 60 días de registrado en el sistema">
+            <form action="{{ route('payment.form') }}" method="post">
+                @csrf
+                <input id="tipo_total" type="hidden" name="type" value="total">
+                <input id="amount_total" type="hidden" name="amount" value="{{ Auth::user()->balanceInt }}">
+                <button id="retiro-total" type="submit" class="btn btn-primary radius-30 mt-2 mt-lg-0" @if(!Auth::user()->totalWithdraw()) disabled @else '' @endif>
+                    Retiro total de capital 
+                </button>
+            </form>
+        </div>
     </div>
 
     <div class="col-9">
@@ -150,7 +162,7 @@
                                 <div class="tab-icon">
                                     <i style="font-size:24px;" class="lni lni-arrow-up-circle p-2"></i>
                                 </div>
-                                <div class="tab-title ml-1"> Retiros</div>
+                                <div class="tab-title ml-1"> Retiros de Ganancias</div>
                             </div>
                         </a>
                     </li>

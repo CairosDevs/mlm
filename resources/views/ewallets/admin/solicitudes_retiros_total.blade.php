@@ -10,9 +10,9 @@
                                     <input type="text" class="form-control ps-5 radius-30" placeholder="Search Order"> <span
                                         class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
                                 </div> --}}
-                             <a class="btn btn-info" href="{{ route('excel.withdrawPending2') }}">Descargar</a>
-                             <a id="status-btn" class="btn btn-info" href="{{ route('statusToPaid') }}">Marcar retiros de ganancia como pagadas</a>
-                             <a id="status-total-btn" class="btn btn-info" href="{{ route('totalStatusToPaid') }}">Marcar retiros total como pagadas</a>
+                            <a id="descargar-btn" class="btn btn-info" href="{{ route('excel.totalWithdrawPending') }}">Descargar</a>
+
+                    
                             </div>
                             <div class="table-responsive">
                                 <table class="table mb-0">
@@ -21,9 +21,8 @@
                                             <th># Orden de retiro</th>
                                             <th>Billetera</th>
                                             <th>Usuario</th>
-                                            <th>Tipo</th>
                                             <th>Monto</th>
-                                            <th>Fecha solicitud</th>
+                                            <th>Fecha</th>
                                             <th>Estatus</th>
                                             {{-- <th>View Details</th>
                                             <th>Actions</th> --}}
@@ -44,9 +43,8 @@
                                             </td>
                                             <td>{{ $item->user->eWallet->wallet_id }}</td>
                                             <td>{{ $item->user->name . ' ' . $item->user->lastName}}</td>
-                                            <td>{{ $item->type == 'total' ? "Total" : "Ganancias"  }}</td>
                                             <td>${{ $item->amount }}</td>                                            
-                                            <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                                            <td>{{ $item->created_at }}</td>
                                             <td>{{ __($item->status) }}</td>
                                             {{-- <td><button type="button" class="btn btn-primary btn-sm radius-30 px-4">View
                                                     Details</button>
@@ -80,12 +78,12 @@
 
 <script>
 
-    document.getElementById('status-btn').addEventListener('click', function(e) {
+    document.getElementById('descargar-btn').addEventListener('click', function(e) {
         e.preventDefault();
         var url = this.href;
         Swal.fire({
             title: "¿Estás seguro?",
-            text: "Una vez aceptes, el estado de las órdenes de pago cambiarán a 'pagadas'.",
+            text: "Una vez descargado, el estado de las órdenes de pago cambiarán a 'pendientes'.",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -95,7 +93,17 @@
                 axios({
                     url: url,
                     method: 'GET',
-                })                
+                    responseType: 'blob',
+                })
+                .then(response => {
+                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'retiros-total-pendientes.xlsx'; 
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                })
                 .then(() => {
                     
                     location.reload();
@@ -104,29 +112,5 @@
         });
     });
 
-    document.getElementById('status-total-btn').addEventListener('click', function(e) {
-        e.preventDefault();
-        var url = this.href;
-        Swal.fire({
-            title: "¿Estás seguro?",
-            text: "Una vez aceptes, el estado de las órdenes de pago cambiarán a 'pagadas'.",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDownload) => {
-            if (willDownload) {
-                axios({
-                    url: url,
-                    method: 'GET',
-                })                
-                .then(() => {
-                    
-                    location.reload();
-                });
-            }
-        });
-    });
-    
 </script>
 </x-app-layout>

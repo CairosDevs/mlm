@@ -81,4 +81,15 @@ class User extends Authenticatable implements MustVerifyEmail, Wallet
             return false;
         }
     }
+
+    public function daysRegistered()
+    {
+        $user = Auth::user();
+
+        $created = $user->created_at;
+        $now = Carbon::now();
+
+        return $now->diffInDays($created);
+
+    }
 }

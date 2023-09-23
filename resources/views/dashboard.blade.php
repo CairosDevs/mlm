@@ -5,19 +5,124 @@
             @if (Auth::user()->hasRole('Customer'))
 
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-4">
                         <div class="card bg-gradient-deepblue rounded-4 border border-4 border-white shadow">
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div class="">
-                                        <h4 class="mb-0 text-white">Balance</h4>
+                                        <h4 class="mb-0 text-white">Capital Depositado</h4>
                                     </div>
                                     <div class="widgets-icons rounded-circle bg-light-transparent-2 text-white">
                                         <i class="bx bx-dollar"></i>
                                     </div>
                                 </div>
                                 <div class="mt-3">
-                                    <h3 class="mb-0 text-white">$ {{ Auth::user()->balanceInt }} </h3>
+                                    <h3 class="mb-0 text-white">$ {{ $capital }} </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                            <div class="card bg-gradient-deepblue rounded-4 border border-4 border-white shadow">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="">
+                                            <h4 class="mb-0 text-white">Ganancia generada</h4>
+                                        </div>
+                                        <div class="widgets-icons rounded-circle bg-light-transparent-2 text-white">
+                                            <i class="bx bx-dollar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h3 class="mb-0 text-white">$ {{ $profit }} </h3>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-4">
+                            <div class="card bg-gradient-deepblue rounded-4 border border-4 border-white shadow">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="">
+                                            <h4 class="mb-0 text-white">Referidos</h4>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h3 class="mb-0 text-white">{{ $referrals }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card bg-gradient-deepblue rounded-4 border border-4 border-white shadow">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="">
+                                        <h4 class="mb-0 text-white">Comisiones Referidos</h4>
+                                    </div>
+                                    <div class="widgets-icons rounded-circle bg-light-transparent-2 text-white">
+                                        <i class="bx bx-dollar"></i>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <h3 class="mb-0 text-white">$ {{ $referralsProfit }} </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card bg-gradient-deepblue rounded-4 border border-4 border-white shadow">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="">
+                                        <h4 class="mb-0 text-white">Total capital</h4>
+                                    </div>
+                                    <div class="widgets-icons rounded-circle bg-light-transparent-2 text-white">
+                                        <i class="bx bx-dollar"></i>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <h3 class="mb-0 text-white">$ {{ $capitalDisp }} </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card border-gradient border-gradient-secondary rounded-4 overflow-hidden">
+                            <div class="card-body rounded-4">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="">
+                                        <h4 class="mb-0">$ {{ $weekProfit }}</h4>
+                                        <p class="mb-0">Ganancias de la semana</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card border-gradient border-gradient-secondary rounded-4 overflow-hidden">
+                            <div class="card-body rounded-4">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="">
+                                        <h4 class="mb-0">$ {{ $monthProfit }}</h4>
+                                        <p class="mb-0">Ganancias en el mes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card border-gradient border-gradient-secondary rounded-4 overflow-hidden">
+                            <div class="card-body rounded-4">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="">
+                                        <h4 class="mb-0">{{ $daysRegistered }}</h4>
+                                        <p class="mb-0">Días en la plataforma</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

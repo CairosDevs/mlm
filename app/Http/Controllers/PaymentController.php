@@ -105,7 +105,7 @@ class PaymentController extends Controller
                 'payment_id' => $shortUuid,
                 'external_payment_id' => 0,
                 'user_id' => Auth::user()->id,
-                'amount' => $request->amount + $comission,
+                'amount' => $request->amount,
                 'type' => $request->type,
                 'status' => 'requested',
             ]);

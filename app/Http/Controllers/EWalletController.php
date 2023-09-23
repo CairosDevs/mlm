@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\EWallet;
+use App\Models\Referral;
+use Carbon\CarbonPeriod;
 use App\Models\OrderPayment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Exports\WithdrawPaidExport;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\WithdrawPendingExport;
@@ -20,8 +25,8 @@ class EWalletController extends Controller
      */
     public function index(Request $request)
     {
-            $ewallet = EWallet::where('user_id', Auth::user()->id)->first();
-            return view('ewallets.index')->with('ewallet', $ewallet);
+        $ewallet = EWallet::where('user_id', Auth::user()->id)->first();
+        return view('ewallets.index')->with('ewallet', $ewallet);
     }
 
     public function depositos_retiros()
@@ -47,11 +52,101 @@ class EWalletController extends Controller
     public function logro_metas()
     {
         $allDeposits = OrderPayment::where('type', 'deposit')->sum('amount');
-        $withdraws = OrderPayment::where('user_id', Auth::user()->id)->where('type', 'withdraw')->paginate(5);
-        $transations = OrderPayment::where('type', '!=', 'membership')->paginate(5);
+        $membership = OrderPayment::where('type', 'membership')->sum('amount');
+        $withdrawsp = OrderPayment::whereIn('type', ['withdraw', 'total'])->where('status', 'paid')->sum('profit');
+        $withdraws = OrderPayment::whereIn('type', ['withdraw', 'total'])->where('status', 'paid')->sum('amount');
+        $referrals = Referral::all()->count();
 
+        $profit = $membership + $withdrawsp;
 
-        return view('ewallets.admin.logro_metas', compact('allDeposits', 'withdraws', 'transations'));
+        return view('ewallets.admin.logro_metas', compact('referrals', 'allDeposits', 'profit', 'withdraws'));
+    }
+
+    public function reporte_logro_metas(Request $request)
+    {
+
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
+
+        $rangos = $this->obtenerSubrangos($fechaInicio, $fechaFin);
+        $datos = $this->calcularReporteLogrosMetas($rangos);
+
+        return response()->json($datos);
+    }
+
+    public function obtenerSubrangos($fechaInicio, $fechaFin)
+    {
+        $periodo = CarbonPeriod::create($fechaInicio, $fechaFin);
+
+        // Log::debug("periodo", [$periodo]);
+
+        $subrangos = [];
+        $subrango = [];
+
+        foreach ($periodo as $fecha) {
+            if ($fecha->isWeekday()) {
+                if (empty($subrango)) {
+                    $subrango['inicio'] = $fecha->toDateString();
+                }
+
+                $subrango['fin'] = $fecha->toDateString();
+
+                if ($fecha->dayOfWeek == Carbon::FRIDAY) {
+                    $subrangos[] = $subrango;
+                    $subrango = [];
+                }
+            }
+        }
+
+        if (!empty($subrango)) {
+            $subrangos[] = $subrango;
+        }
+
+        return $subrangos;
+    }
+
+    public function calcularReporteLogrosMetas($rangos)
+    {
+        $resultados = [];
+
+        foreach ($rangos as $rango) {
+            $inicio = $rango['inicio'];
+            $fin = $rango['fin'];
+
+            $allDeposits = OrderPayment::where('type', 'deposit')
+                ->whereBetween('created_at', [$inicio, $fin])
+                ->sum('amount');
+
+            $membership = OrderPayment::where('type', 'membership')
+                ->whereBetween('created_at', [$inicio, $fin])
+                ->sum('amount');
+
+            $withdrawsp = OrderPayment::whereIn('type', ['withdraw', 'total'])
+                ->where('status', 'paid')
+                ->whereBetween('created_at', [$inicio, $fin])
+                ->sum('profit');
+
+            $withdraws = OrderPayment::whereIn('type', ['withdraw', 'total'])
+                ->where('status', 'paid')
+                ->whereBetween('created_at', [$inicio, $fin])
+                ->sum('amount');
+
+            $referrals = Referral::whereBetween('created_at', [$inicio, $fin])
+                ->count();
+
+            $profit = $membership + $withdrawsp;
+
+            $resultados[] = [
+                'fecha' => $inicio .' - '. $fin,
+                'capital_depositado' => $allDeposits,
+                'ganancia_generada' => $profit,
+                'referidos' => $referrals,
+                'comisiones_por_referidos' => 0,
+                'retiros_pagados' => $withdraws,
+            ];
+        }
+
+        return $resultados;
     }
 
     public function solicitudes_retiros()
@@ -75,13 +170,13 @@ class EWalletController extends Controller
     public function excelTotalWithdrawPending()
     {
         OrderPayment::where('type', 'total')->where('status', 'requested')->update(['status' => 'pending']);
-        return Excel::download(new TotalWithdrawPendingExport, 'retiros-total-pendientes.xlsx');
+        return Excel::download(new TotalWithdrawPendingExport, 'retiros - total - pendientes.xlsx');
     }
 
     public function excelWithdrawPending()
     {
         OrderPayment::where('status', 'requested')->update(['status' => 'pending']);
-        return Excel::download(new WithdrawPendingExport, 'retiros-pendientes.xlsx');
+        return Excel::download(new WithdrawPendingExport, 'retiros - pendientes.xlsx');
     }
 
     public function statusToPaid()
@@ -96,7 +191,7 @@ class EWalletController extends Controller
 
     public function excelWithdrawPending2()
     {
-        return Excel::download(new WithdrawPendingExport, 'retiros-pendientes-2.xlsx');
+        return Excel::download(new WithdrawPendingExport, 'retiros - pendientes - 2.xlsx');
     }
 
     public function solicitudes_pagadas()
@@ -108,7 +203,7 @@ class EWalletController extends Controller
 
     public function excelWithdrawPaid()
     {
-        return Excel::download(new WithdrawPaidExport, 'retiros-pagados.xlsx');
+        return Excel::download(new WithdrawPaidExport, 'retiros - pagados.xlsx');
     }
 
     /**
@@ -135,6 +230,6 @@ class EWalletController extends Controller
         }
         
         return redirect()->route('ewallets.index')->with('ewallet', $ewallet)
-                                  ->with('sweet-success', 'La dirección de su wallet fue almacenada');
+                                  ->with('sweet - success', 'La dirección de su wallet fue almacenada');
     }
 }

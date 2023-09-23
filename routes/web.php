@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EWalletController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\AsingPinController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\EWalletController;
 use App\Http\Controllers\ReferralController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserNotificationController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,10 +51,7 @@ Route::get('/pinView/{id}/{type}', [AsingPinController::class, 'pinView'])->name
 
 Route::post('/ipn_novo', [PaymentController::class, 'ipnHandler']);
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/validatePinLogin')->middleware(['auth', 'verified', 'pin'])->name('validatePinLogin');
 Route::get('register/confirm/{token}', [UserController::class, 'confirm']);
@@ -103,6 +101,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/status_paid', [EwalletController::class, 'statusToPaid'])->name('statusToPaid');
     Route::get('/total_status_paid', [EwalletController::class, 'totalStatusToPaid'])->name('totalStatusToPaid');
+
+    Route::post('/get_reporte_logro_metas', [EwalletController::class, 'reporte_logro_metas'])->name('reportes.logroMetas');
 
 
 

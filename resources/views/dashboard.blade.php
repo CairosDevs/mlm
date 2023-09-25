@@ -129,6 +129,54 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="d-flex align-items-center mb-3">Reporte de ganancias</h5>
+                
+                                    <form method="post" action="{{ route('reportes.logroMetas') }}" class="mt-6 space-y-6 row g-3">
+                                        @csrf
+                                        <div class="col-sm-3 text-secondary">
+                                            <input id="fechaInicio" name="fechaInicio" type="date" class="form-control" required />
+                                        </div>
+                                        <div class="col-sm-3 text-secondary">
+                                            <input id="fechaFin" name="fechaFin" type="date" class="form-control" required />
+                                        </div>
+                                        <div class="col-sm-3 d-lg-flex align-items-center mb-4 gap-3">
+                                            <a id="boton-buscar" class="btn btn-info" href="">Buscar</a>
+                                        </div>
+                                    </form>
+                
+                                    <div class="table-responsive">
+                                        <table id="reporte-logro-metas" class="table mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                
+                                                    <th>Fecha</th>
+                                                    <th>Capital depositado</th>
+                                                    <th>Ganancia generada</th>
+                                                    <th>Referidos</th>
+                                                    <th>Comisiones por referidos</th>
+                                                    <th>Retiros pagados</th>
+                
+                
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                
+                                            </tbody>
+                                        </table>
+                
+                                    </div>
+                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             @endif
 
             @if (Auth::user()->hasRole('Admin'))

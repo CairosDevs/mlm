@@ -11,9 +11,12 @@ use App\Services\EmailService;
 use Illuminate\Support\Carbon;
 use App\Services\EWalletService;
 use App\Services\PaymentService;
+use App\Exports\UserDepositsExport;
 use Illuminate\Support\Facades\Log;
+use App\Exports\UserWithdrwasExport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Jobs\SendEmailPaymentConfirmedJob;
 use anlutro\LaravelSettings\Facades\Setting;
 use PrevailExcel\Nowpayments\Facades\Nowpayments;
@@ -121,7 +124,7 @@ class PaymentController extends Controller
                 return response()->json(['error' => 'Aún no tienes 60 días registrado en el sistema'], 400);
             }
 
-            if ( Auth::user()->balanceInt == 0 ) {
+            if (Auth::user()->balanceInt == 0) {
                 return response()->json(['error' => 'No posee capital para realizar retiro'], 400);
             }
 
@@ -236,5 +239,15 @@ class PaymentController extends Controller
     public function ipnHandler(Request $request)
     {
         Log::debug("Notificacion ", [$request->all()]);
+    }
+
+    public function excelUserDeposits()
+    {
+        return Excel::download(new UserDepositsExport, 'reporte-de-depositos.xlsx');
+    }
+
+    public function excelUserWithdraws()
+    {
+        return Excel::download(new UserWithdrwasExport, 'reporte-de-retiros.xlsx');
     }
 }

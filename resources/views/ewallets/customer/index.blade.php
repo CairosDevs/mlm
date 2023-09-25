@@ -186,6 +186,8 @@
                                             data-bs-toggle="modal" data-bs-target="#depositModal">
                                             <i class="bx bxs-plus-square"></i>Agregar deposito
                                         </button>
+                                        
+                                        <a class="btn btn-primary radius-30 mt-2 mt-lg-0" href="{{ route('excel.userDeposits') }}">Descargar reporte</a>
                                     </div>
 
 
@@ -264,6 +266,7 @@
                                             @if(!Auth::user()->can_withdraw)disabled @endif>
                                             <i class="bx bxs-minus-square"></i>Solicitar retiro
                                         </button>
+                                        <a class="btn btn-primary radius-30 mt-2 mt-lg-0" href="{{ route('excel.userWithdraws') }}">Descargar reporte</a>
                                     </div>
                                 </div>
                                 <div class="table-responsive">

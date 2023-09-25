@@ -84,6 +84,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/cancelOrderPayment', [PaymentController::class, 'cancelOrderPayment'])->name('payment.cancel');
     Route::get('/orderStatus/{id}', [PaymentController::class, 'orderStatus'])->name('payment.order.status');
 
+    Route::get('/excelUserDeposits', [PaymentController::class, 'excelUserDeposits'])->name('excel.userDeposits');
+    Route::get('/excelUserWithdraws', [PaymentController::class, 'excelUserWithdraws'])->name('excel.userWithdraws');
+
     Route::middleware('pin')->get('/ewallets', [EwalletController::class, 'index'])->name('ewallets.index');
     Route::middleware('pin')->get('/depositos_retiros', [EwalletController::class, 'depositos_retiros'])->name('ewallets.depositos_retiros');
     Route::get('/capital', [EwalletController::class, 'capital_garantia'])->name('ewallets.capital');
